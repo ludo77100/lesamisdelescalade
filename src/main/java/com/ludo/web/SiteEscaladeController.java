@@ -10,9 +10,9 @@ import com.ludo.entities.SiteEscalade;
 public class SiteEscaladeController {
 @Autowired
 	private SiteEscalade siteEscalade ;
-	@RequestMapping("siteEscalade")
+	@RequestMapping(value="/siteEscalade")
 	public String index() {
-		return "siteEscalade" ;
+		return "SiteEscalade" ;
 	}
 	
 	
