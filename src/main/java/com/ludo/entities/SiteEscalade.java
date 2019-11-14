@@ -5,15 +5,21 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.validation.constraints.NotNull;
 
 @Entity
 public class SiteEscalade implements Serializable{
 	@Id @GeneratedValue
 	private Long idSiteEscalade ;
+	@NotNull
 	private String adresse ;
+	@NotNull
 	private String commune ;
+	@NotNull
 	private String region ;
+	@NotNull
 	private String departement ;
+	
 	public SiteEscalade() {
 		super();
 		// TODO Auto-generated constructor stub
