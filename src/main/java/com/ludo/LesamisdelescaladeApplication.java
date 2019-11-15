@@ -15,6 +15,10 @@ public class LesamisdelescaladeApplication {
 		ApplicationContext ctx = SpringApplication.run(LesamisdelescaladeApplication.class, args);
 		SiteEscaladeRepository siteEscaladeRepository=ctx.getBean(SiteEscaladeRepository.class);
 		siteEscaladeRepository.save(new SiteEscalade("rue du moulin", "Meaux", "IDF", "Seine et Marne", "Escalade 1"));
+		siteEscaladeRepository.save(new SiteEscalade("rue du moulin", "Meaux", "IDF", "Seine et Marne", "Escalade 1"));
+		siteEscaladeRepository.save(new SiteEscalade("rue du moulin", "Meaux", "IDF", "Seine et Marne", "Escalade 1"));
+		siteEscaladeRepository.save(new SiteEscalade("rue du moulin", "Meaux", "IDF", "Seine et Marne", "Escalade 1"));
+		siteEscaladeRepository.save(new SiteEscalade("rue du moulin", "Meaux", "IDF", "Seine et Marne", "Escalade 1"));
 		
 		siteEscaladeRepository.findAll().forEach(p->System.out.println(p.getNom()));
 	}

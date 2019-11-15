@@ -17,9 +17,14 @@ public class SiteEscaladeController {
 @Autowired
 	private SiteEscaladeRepository siteEscaladeRepository ;
 	@GetMapping("/listeSiteEscalade")
-	public String index(Model model) {
+	public String listeSiteEscalade(Model model) {
 		List<SiteEscalade> siteEscalade = siteEscaladeRepository.findAll();
 		model.addAttribute("listeSiteEscalade", siteEscalade);
 		return "ListeSiteEscalade" ;
 	}
+	@GetMapping("/index")
+public String index() {
+	return "index";
+	
+}
 }
