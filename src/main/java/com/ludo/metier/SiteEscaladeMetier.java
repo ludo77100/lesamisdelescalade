@@ -15,4 +15,6 @@ public class SiteEscaladeMetier {
 	private String region ;
 
 	private String departement ;
+	
+	private String nom ;
 }

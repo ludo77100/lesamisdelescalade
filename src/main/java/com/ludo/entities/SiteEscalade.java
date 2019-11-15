@@ -12,6 +12,8 @@ public class SiteEscalade implements Serializable{
 	@Id @GeneratedValue
 	private Long idSiteEscalade ;
 	@NotNull
+	private String nom ;
+	@NotNull
 	private String adresse ;
 	@NotNull
 	private String commune ;
@@ -24,13 +26,20 @@ public class SiteEscalade implements Serializable{
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SiteEscalade(Long idSite, String adresse, String commune, String region, String departement) {
+	public SiteEscalade(Long idSite, String adresse, String commune, String region, String departement, @NotNull String nom) {
 		super();
 		this.idSiteEscalade = idSite;
+		this.nom = nom ;
 		this.adresse = adresse;
 		this.commune = commune;
 		this.region = region;
 		this.departement = departement;
+	}
+	public String getNom() {
+		return nom;
+	}
+	public void setNom(String nom) {
+		this.nom = nom;
 	}
 	public Long getIdSite() {
 		return idSiteEscalade;
