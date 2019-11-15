@@ -13,9 +13,10 @@
 <body>
 <div layout:fragment="content">
 	<div class="container-fluid">
-		<h3>Liste des spots</h3>
-		<div class="col-lg-6">
+		<h3>Spots <label th:each="p:${listeSiteEscalade}" th:text="${p.nom}"></label></h3> 
+		<div class="col-lg-12">
 		<table class="table">
+		<caption>Information générales</caption>
 			<thead>
 				<tr>
 					<th>Nom</th>
@@ -26,15 +27,16 @@
 
 				</tr>
 			</thead>
-			<!-- 				<tbody>
-					<tr th:each="p:${listProduits}">
-						<td th:text="${p.id}"></td>
-						<td th:text="${p.designation}"></td>
-						<td th:text="${p.prix}"></td>
-						<td th:text="${p.quantite}"></td>
+			<tbody>
+					<tr th:each="p:${listeSiteEscalade}">
+						<td th:text="${p.nom}"></td>
+						<td th:text="${p.adresse}"></td>
+						<td th:text="${p.commune}"></td>
+						<td th:text="${p.region}"></td>
+						<td th:text="${p.departement}"></td>
 					</tr>
-				</tbody> -->
-		</table>
+				</tbody>
+		</table>				
 	</div>
 	</div>
 	</div>
