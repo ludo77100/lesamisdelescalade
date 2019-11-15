@@ -16,6 +16,4 @@ public class SiteEscaladeController {
 	public String index() {
 		return "SiteEscalade" ;
 	}
-	
-	
 }
