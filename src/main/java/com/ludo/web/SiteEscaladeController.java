@@ -16,10 +16,10 @@ import com.ludo.entities.SiteEscalade;
 public class SiteEscaladeController {
 @Autowired
 	private SiteEscaladeRepository siteEscaladeRepository ;
-	@GetMapping("/siteEscalade")
+	@GetMapping("/listeSiteEscalade")
 	public String index(Model model) {
 		List<SiteEscalade> siteEscalade = siteEscaladeRepository.findAll();
 		model.addAttribute("listeSiteEscalade", siteEscalade);
-		return "SiteEscalade" ;
+		return "ListeSiteEscalade" ;
 	}
 }
