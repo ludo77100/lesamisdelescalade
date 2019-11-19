@@ -28,9 +28,14 @@
 				<div class="container-fluid">
 					<ul class="navbar-nav">
 						<li class="nav-item"><a class="nav-link" th:href=@{/index}>Accueil</a></li>
-						<li class="nav-item"><a class="nav-link"
-							th:href=@{/listeSiteEscalade}>Les Spots</a></li>
+						<li class="nav-item"><a class="nav-link" th:href=@{/listeSiteEscalade}>Les Spots</a></li>
+						<li class="nav-item"><a class="nav-link" th:href=@{/rechercheSpot}>Rechercher un spot</a></li>
 					</ul>
+			<form th:action="@{/ListeSiteEscalade}" method="get">
+				<input type="text" name="mc"
+					th:value="${mc}"></input>
+				<button class="btn btn-primary">Chercher</button>
+			</form>
 				</div>
 			</div>
 		</header>

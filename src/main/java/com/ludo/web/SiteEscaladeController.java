@@ -27,4 +27,9 @@ public class SiteEscaladeController {
 		return "index";
 
 	}
+	
+	@GetMapping("/rechercheSpot")
+	public String rechercheDetaillees() {
+		return "rechercheSpot" ;
+	}
 }
