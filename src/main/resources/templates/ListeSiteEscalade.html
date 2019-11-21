@@ -46,7 +46,7 @@
 		<div class="navbar navbar-expand-lg navbar-light bg-light">
 		<ul class="navbar-nav">
 			<li th:class="${pageCourante} == ${status.index}?'active':''" class="nav-item" th:each="page, status:${pages}">
-			<a class="nav-link" th:href="@{listeSiteEscalade(page=${status.index}, pc=${p})}" th:text="${status.index}"></a></li>
+			<a class="nav-link" th:href="@{listeSiteEscalade(page=${status.index}, pc=${p})}" th:text="${status.index + 1}"></a></li>
 		</ul>
 	</div></div>
 </body>
