@@ -15,7 +15,7 @@
 		<div class="container-fluid">
 			<h4 class="spacer">Retrouver ici tous nos meilleurs spot
 				d'escalade en France</h4>
-			<form th:action="@{/listeSiteEscalade}" method="get">
+			<form th:action="@{/listeSpot}" method="get">
 				<input type="text" name="mc" th:value="${mc}"></input>
 				<button class="btn btn-primary">Chercher</button>
 			</form>
@@ -32,12 +32,12 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr th:each="p:${listeSiteEscalade}">
-							<td th:text="${p.nom}"></td>
-							<td th:text="${p.adresse}"></td>
-							<td th:text="${p.commune}"></td>
-							<td th:text="${p.region}"></td>
-							<td th:text="${p.departement}"></td>
+						<tr th:each="s:${listeSpot}">
+							<td><a th:text="${s.nom}" th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a></td>
+							<td th:text="${s.adresse}"></td>
+							<td th:text="${s.commune}"></td>
+							<td th:text="${s.region}"></td>
+							<td th:text="${s.departement}"></td>
 						</tr>
 					</tbody>
 				</table>
@@ -46,7 +46,7 @@
 		<div class="navbar navbar-expand-lg navbar-light bg-light">
 		<ul class="navbar-nav">
 			<li th:class="${pageCourante} == ${status.index}?'active':''" class="nav-item" th:each="page, status:${pages}">
-			<a class="nav-link" th:href="@{listeSiteEscalade(page=${status.index}, pc=${p})}" th:text="${status.index + 1}"></a></li>
+			<a class="nav-link" th:href="@{listeSpot(page=${status.index}, pc=${p})}" th:text="${status.index + 1}"></a></li>
 		</ul>
 	</div></div>
 </body>

@@ -8,7 +8,7 @@ import javax.persistence.Id;
 import javax.validation.constraints.NotNull;
 
 @Entity
-public class SiteEscalade implements Serializable{
+public class Spot implements Serializable{
 	@Id @GeneratedValue
 	private Long idSiteEscalade ;
 	@NotNull
@@ -22,11 +22,11 @@ public class SiteEscalade implements Serializable{
 	@NotNull
 	private String departement ;
 	
-	public SiteEscalade() {
+	public Spot() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public SiteEscalade(String adresse, String commune, String region, String departement, @NotNull String nom) {
+	public Spot(String adresse, String commune, String region, String departement, @NotNull String nom) {
 		super();
 		this.nom = nom ;
 		this.adresse = adresse;
@@ -40,7 +40,7 @@ public class SiteEscalade implements Serializable{
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public Long getIdSite() {
+	public Long getIdSiteEscalade() {
 		return idSiteEscalade;
 	}
 	public String getAdresse() {
