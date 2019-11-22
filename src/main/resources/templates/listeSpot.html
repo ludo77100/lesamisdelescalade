@@ -24,20 +24,16 @@
 					<thead>
 						<tr>
 							<th>Nom</th>
-							<th>Adresse</th>
-							<th>Commune</th>
-							<th>Région</th>
-							<th>Département</th>
+							<th>Localité</th>
+							<th>Cotation minimal</th>
 
 						</tr>
 					</thead>
 					<tbody>
 						<tr th:each="s:${listeSpot}">
 							<td><a th:text="${s.nom}" th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a></td>
-							<td th:text="${s.adresse}"></td>
-							<td th:text="${s.commune}"></td>
-							<td th:text="${s.region}"></td>
-							<td th:text="${s.departement}"></td>
+							<td th:text="${s.localite}"></td>
+							<td th:text="${s.cotationMin}"></td>
 						</tr>
 					</tbody>
 				</table>
