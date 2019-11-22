@@ -14,25 +14,24 @@ public class Spot implements Serializable{
 	@NotNull
 	private String nom ;
 	@NotNull
-	private String adresse ;
+	private String cotationMin ;
 	@NotNull
-	private String commune ;
-	@NotNull
-	private String region ;
-	@NotNull
-	private String departement ;
-	
+	private String localite ;
+	public Spot(@NotNull String nom, @NotNull String cotationMin, @NotNull String localite) {
+		super();
+		this.nom = nom;
+		this.cotationMin = cotationMin;
+		this.localite = localite;
+	}
 	public Spot() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Spot(String adresse, String commune, String region, String departement, @NotNull String nom) {
-		super();
-		this.nom = nom ;
-		this.adresse = adresse;
-		this.commune = commune;
-		this.region = region;
-		this.departement = departement;
+	public Long getIdSiteEscalade() {
+		return idSiteEscalade;
+	}
+	public void setIdSiteEscalade(Long idSiteEscalade) {
+		this.idSiteEscalade = idSiteEscalade;
 	}
 	public String getNom() {
 		return nom;
@@ -40,32 +39,19 @@ public class Spot implements Serializable{
 	public void setNom(String nom) {
 		this.nom = nom;
 	}
-	public Long getIdSiteEscalade() {
-		return idSiteEscalade;
+	public String getCotationMin() {
+		return cotationMin;
 	}
-	public String getAdresse() {
-		return adresse;
+	public void setCotationMin(String cotationMin) {
+		this.cotationMin = cotationMin;
 	}
-	public void setAdresse(String adresse) {
-		this.adresse = adresse;
+	public String getLocalite() {
+		return localite;
 	}
-	public String getCommune() {
-		return commune;
+	public void setLocalite(String localite) {
+		this.localite = localite;
 	}
-	public void setCommune(String commune) {
-		this.commune = commune;
-	}
-	public String getRegion() {
-		return region;
-	}
-	public void setRegion(String region) {
-		this.region = region;
-	}
-	public String getDepartement() {
-		return departement;
-	}
-	public void setDepartement(String departement) {
-		this.departement = departement;
-	}
+	
+	
 	
 }

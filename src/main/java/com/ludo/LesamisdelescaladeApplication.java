@@ -14,11 +14,16 @@ public class LesamisdelescaladeApplication {
 	public static void main(String[] args) {
 		ApplicationContext ctx = SpringApplication.run(LesamisdelescaladeApplication.class, args);
 		SpotRepository spotRepository =ctx.getBean(SpotRepository.class);
-		spotRepository.save(new Spot("rue du moulin", "Meaux", "IDF", "Seine et Marne", "Escalade 1"));
-		spotRepository.save(new Spot("rue du pavé", "Poincy", "IDF", "Seine et Marne", "Escalade 2"));
-		spotRepository.save(new Spot("rue de la mairie", "Varreddes", "IDF", "Seine et Marne", "Escalade 3"));
-		spotRepository.save(new Spot("rue de rivoli", "Paris", "IDF", "Paris", "Escalade 4"));
-		spotRepository.save(new Spot("rue de la poste", "Chauconin", "IDF", "Seine et Marne", "Escalade 5"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
+		spotRepository.save(new Spot("Escalade 1", "ZZ", "IDF/Seine et Marne/Meaux"));
 		
 		spotRepository.findAll().forEach(p->System.out.println(p.getNom()));
 	}
