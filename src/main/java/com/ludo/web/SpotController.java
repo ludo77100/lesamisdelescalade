@@ -1,5 +1,6 @@
 package com.ludo.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,6 +45,7 @@ public class SpotController {
 		int[] pages = new int[pageListeSpot.getTotalPages()];
 		model.addAttribute("pages", pages);
 		model.addAttribute("pageCourante", p);
+	
 		return "listeSpot";
 		
 	}
@@ -52,10 +54,15 @@ public class SpotController {
 	public String spot(Model model, @PathVariable("spotId") Long spotId) {
 		Spot spot = spotRepository.findById(spotId).get();
 		model.addAttribute("spotInfo", spot);
+		
 		/*
 		 * Optional<Spot> spotInfo = spotRepository.findById(spotId);
 		 * model.addAttribute("spotInfo", spotInfo.get());
 		 */
+		
+		List <Secteur> listeSecteur = secteurRepository.findBySpot(spotId);
+		model.addAttribute("listeSecteur", listeSecteur);
+		
 		return "spot";
 	}
 	@GetMapping("/ajouter")
