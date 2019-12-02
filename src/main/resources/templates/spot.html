@@ -30,17 +30,16 @@
 					</div>
 					<div class="card spacer">
 						<div class="card-header">
-							<span>Informations Secteurs</span><span><a
-								class="nav-link"
-								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
-									un Secteur</a></span>
+							<span>Informations Secteurs</span>
 						</div>
 						<div class="card-body">
 
 
 
-
-							<table class="table">
+							<a class="nav-link text-center btn btn-primary"
+								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
+								un Secteur</a>
+							<table class="table spacer">
 								<thead>
 									<tr>
 										<th>Nom du secteur</th>
