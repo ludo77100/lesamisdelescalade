@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ludo.dao.SecteurRepository;
 import com.ludo.dao.SpotRepository;
@@ -37,10 +38,10 @@ public class SecteurController {
 		return "formSecteur";
 	}
 	@PostMapping("/spot/{spotId}/ajouterSecteur/save")
-	public String saveSecteur(Model model, @ModelAttribute("secteurForm") SecteurForm secteurForm, @PathVariable("spotId") Long spotId, BindingResult result) {
+	public String saveSecteur(Model model, @ModelAttribute("secteurForm") SecteurForm secteurForm, @PathVariable("spotId") Long spotId, BindingResult result, RedirectAttributes redirectAttributes) {
 		
 		secteurService.saveSecteur(spotId, secteurForm, result);
 		
-		return "confAjoutSecteur" ;
+		return "redirect:/spot/" + spotId ;
 	}
 }
