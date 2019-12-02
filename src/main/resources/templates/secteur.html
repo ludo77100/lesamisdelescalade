@@ -11,9 +11,17 @@
 	th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
+
+	<!----------
+	Cette page permet d'afficher le premier niveau d'un descriptif de spot d'escalade, cad elle affiche les informations général du spot et une liste des secteurs lié à ce spot
+	------------>
+
 	<div layout:fragment="content">
 		<div class="container-fluid">
 			<div class="row">
+
+				<!-- Carte pour le display des informations générales sur le spot -->
+
 				<div class="col-lg-6">
 					<div class="card">
 						<div class="card-header">Informations générale sur le Spot</div>
@@ -28,8 +36,13 @@
 							</ul>
 						</div>
 					</div>
-					</div>
-					<div class="col-lg-6">
+
+
+				</div>
+
+				<!-- Carte pour le display de la liste des secteurs lié au spot en cours -->
+
+				<div class="col-lg-6">
 					<div class="card spacer">
 						<div class="card-header">Informations Secteurs</div>
 						<div class="card-body">
@@ -47,9 +60,10 @@
 							</ul>
 						</div>
 					</div>
-					</div>
 				</div>
+				
 			</div>
 		</div>
+	</div>
 </body>
 </html>

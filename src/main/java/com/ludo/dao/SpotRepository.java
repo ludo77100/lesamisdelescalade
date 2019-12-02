@@ -13,6 +13,10 @@ import com.ludo.entities.Spot;
 @Repository
 public interface SpotRepository extends JpaRepository<Spot, Long>{
 	
+	/*
+	 *  Retourne la liste des spot d'escalade sous forme de pagination 
+	 *  Prend en charge le mot clé qui peut être saisie dans la barre de recherche (uniquement sur le nom du spot) 
+	 */
 	@Query("select p from Spot p where p.nom like :x")
 	public Page<Spot> chercher(@Param("x")String mc, Pageable pageable);
 }

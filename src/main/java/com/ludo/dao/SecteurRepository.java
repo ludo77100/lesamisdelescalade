@@ -9,11 +9,15 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Secteur;
-import com.ludo.entities.Spot;
+
 
 @Repository
 public interface SecteurRepository extends JpaRepository<Secteur, Long>{
 	
+	/* 
+	 * Retourne la liste des secteurs lié à un spot d'escalade par le biais de l'id du spot d'escalade 
+	 */
 	@Query("select s from Secteur s where s.spot.idSiteEscalade like :x")
 	public List<Secteur> findBySpot(@Param("x")Long spotId);
+	
 }
