@@ -27,6 +27,9 @@
 </head>
 <body>
 	<div class="container-fluid">
+	
+	<!-- Début du header -->
+	
 		<header class="row">
 			<div class="col-lg-12 spacer">
 				<a th:href=@{/index}><img class="rounded mx-auto d-block"
@@ -34,6 +37,9 @@
 			</div>
 		</header>
 	</div>
+
+	<!-- fin du header et début de la barre de navigation, elle est fixé en haut quand on scroll, utilisation de JS pour avoir un menu déroulant -->
+
 	<div class="container-fluid spacer">
 		<header class="sticky-top">
 			<div class="navbar navbar-light navbar-expand"
@@ -54,8 +60,8 @@
 										th:href=@{/listeSpot}>Liste des Spots</a></li>
 									<li class="nav-item"><a class="nav-link" href="#"
 										title="Lien 3">Recherche détaillée</a></li>
-									<li class="nav-item"><a class="nav-link" th:href=@{/ajouter}
-										>Ajouter un Spot</a></li>
+									<li class="nav-item"><a class="nav-link"
+										th:href=@{/ajouter}>Ajouter un Spot</a></li>
 
 								</ul>
 							</div>
@@ -64,13 +70,22 @@
 				</div>
 			</div>
 		</header>
+
+		<!-- fin de la navbar et début du contenu -->
+
 		<section class="spacer " layout:fragment="content"></section>
+
+		<!-- fin du contenu et début du footer -->
+
 		<footer class="navbar-fixed-bottom">
 			<hr />
 			<div class="container-fluid">
 				<small>Copyright @2019</small>
 			</div>
 		</footer>
+
+		<!-- fin du footer -->
+
 	</div>
 </body>
 </html>
