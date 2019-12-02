@@ -7,5 +7,4 @@ import com.ludo.entities.Secteur;
 
 @Repository
 public interface SecteurRepository extends JpaRepository<Secteur, Long>{
-
 }

@@ -1,14 +1,18 @@
 package com.ludo.entities;
 
 import java.io.Serializable;
+import java.util.Collection;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
 @Entity
 public class Spot implements Serializable{
+	
 	@Id @GeneratedValue
 	private Long idSiteEscalade ;
 	@NotNull
@@ -17,11 +21,16 @@ public class Spot implements Serializable{
 	private String cotationMin ;
 	@NotNull
 	private String localite ;
-	public Spot(@NotNull String nom, @NotNull String cotationMin, @NotNull String localite) {
+	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY)
+	private Collection<Secteur> secteur ;
+
+	public Spot(@NotNull String nom, @NotNull String cotationMin, @NotNull String localite,
+			Collection<Secteur> secteur) {
 		super();
 		this.nom = nom;
 		this.cotationMin = cotationMin;
 		this.localite = localite;
+		this.secteur = secteur;
 	}
 	public Spot() {
 		super();
@@ -52,6 +61,12 @@ public class Spot implements Serializable{
 		this.localite = localite;
 	}
 	
+	public Collection<Secteur> getSecteur() {
+		return secteur;
+	}
 	
+	public void setSecteur(Collection<Secteur> secteur) {
+		this.secteur = secteur;
+	}
 	
 }

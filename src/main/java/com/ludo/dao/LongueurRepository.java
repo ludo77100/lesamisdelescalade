@@ -4,6 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import com.ludo.entities.Longueur;
 
-public interface LonguerRepository extends JpaRepository<Longueur, Long>{
+public interface LongueurRepository extends JpaRepository<Longueur, Long>{
 
 }
