@@ -16,37 +16,39 @@ public class Voie implements Serializable {
 	@Id @GeneratedValue
 	private Long idVoie ;
 	@NotNull
-	private String nomSecteur ;
+	private String nomVoie ;
 	@NotNull
-	private String localisation ;
+	private String cotation ;
 	@NotNull
-	private String acces ;
+	private int nombrePointVoie ;
 	@NotNull
-	private  String typeRoche ;
+	private  Double longeurMin ;
 	@NotNull
-	private int nombreVoies ;
+	private Double longueurMax ;
 	@NotNull
-	private String cotationMin ;
+	private boolean equipee ;
 	@ManyToOne
 	@JoinColumn(name = "VOIE_SECT")
 	private Secteur secteur ;
 	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY)
 	private Collection<Longueur> longueur;
-	
 	public Voie() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Voie(@NotNull String nomSecteur, @NotNull String localisation, @NotNull String acces,
-			@NotNull String typeRoche, @NotNull int nombreVoies, @NotNull String cotationMin, Secteur secteur) {
+	public Voie(Long idVoie, @NotNull String nomVoie, @NotNull String cotation, @NotNull int nombrePointVoie,
+			@NotNull Double longeurMin, @NotNull Double longueurMax, @NotNull boolean equipee, Secteur secteur,
+			Collection<Longueur> longueur) {
 		super();
-		this.nomSecteur = nomSecteur;
-		this.localisation = localisation;
-		this.acces = acces;
-		this.typeRoche = typeRoche;
-		this.nombreVoies = nombreVoies;
-		this.cotationMin = cotationMin;
+		this.idVoie = idVoie;
+		this.nomVoie = nomVoie;
+		this.cotation = cotation;
+		this.nombrePointVoie = nombrePointVoie;
+		this.longeurMin = longeurMin;
+		this.longueurMax = longueurMax;
+		this.equipee = equipee;
 		this.secteur = secteur;
+		this.longueur = longueur;
 	}
 	public Long getIdVoie() {
 		return idVoie;
@@ -54,41 +56,41 @@ public class Voie implements Serializable {
 	public void setIdVoie(Long idVoie) {
 		this.idVoie = idVoie;
 	}
-	public String getNomSecteur() {
-		return nomSecteur;
+	public String getNomVoie() {
+		return nomVoie;
 	}
-	public void setNomSecteur(String nomSecteur) {
-		this.nomSecteur = nomSecteur;
+	public void setNomVoie(String nomVoie) {
+		this.nomVoie = nomVoie;
 	}
-	public String getLocalisation() {
-		return localisation;
+	public String getCotation() {
+		return cotation;
 	}
-	public void setLocalisation(String localisation) {
-		this.localisation = localisation;
+	public void setCotation(String cotation) {
+		this.cotation = cotation;
 	}
-	public String getAcces() {
-		return acces;
+	public int getNombrePointVoie() {
+		return nombrePointVoie;
 	}
-	public void setAcces(String acces) {
-		this.acces = acces;
+	public void setNombrePointVoie(int nombrePointVoie) {
+		this.nombrePointVoie = nombrePointVoie;
 	}
-	public String getTypeRoche() {
-		return typeRoche;
+	public Double getLongeurMin() {
+		return longeurMin;
 	}
-	public void setTypeRoche(String typeRoche) {
-		this.typeRoche = typeRoche;
+	public void setLongeurMin(Double longeurMin) {
+		this.longeurMin = longeurMin;
 	}
-	public int getNombreVoies() {
-		return nombreVoies;
+	public Double getLongueurMax() {
+		return longueurMax;
 	}
-	public void setNombreVoies(int nombreVoies) {
-		this.nombreVoies = nombreVoies;
+	public void setLongueurMax(Double longueurMax) {
+		this.longueurMax = longueurMax;
 	}
-	public String getCotationMin() {
-		return cotationMin;
+	public boolean isEquipee() {
+		return equipee;
 	}
-	public void setCotationMin(String cotationMin) {
-		this.cotationMin = cotationMin;
+	public void setEquipee(boolean equipee) {
+		this.equipee = equipee;
 	}
 	public Secteur getSecteur() {
 		return secteur;
@@ -96,6 +98,13 @@ public class Voie implements Serializable {
 	public void setSecteur(Secteur secteur) {
 		this.secteur = secteur;
 	}
+	public Collection<Longueur> getLongueur() {
+		return longueur;
+	}
+	public void setLongueur(Collection<Longueur> longueur) {
+		this.longueur = longueur;
+	}
 	
-	
+
+
 }
