@@ -15,6 +15,7 @@ import com.ludo.dao.SpotRepository;
 import com.ludo.dao.VoieRepository;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
+import com.ludo.entities.Voie;
 import com.ludo.forms.VoieForm;
 import com.ludo.metier.SecteurService;
 import com.ludo.metier.SpotService;
@@ -49,5 +50,19 @@ public class VoieController {
 		voieService.saveVoie(secteurId, voieForm, result);
 		
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId ;	
+	}
+	
+	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}")
+	public String afficherVoie(Model model,@PathVariable("spotId")Long spotId, @PathVariable("secteurId")Long secteurId, @PathVariable("voieId")Long voieId) {
+	
+	Spot spot = spotRepository.findById(spotId).get() ;
+	Secteur secteur = secteurRepository.findById(secteurId).get();
+	Voie voie = voieRepository.findById(voieId).get();
+	
+	model.addAttribute("spotInfo", spot);
+	model.addAttribute("secteurInfo", secteur);
+	model.addAttribute("voieInfo", voie);
+	
+		return "voie";
 	}
 	}

@@ -56,37 +56,24 @@
 
 				<div class="col-lg-6">
 
-					<!-- Tableau pour le display de la liste des voies lié au secteur et spot en cours -->
 					<div class="card">
-						<div class="card-header">Liste des voies</div>
+						<div class="card-header">Informations sur la voie</div>
 						<div class="card-body">
-						<a class="nav-link text-center btn btn-primary"
-								th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
-								une voie</a>
-							<table class="table spacer">
-								<thead>
-									<tr>
-										<th>Nom de la voie</th>
-										<th>Cotation de la voie</th>
-										<th>Nombre de points</th>
-										<th>Longueur minimum</th>
-										<th>Longueur maximum</th>
-										<th>Equipée</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="voie:${listeVoie}">
-										<td><a th:text="${voie.nomVoie}" th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}"></a></td>
-										<td th:text="${voie.cotation}"></td>
-										<td th:text="${voie.nombrePointVoie}"></td>
-										<td th:text="${voie.longeurMin}"></td>
-										<td th:text="${voie.longueurMax}"></td>
-										<td th:text="${voie.equipee}"></td>
-									</tr>
-								</tbody>
-							</table>
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item"><label>Nom de la voie:</label><label
+									th:text="${voieInfo.nomVoie}"></label></li>
+								<li class="list-group-item"><label>Cotation de la
+										voie: </label><label th:text="${voieInfo.cotation}"></label></li>
+								<li class="list-group-item"><label>Nombre de
+										points: </label><label th:text="${voieInfo.nombrePointVoie}"></label></li>
+								<li class="list-group-item"><label>Longueur
+										minimum: </label><label th:text="${voieInfo.longeurMin}"></label></li>
+								<li class="list-group-item"><label>Longueur
+										maximum: </label><label th:text="${voieInfo.longueurMax}"></label></li>
+								<li class="list-group-item"><label>Equipée: </label><label
+									th:text="${voieInfo.equipee}"></label></li>
+							</ul>
 						</div>
-
 					</div>
 				</div>
 			</div>
