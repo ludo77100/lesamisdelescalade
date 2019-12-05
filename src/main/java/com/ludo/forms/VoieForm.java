@@ -7,13 +7,13 @@ public class VoieForm {
 	private int nombrePointVoie ;
 	private Double longueurMin ;
 	private Double longueurMax ;
-	private boolean equipee ;
+	private String equipee ;
 	public VoieForm() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
 	public VoieForm(String nomVoie, String cotation, int nombrePointVoie, Double longueurMin, Double longueurMax,
-			boolean equipee) {
+			String equipee) {
 		super();
 		this.nomVoie = nomVoie;
 		this.cotation = cotation;
@@ -52,10 +52,10 @@ public class VoieForm {
 	public void setLongueurMax(Double longueurMax) {
 		this.longueurMax = longueurMax;
 	}
-	public boolean isEquipee() {
+	public String getEquipee() {
 		return equipee;
 	}
-	public void setEquipee(boolean equipee) {
+	public void setEquipee(String equipee) {
 		this.equipee = equipee;
 	}
 	

@@ -26,7 +26,7 @@ public class Voie implements Serializable {
 	@NotNull
 	private Double longueurMax ;
 	@NotNull
-	private boolean equipee ;
+	private String equipee ;
 	@ManyToOne
 	@JoinColumn(name = "VOIE_SECT")
 	private Secteur secteur ;
@@ -37,7 +37,7 @@ public class Voie implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 	public Voie(Long idVoie, @NotNull String nomVoie, @NotNull String cotation, @NotNull int nombrePointVoie,
-			@NotNull Double longeurMin, @NotNull Double longueurMax, @NotNull boolean equipee, Secteur secteur,
+			@NotNull Double longeurMin, @NotNull Double longueurMax, @NotNull String equipee, Secteur secteur,
 			Collection<Longueur> longueur) {
 		super();
 		this.idVoie = idVoie;
@@ -86,10 +86,10 @@ public class Voie implements Serializable {
 	public void setLongueurMax(Double longueurMax) {
 		this.longueurMax = longueurMax;
 	}
-	public boolean isEquipee() {
+	public String getEquipee() {
 		return equipee;
 	}
-	public void setEquipee(boolean equipee) {
+	public void setEquipee(String equipee) {
 		this.equipee = equipee;
 	}
 	public Secteur getSecteur() {

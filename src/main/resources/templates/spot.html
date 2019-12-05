@@ -59,7 +59,7 @@
 								</thead>
 								<tbody>
 									<tr th:each="secteur:${listeSecteur}">
-										<td><a th:text="${secteur.nomSecteur}" href=#></a></td>
+										<td><a th:text="${secteur.nomSecteur}" th:href="@{/spot/{spotId}/secteur/{secteurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}"></a></td>
 										<td th:text="${secteur.acces}"></td>
 										<td th:text="${secteur.typeRoche}"></td>
 										<td th:text="${secteur.localisation}"></td>

@@ -15,8 +15,80 @@
 		<div class="container-fluid">
 			<div class="row">
 
+				<!-- Carte pour le display des informations générales sur le spot -->
 
+				<div class="col-lg-6">
+					<div class="card">
+						<div class="card-header">Informations générale sur le Spot</div>
+						<div class="card-body">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item"><label>Nom:</label><label
+									th:text="${spotInfo.nom}"></label></li>
+								<li class="list-group-item"><label>Localité: </label><label
+									th:text="${spotInfo.localite}"></label></li>
+								<li class="list-group-item"><label>Cotation
+										minimum: </label><label th:text="${spotInfo.cotationMin}"></label></li>
+							</ul>
+						</div>
+					</div>
 
+					<!-- Carte pour le display des informations sur le secteur sélectionné -->
+
+					<div class="card spacer">
+						<div class="card-header">Informations sur le secteur</div>
+						<div class="card-body">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item"><label>Nom du secteur:</label><label
+									th:text="${secteurInfo.nomSecteur}"></label></li>
+								<li class="list-group-item"><label>Accès: </label><label
+									th:text="${secteurInfo.acces}"></label></li>
+								<li class="list-group-item"><label>Type de roche: </label><label
+									th:text="${secteurInfo.typeRoche}"></label></li>
+								<li class="list-group-item"><label>Localisation: </label><label
+									th:text="${secteurInfo.localisation}"></label></li>
+								<li class="list-group-item"><label>Nombre de voie:
+								</label><label th:text="${secteurInfo.nombreVoies}"></label></li>
+							</ul>
+						</div>
+					</div>
+
+				</div>
+
+				<div class="col-lg-6">
+
+					<!-- Tableau pour le display de la liste des voies lié au secteur et spot en cours -->
+					<div class="card">
+						<div class="card-header">Liste des voies</div>
+						<div class="card-body">
+						<a class="nav-link text-center btn btn-primary"
+								th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
+								une voie</a>
+							<table class="table spacer">
+								<thead>
+									<tr>
+										<th>Nom de la voie</th>
+										<th>Cotation de la voie</th>
+										<th>Nombre de points</th>
+										<th>Longueur minimum</th>
+										<th>Longueur maximum</th>
+										<th>Equipée</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="listeVoie:${listeVoie}">
+										<td><a th:text="${listeVoie.nomVoie}" href=#></a></td>
+										<td th:text="${listeVoie.cotation}"></td>
+										<td th:text="${listeVoie.nombrePointVoie}"></td>
+										<td th:text="${listeVoie.longeurMin}"></td>
+										<td th:text="${listeVoie.longueurMax}"></td>
+										<td th:text="${listeVoie.equipee}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>

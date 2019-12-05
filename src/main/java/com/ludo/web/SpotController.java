@@ -51,7 +51,7 @@ public class SpotController {
 	}
 
 	@GetMapping("/spot/{spotId}")
-	public String spot(Model model, @PathVariable("spotId") Long spotId) {
+	public String afficherSpot(Model model, @PathVariable("spotId") Long spotId) {
 		Spot spot = spotRepository.findById(spotId).get();
 		model.addAttribute("spotInfo", spot);
 		

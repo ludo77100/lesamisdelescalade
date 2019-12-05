@@ -19,24 +19,40 @@
 			<div class="col-lg-3"></div>
 			<div class="col-lg-6 spacer">
 				<div class="card">
-					<div class="card-header">Ajouter un spot</div>
+					<div class="card-header">Ajouter une voie</div>
 					<div class="card-body">
-						<form th:action="@{save}" method="post">
+						<form th:action="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie/save(spotId=${spotId}, secteurId=${secteurId})}" method="post">
 
 							<div class="form-group">
-								<label class="control-label">Nom :</label> <input
-									class="form-control" type="text" name="nom">
+								<label class="control-label">Nom de la voie :</label> <input
+									class="form-control" type="text" name="nomVoie">
 							</div>
 
 							<div class="form-group">
-								<label class="control-label">Localité :</label> <input
-									class="form-control" type="text" name="localite">
+								<label class="control-label">Cotation :</label> <input
+									class="form-control" type="text" name="cotation">
 							</div>
 
 							<div class="form-group">
-								<label class="control-label">Cotation minimum :</label> <input
-									class="form-control" type="text" name="cotationMin">
+								<label class="control-label">Nombre de points :</label> <input
+									class="form-control" type="text" name="nombrePointVoie">
 							</div>
+							<div class="form-group">
+								<label class="control-label">Longueur minimum :</label> <input
+									class="form-control" type="text" name="longueurMin">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Longueur maximum :</label> <input
+									class="form-control" type="text" name="longueurMax">
+							</div>
+							<div class="form-group">
+								<label class="control-label">Equipée :</label> 
+								<select name="equipee" class="form-control">
+								<option value="">Merci de choisir</option>
+								<option value="oui">Oui</option>
+								<option value="non">Non</option>
+								</select>
+						</div>
 							<div>
 								<button type="submit" class="btn btn-primary">Sauvegarder</button>
 							</div>
