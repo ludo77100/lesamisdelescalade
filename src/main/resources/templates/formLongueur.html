@@ -1,10 +1,48 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
+<meta charset="UTF-8" />
+<title>Ajouter un nouveau spot</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
 </head>
 <body>
 
+	<!-- Cette page permet d'afficher un formulaire afin de renter une nouvelle longueur en base de données -->
+
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-lg-3"></div>
+			<div class="col-lg-6 spacer">
+				<div class="card">
+					<div class="card-header">Ajouter un secteur</div>
+					<div class="card-body">
+						<form
+							th:action="@{/spot/{spotId}/secteur/{secteurId}/longueur/{longueurId}/ajouterLongueur/save(spotId=${spotId}, secteurId=${secteurId}, voieId=${voieId})}"
+							method="post">
+
+							<div class="form-group">
+								<label class="control-label">Cotation de la voie:</label> <input
+									class="form-control" type="text" name="cotation">
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Nombre de points :</label> <input
+									class="form-control" type="text" name="nombrePoints">
+							</div>
+							<div>
+								<button type="submit" class="btn btn-primary">Sauvegarder</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<div class="col-lg-3"></div>
+		</div>
+	</div>
 </body>
 </html>

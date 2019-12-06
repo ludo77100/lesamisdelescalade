@@ -75,6 +75,31 @@
 							</ul>
 						</div>
 					</div>
+					
+					<div class="card spacer">
+						<div class="card-header">Liste des longueurs</div>
+						<div class="card-body">
+						<a class="nav-link text-center btn btn-primary"
+								th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie})}">Ajouter
+								une longueur</a>
+							<table class="table spacer">
+								<thead>
+									<tr>
+										<th>Cotation de la voie</th>
+										<th>Nombre de points</th>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="longueur:${listeLongueur}">
+										<td th:text="${longueur.cotation}"></td>
+										<td th:text="${longueur.nombrePoints}"></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+
+					</div>
+					
 				</div>
 			</div>
 		</div>
