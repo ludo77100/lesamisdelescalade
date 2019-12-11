@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+<title>Inscription</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+	<div class="row">
+	<div class="col-lg-3"></div>
+	
+	<!-- Formulaire pour l'enregistrement d'un utilisateur, le rôle par défaut est attribué automatiquement par utilisateurService -->
+	<!-- TODO un deuxième champs de mdp et email pour vérification -->
+	
+	<div class="col-lg-6 spacer">
+		<div class="card spacer">
+			<div class="card-header">Inscription</div>
+			<div class="card-body">
+				<form th:action="@{/confInscription}" method="post">
+
+					<div class="form-group">
+						<label class="control-label">Pseudo :</label> <input
+							class="form-control" type="text" name="pseudo" required="required">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">Mot de passe :</label> <input
+							class="form-control" type="password" name="motDePass" required="required">
+					</div>
+
+					<div class="form-group">
+						<label class="control-label">email :</label> <input
+							class="form-control" type="email" name="email" required="required">
+					</div>
+
+					<div>
+						<button type="submit" class="btn btn-primary">Inscription</button>
+					</div>
+				</form>
+				<p class="text-center spacer">Vous possédez déjà un compte ? <a th:href="@{/connexionUtilisateur}">Connexion</a></p>
+			</div>
+		</div></div>
+		<div class="col-lg-3"></div></div>
+	</div>
+</body>
+</html>

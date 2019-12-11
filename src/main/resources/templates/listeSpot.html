@@ -20,7 +20,7 @@
 			<!-- Barre de recherche de spot, recherche dans le nom du spot -->
 
 			<form th:action="@{/listeSpot}" method="get">
-				<input type="text" name="mc" th:value="${mc}"></input>
+				<input type="search" name="mc" th:value="${mc}"></input>
 				<button class="btn btn-primary">Chercher</button>
 			</form>
 
@@ -59,10 +59,11 @@
 					th:text="${status.index + 1}"></a></li>
 			</ul>
 		</div>
+	
+		</div>
 
 		<!-- Fin de la barre de pagination -->
 
-	</div>
 
 </body>
 </html>

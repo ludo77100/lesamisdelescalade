@@ -27,9 +27,17 @@ public class Secteur implements Serializable {
 	private String localisation;
 
 	private int nombreVoies;
+	
+	/*
+	 * Relation avec la table Spot
+	 */
 	@ManyToOne
 	@JoinColumn(name = "SPOTID")
 	private Spot spot;
+	
+	/*
+	 * Relation ave la table Voie
+	 */
 	@OneToMany(mappedBy = "secteur", fetch = FetchType.LAZY)
 	private Collection<Voie> voie;
 
@@ -38,9 +46,10 @@ public class Secteur implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Secteur( String nomSecteur,  String acces,  String typeRoche,
-			 String localisation,  int nombreVoies, Spot spot, Collection<Voie> voie) {
+	public Secteur(Long idSecteur, String nomSecteur, String acces, String typeRoche, String localisation,
+			int nombreVoies, Spot spot, Collection<Voie> voie) {
 		super();
+		this.idSecteur = idSecteur;
 		this.nomSecteur = nomSecteur;
 		this.acces = acces;
 		this.typeRoche = typeRoche;
@@ -113,5 +122,6 @@ public class Secteur implements Serializable {
 	public void setVoie(Collection<Voie> voie) {
 		this.voie = voie;
 	}
+
 
 }
