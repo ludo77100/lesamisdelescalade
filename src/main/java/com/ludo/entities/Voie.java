@@ -3,9 +3,11 @@ package com.ludo.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -13,19 +15,21 @@ import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 @Entity
 public class Voie implements Serializable {
-	@Id @GeneratedValue
+	@Id 
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_voie")
 	private Long idVoie ;
-	@NotNull
+	@Column(name = "nom_voie", nullable = false, unique = false)
 	private String nomVoie ;
-	@NotNull
+	@Column(name = "cotation", nullable = false, unique = false)
 	private String cotation ;
-	@NotNull
+	@Column(name = "nombre_point_voie", nullable = false, unique = false)
 	private int nombrePointVoie ;
-	@NotNull
+	@Column(name = "longeur_min", nullable = false, unique = false)
 	private  Double longeurMin ;
-	@NotNull
+	@Column(name = "longueur_max", nullable = false, unique = false)
 	private Double longueurMax ;
-	@NotNull
+	@Column(name = "equipee", nullable = false, unique = false)
 	private String equipee ;
 	@ManyToOne
 	@JoinColumn(name = "VOIE_SECT")
