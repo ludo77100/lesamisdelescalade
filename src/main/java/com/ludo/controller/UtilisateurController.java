@@ -1,4 +1,4 @@
-package com.ludo.web;
+package com.ludo.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ludo.dao.UtilisateurRepository;
 import com.ludo.forms.UtilisateurForm;
 import com.ludo.metier.UtilisateurService;
-import com.ludo.metier.VoieService;
 
 @Controller
 public class UtilisateurController {
@@ -22,6 +21,7 @@ public class UtilisateurController {
 	@Autowired
 	private UtilisateurService utilisateurService ;
 	
+
 	@GetMapping("/inscriptionUtilisateur")
 	public String formUtilisateur() {
 		return "formEnregistrementUtilisateur" ;
@@ -32,10 +32,4 @@ public class UtilisateurController {
 		utilisateurService.saveUtilisateur(utilisateurForm, result);
 		return "redirect:/";
 	}
-	
-	@GetMapping("/espaceUtilisateur")
-	private String espaceUtilisateur() {
-		return "espaceUtilisateur" ;
-	}
-	
 }

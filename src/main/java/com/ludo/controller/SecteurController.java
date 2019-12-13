@@ -1,4 +1,4 @@
-package com.ludo.web;
+package com.ludo.controller;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package com.ludo.enums;
 
 public enum RoleEnum {
-	USER, 
+	USER,
 	ADMINISTRATOR
 }

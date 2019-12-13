@@ -63,8 +63,8 @@
 											th:href=@{/listeSpot}>Liste des Spots</a></li>
 										<li class="nav-item"><a class="nav-link" href="#"
 											title="Lien 3">Recherche détaillée</a></li>
-										<li class="nav-item"><a class="nav-link"
-											th:href=@{/ajouter}>Ajouter un Spot</a></li>
+										<li class="nav-item"><a sec:authorize="isAuthenticated()"
+											class="nav-link" th:href=@{/ajouter}>Ajouter un Spot</a></li>
 									</ul>
 								</div>
 						</ul>
@@ -73,24 +73,34 @@
 					<!-- Barre de navigation pour l'utilisateur -->
 
 					<div class="col-lg-4">
-						<ul class="navbar-nav ml-auto">
+						<ul class="navbar-nav">
 							<div class="dropdown">
-								<button class="btn btn-default dropdown-toggle" type="button"
+								<button sec:authorize="isAuthenticated()"
+									class="btn btn-default dropdown-toggle ml-auto" type="button"
 									id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true"
 									aria-expanded="true">
-									Espace Utilisateur <span class="caret"></span>
+									 [[${#httpServletRequest.remoteUser}]] <span class="caret"></span>
 								</button>
 								<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-									<li class="nav-item"><a class="nav-link" href=#>Mes infos personnelles</a></li>
+									<li class="nav-item"><a class="nav-link" href=#>Mes
+											infos personnelles</a></li>
 									<li class="nav-item"><a class="nav-link" href="#"
 										title="Lien 3">Mes spots</a></li>
-									<li class="nav-item"><a class="nav-link" href=#>Mes topos</a></li>
+									<li class="nav-item"><a class="nav-link" href=#>Mes
+											topos</a></li>
 								</ul>
 							</div>
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/connexionUtilisateur}">Inscription/Connexion</a></li>
-							<li class="nav-item"><a class="nav-link"
-								th:href="@{/login?logout}">Déconnexion</a></li>
+							<li sec:authorize="!isAuthenticated()" class="nav-item"><a
+								class="nav-link" th:href="@{/connexionUtilisateur}">Inscription/Connexion</a></li>
+								
+							
+								
+							<li class="nav-item"><form sec:authorize="isAuthenticated()"
+									th:action="@{/logout}" method="post">
+									<input type="submit" value="Logout" />
+								</form></li>
+							<!-- <li class="nav-item"><a class="nav-link"
+								th:href="@{/login?logout}">Déconnexion</a></li> -->
 						</ul>
 					</div>
 				</div>
