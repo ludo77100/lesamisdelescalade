@@ -38,7 +38,7 @@
 		</header>
 	</div>
 
-	<!-- fin du header et début de la barre de navigation, elle est fixé en haut quand on scroll, utilisation de JS pour avoir un menu déroulant -->
+	<!-- fin du header et début de la barre de navigation, utilisation de JS pour avoir un menu déroulant -->
 	<div class="container-fluid">
 		<div class="row px-3 py-3" style="background-color: #e3f2fd;">
 			<ul class="navbar-nav navbar-expand-lg">
@@ -62,7 +62,7 @@
 							</span>
 						</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-								<li class="nav-item"><a class="nav-link" href=#>Mes infos personnelles</a></li>
+								<li class="nav-item"><a class="nav-link" th:href=@{/infosPersonnelles}>Mes infos personnelles</a></li>
 								<li class="nav-item"><a class="nav-link" href="#">Mes spots</a></li>
 								<li class="nav-item"><a class="nav-link" href=#>Mes topos</a></li>
 							</ul>

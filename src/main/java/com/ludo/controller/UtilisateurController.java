@@ -32,4 +32,9 @@ public class UtilisateurController {
 		utilisateurService.saveUtilisateur(utilisateurForm, result);
 		return "redirect:/";
 	}
+	
+	@GetMapping("/infosPersonnelles")
+	public String infoPersoUtil() {
+		return "/infosPersonnelles" ;
+	}
 }
