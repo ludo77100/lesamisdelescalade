@@ -42,7 +42,7 @@
 	<div class="container-fluid">
 		<div class="row px-3 py-3" style="background-color: #e3f2fd;">
 			<ul class="navbar-nav navbar-expand-lg">
-				<li><button class="btn btn-primary">Accueil</button><a class="nav-link" th:href=@{/index}></a></li>
+				<li><a class="btn btn-primary" th:href=@{/index}>Accueil</a></li>
 				<li>
 					<div class="dropdown">
 					<button class="btn btn-primary dropdown-toggle mx-1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Spots d'escalade <span class="caret"></span></button>
@@ -67,7 +67,7 @@
 								<li class="nav-item"><a class="nav-link" href=#>Mes topos</a></li>
 							</ul>
 					</div>
-						<li sec:authorize="!isAuthenticated()" class="nav-item px-1"><a class="nav-link" th:href="@{/connexionUtilisateur}">Inscription/Connexion</a></li>
+						<li sec:authorize="!isAuthenticated()" class="nav-item px-1"><a class="btn btn-primary" th:href="@{/connexionUtilisateur}">Inscription/Connexion</a></li>
 						<li class="nav-item px-1">
 							<form sec:authorize="isAuthenticated()"th:action="@{/logout}" method="post">
 								<input type="submit" class="btn btn-primary" value="Se déconnecter" />
