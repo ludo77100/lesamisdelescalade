@@ -3,8 +3,10 @@ package com.ludo.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -12,12 +14,18 @@ import javax.persistence.ManyToOne;
 @Entity
 public class Topo implements Serializable {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_topo")
 	private Long idTopo;
+	@Column(name = "nom", nullable = false, unique = false)
 	private String nom ;
+	@Column(name = "reserve", nullable = false, unique = false)
 	private boolean reserve ;
+	@Column(name = "date_parution", nullable = false, unique = false)
 	private Date dateParution ;
+	@Column(name = "description", nullable = false, unique = false)
 	private String description ;
+	@Column(name = "reserve_par", nullable = false, unique = false)
 	private String reservePar ;
 	
 	/*
