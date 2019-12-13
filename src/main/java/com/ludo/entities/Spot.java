@@ -3,9 +3,11 @@ package com.ludo.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,13 +17,15 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Spot implements Serializable{
 	
-	@Id @GeneratedValue
+	@Id 
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_site_escalade")
 	private Long idSiteEscalade ;
-	@NotNull
+	@Column(name = "nom", nullable = false, unique = false)
 	private String nom ;
-	@NotNull
+	@Column(name = "cotation_min", nullable = false, unique = false)
 	private String cotationMin ;
-	@NotNull
+	@Column(name = "localite", nullable = false, unique = false)
 	private String localite ;
 	
 	/*
