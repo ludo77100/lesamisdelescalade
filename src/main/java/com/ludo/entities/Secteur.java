@@ -3,9 +3,11 @@ package com.ludo.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -15,17 +17,18 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Secteur implements Serializable {
 	@Id
-	@GeneratedValue
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "id_secteur")
 	private Long idSecteur;
-
+	@Column(name = "nom_secteur", nullable = false, unique = false)
 	private String nomSecteur;
-
+	@Column(name = "acces", nullable = false, unique = false)
 	private String acces;
-
+	@Column(name = "type_roche", nullable = false, unique = false)
 	private String typeRoche;
-
+	@Column(name = "localisation", nullable = false, unique = false)
 	private String localisation;
-
+	@Column(name = "nombre_voies", nullable = false, unique = false)
 	private int nombreVoies;
 	
 	/*
