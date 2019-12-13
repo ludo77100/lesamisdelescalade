@@ -3,18 +3,28 @@ package com.ludo.entities;
 import java.io.Serializable;
 import java.sql.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
-@Entity
+import lombok.Data;
+import net.bytebuddy.dynamic.loading.ClassReloadingStrategy.Strategy;
+
+@Entity@Data
 public class Commentaire implements Serializable {
-	@Id @GeneratedValue
+	@Id
+	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name ="id_commentaire")
 	private Long idCommentaire ;
+	@Column(name = "date_heure_commentaire", nullable = false, unique = false)
 	private Date dateHeureCommentaire ; 
+	@Column(name = "commentaite_cat", nullable = false, unique = false)
 	private String commentaireCat ; /*news ou spot ou ...*/
+	@Column(name = "commentaire", nullable = false, unique = false)
 	private String commentaire ;
 	
 	/*
