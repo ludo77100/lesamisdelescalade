@@ -24,7 +24,7 @@
 
 				<div class="col-lg-6">
 					<div class="card">
-						<div class="card-header">Informations générale sur le Spot</div>
+						<div class="card-header"><h3 class="card-title">Informations générale sur le Spot</h3></div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><label>Nom:</label><label
@@ -41,12 +41,12 @@
 
 					<div class="card spacer">
 						<div class="card-header">
-							<span>Informations Secteurs</span>
+							<h3 class="card-title">Informations Secteurs <a class="btn btn-primary float-right"
+								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
+								un Secteur</a></h3>
 						</div>
 						<div class="card-body">
-							<a class="nav-link text-center btn btn-primary"
-								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
-								un Secteur</a>
+							
 							<table class="table spacer">
 								<thead>
 									<tr>
