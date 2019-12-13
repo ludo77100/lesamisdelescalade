@@ -45,7 +45,7 @@ public class Utilisateur implements Serializable, UserDetails {
 	private String pseudo;
 	
 	@NotNull
-	@Column(name = "mot_de_pass", nullable = false, unique = true)
+	@Column(name = "mot_de_pass", nullable = false, unique = false)
 	private String motDePass;
 	
 	@NotNull
