@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,7 +55,7 @@ public class SpotController {
 	public String afficherSpot(Model model, @PathVariable("spotId") Long spotId) {
 		Spot spot = spotRepository.findById(spotId).get();
 		model.addAttribute("spotInfo", spot);
-		
+
 		/*
 		 * Optional<Spot> spotInfo = spotRepository.findById(spotId);
 		 * model.addAttribute("spotInfo", spotInfo.get());
@@ -76,6 +77,13 @@ public class SpotController {
 		spotService.saveSpot(spotForm);
 		return "redirect:/listeSpot" ;
 	}
+	
+	@GetMapping("/deleteSpot/{spotId}")
+	public String deleteSpot(@PathVariable("spotId") Long spotId, final RedirectAttributes redirect) {
+		spotRepository.deleteById(spotId);
+		return "redirect:/listeSpot";
+	}
+	
 	
 	@GetMapping("/index")
 	public String index() {

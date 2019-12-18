@@ -3,6 +3,7 @@ package com.ludo.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Spot implements Serializable{
 	/*
 	 * Relation avec la table Secteur
 	 */
-	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Secteur> secteur ;
 	
 	/*

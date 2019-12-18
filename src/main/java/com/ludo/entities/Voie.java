@@ -3,6 +3,7 @@ package com.ludo.entities;
 import java.io.Serializable;
 import java.util.Collection;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -34,7 +35,7 @@ public class Voie implements Serializable {
 	@ManyToOne
 	@JoinColumn(name = "VOIE_SECT")
 	private Secteur secteur ;
-	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Longueur> longueur;
 	public Voie() {
 		super();

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+<title>Espace Utilisateur</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+	<div layout:fragment="content">
+		<div class="row">
+			<div class="col-lg-2"></div>
+				<div class="col-lg-8">
+					<div class="card">
+						<div class="card-header">
+							<h2>Mes informations personnelle</h2>
+						</div>
+						<div class=card-body>
+							<p>Nom d'utilisateur: [[${#httpServletRequest.remoteUser}]]</p>
+							
+							<form
+							action=#
+							method="post">
+
+							<div class="form-group">
+								<label class="control-label">Modifier votre adresse email</label> <input
+									class="form-control" type="text" name="cotation" required="required">
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Modifier votre mot de passe</label> <input
+									class="form-control" type="password" name="nombrePoints" required="required">
+							</div>
+							<div>
+								<button type="submit" class="btn btn-primary">Sauvegarder</button>
+							</div>
+						</form>
+							
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-2"></div>
+			</div>
+		</div>
+</body>
+</html>

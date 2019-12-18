@@ -33,6 +33,11 @@
 							<th>Nom</th>
 							<th>Localité</th>
 							<th>Cotation minimal</th>
+							<!-- 
+							Cette partie du tableau ne s'affiche que pour les administrateurs
+							 -->
+							<th sec:authorize="hasAuthority('ADMINISTRATOR')" >Editer</th>
+							<th sec:authorize="hasAuthority('ADMINISTRATOR')">Supprimer</th>
 
 						</tr>
 					</thead>
@@ -42,6 +47,12 @@
 								th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a></td>
 							<td th:text="${s.localite}"></td>
 							<td th:text="${s.cotationMin}"></td>
+							<!-- 
+							Cette partie du tableau ne s'affiche que pour les administrateurs
+							 -->
+							<td sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</td>
+							<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ?')"
+							th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>
 				</table>

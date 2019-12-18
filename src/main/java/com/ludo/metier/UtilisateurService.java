@@ -24,7 +24,6 @@ public class UtilisateurService {
 		newUtilisateur.setPseudo(utilisateurForm.getPseudo());
 		newUtilisateur.setMotDePass(utilisateurForm.getMotDePass());
 		newUtilisateur.setEmail(utilisateurForm.getEmail());
-		newUtilisateur.setRoles("USER");
 		
 		utilisateurRepository.save(newUtilisateur);
 	}
