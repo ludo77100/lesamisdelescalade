@@ -2,7 +2,11 @@ package com.ludo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,6 +23,7 @@ import com.ludo.dao.VoieRepository;
 import com.ludo.entities.Longueur;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
+import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
 import com.ludo.forms.VoieForm;
 import com.ludo.metier.LongueurService;
@@ -53,7 +58,7 @@ public class VoieController {
 		Secteur secteur = secteurRepository.findById(secteurId).get();
 		return "formVoie";
 	}
-
+	
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/ajouterVoie/save")
 	public String saveVoie(Model model, @ModelAttribute("voieForm") VoieForm voieForm,
 			@PathVariable("spotId") Long spotId, @PathVariable("secteurId") Long secteurId, BindingResult result,
@@ -82,8 +87,24 @@ public class VoieController {
 	}
 	
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}")
-	public String deleteVoie(@PathVariable("voieId")Long voieId, @PathVariable("secteurId") Long secteurId,@PathVariable("spotId")Long spotId, final RedirectAttributes redirect) {
-		voieRepository.deleteById(voieId);
-		return "redirect:/spot/" +spotId+ "/secteur/" +secteurId ;
+	public String deleteVoie(
+			@PathVariable("voieId") Long voieId, 
+			@PathVariable("secteurId") Long secteurId,
+			@PathVariable("spotId") Long spotId, 
+			final RedirectAttributes redirect,
+			HttpServletRequest request
+			) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion" ;
+		} else {
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
+		if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+			voieRepository.deleteById(voieId);
+			return "redirect:/spot/" +spotId+ "/secteur/" + secteurId;
+		} else
+
+		return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
+	}
 	}
 }
