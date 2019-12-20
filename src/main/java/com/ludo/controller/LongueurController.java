@@ -97,8 +97,9 @@ public class LongueurController {
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
 				longueurRepository.deleteById(longueurId);
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
-			} else
+			} else {
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
+			}
 		}
 
 	}

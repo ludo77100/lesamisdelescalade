@@ -1,11 +1,14 @@
 package com.ludo.controller;
 
 import java.util.List;
-import java.util.Optional;
+
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,6 +23,7 @@ import com.ludo.dao.SecteurRepository;
 import com.ludo.dao.SpotRepository;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
+import com.ludo.entities.Utilisateur;
 import com.ludo.forms.SpotForm;
 import com.ludo.metier.SpotService;
 
@@ -32,7 +36,10 @@ public class SpotController {
 	@Autowired
 	private SpotService spotService ;
 	
-	
+	@GetMapping("/index")
+	public String index() {
+		return "index";
+	}
 	
 	@GetMapping("/listeSpot")
 	public String listeSpot(Model model, 
@@ -78,16 +85,32 @@ public class SpotController {
 		return "redirect:/listeSpot" ;
 	}
 	
+	/*
+	 * Cette méthode permet la suppression d'une longueur. Elle execute une
+	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
+	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
+	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
+	 */
 	@GetMapping("/deleteSpot/{spotId}")
-	public String deleteSpot(@PathVariable("spotId") Long spotId, final RedirectAttributes redirect) {
-		spotRepository.deleteById(spotId);
-		return "redirect:/listeSpot";
-	}
-	
-	
-	@GetMapping("/index")
-	public String index() {
-		return "index";
+	public String deleteSpot(
+			@PathVariable("spotId") Long spotId, 
+			final RedirectAttributes redirect,
+			HttpServletRequest request
+			) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				spotRepository.deleteById(spotId);
+				return "redirect:/listeSpot";
+			} else {
+				return "redirect:/listeSpot";
+			}
+		}
 	}
+
 }
