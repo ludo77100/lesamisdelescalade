@@ -14,7 +14,7 @@ public class SecurityController {
 
 	/*
 	 * Controller qui permet d'afficher le formulaire de connexion
-	 * l'accès à ce formulaire est blqué si l'utilisateur est déjà authentifier
+	 * l'accès à ce formulaire est bloqué si l'utilisateur est déjà authentifier
 	 */
 	@GetMapping("/connexionUtilisateur")
 	public ModelAndView connexionUtilisateur(Model model) {
@@ -27,10 +27,17 @@ public class SecurityController {
 		return new ModelAndView("formConnexion");
 	}
 	
+	/*
+	 * Renvoie une page informant le visiteur qu'il n'a pas accès à la ressource demandée
+	 */
 	@RequestMapping(value = "/403")
 	public String accesInterdit() {
 		return "403";
 	}
+	
+	/*
+	 * Renvoie une page informant le visiteur que la ressource à laquelle il tente d'accéder n'existe pas
+	 */
 	@RequestMapping(value = "/404")
 	public String pageIntrouvable() {
 		return "404";

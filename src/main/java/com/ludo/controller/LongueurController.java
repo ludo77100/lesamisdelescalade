@@ -1,7 +1,5 @@
 package com.ludo.controller;
 
-import java.net.http.HttpConnectTimeoutException;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,18 +17,14 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.ludo.dao.LongueurRepository;
 import com.ludo.dao.SecteurRepository;
 import com.ludo.dao.SpotRepository;
-import com.ludo.dao.UtilisateurRepository;
 import com.ludo.dao.VoieRepository;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
 import com.ludo.forms.LongueurForms;
-import com.ludo.forms.VoieForm;
 import com.ludo.metier.LongueurService;
-import com.ludo.metier.SecteurService;
-import com.ludo.metier.SpotService;
-import com.ludo.metier.VoieService;
+
 
 @Controller
 public class LongueurController {
@@ -43,35 +37,43 @@ public class LongueurController {
 	@Autowired
 	private LongueurRepository longueurRepository;
 	@Autowired
-	private UtilisateurRepository utilisateurRepository;
-	@Autowired
-	private SecteurService secteurService;
-	@Autowired
-	private SpotService spotService;
-	@Autowired
-	private VoieService voieService;
-	@Autowired
 	private LongueurService longueurService;
-
+	
+	/*
+	 * Controller pour accéder au formulaire d'ajout de longueur lié à une voie
+	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur")
-	public String formLongueur(Model model, @PathVariable("spotId") Long spotId,
-			@PathVariable("secteurId") Long secteurId, @PathVariable("voieId") Long voieId) {
+	public String formLongueur(
+			Model model, 
+			@PathVariable("spotId") Long spotId,
+			@PathVariable("secteurId") Long secteurId, 
+			@PathVariable("voieId") Long voieId) {
+		
 		Spot spot = spotRepository.findById(spotId).get();
 		Secteur secteur = secteurRepository.findById(secteurId).get();
 		Voie voie = voieRepository.findById(voieId).get();
+		
 		return "formLongueur";
 	}
-
+	
+	/*
+	 * Controller pour l'action du bouton sauvegarder pour une nouvelle longueur
+	 */
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur/save")
-	public String saveLongueur(Model model, @ModelAttribute("longueurForm") LongueurForms longueurForms,
-			@PathVariable("spotId") Long spotId, @PathVariable("secteurId") Long secteurId,
-			@PathVariable("voieId") Long voieId, BindingResult result, RedirectAttributes redirectAttributes) {
+	public String saveLongueur(
+			Model model, 
+			@ModelAttribute("longueurForm") LongueurForms longueurForms,
+			@PathVariable("spotId") Long spotId, 
+			@PathVariable("secteurId") Long secteurId,
+			@PathVariable("voieId") Long voieId, 
+			BindingResult result, 
+			RedirectAttributes redirectAttributes) {
 
 		longueurService.saveLongueur(voieId, longueurForms, result);
 
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
 	}
-
+	
 	/*
 	 * Cette méthode permet la suppression d'une longueur. Elle execute une
 	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
@@ -85,8 +87,7 @@ public class LongueurController {
 			@PathVariable("voieId") Long voieId,
 			@PathVariable("secteurId") Long secteurId,
 			@PathVariable("spotId") Long spotId, 
-			final RedirectAttributes redirect
-			) {
+			final RedirectAttributes redirect) {
 
 		if (request.getRemoteUser() == null) {
 			return "formConnexion";
@@ -101,7 +102,5 @@ public class LongueurController {
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
 			}
 		}
-
 	}
-
 }

@@ -10,13 +10,19 @@ import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ConnexionController {
+	
+	/*
+	 * Controller pour la validation du formulaire de login
+	 */
 	@GetMapping("/login")
 	public ModelAndView loginGet (Model model) {
+		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		if(!(auth instanceof AnonymousAuthenticationToken)) {
 			return new ModelAndView("redirect:/index");
 		}
+		
 		return new ModelAndView("formConnexion");
 	}
 }

@@ -9,7 +9,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,13 +35,20 @@ public class SpotController {
 	@Autowired
 	private SpotService spotService ;
 	
+	/*
+	 * Controller pour la page d'accueil du site
+	 */
 	@GetMapping("/index")
 	public String index() {
 		return "index";
 	}
 	
+	/*
+	 * Controller qui renvoie la liste des spots
+	 */
 	@GetMapping("/listeSpot")
-	public String listeSpot(Model model, 
+	public String listeSpot(
+			Model model, 
 			@RequestParam(name="page", defaultValue = "0")int p, 
 			@RequestParam(name="size", defaultValue = "4")int s,
 			@RequestParam(name="mc", defaultValue = "")String mc) {
@@ -57,31 +63,47 @@ public class SpotController {
 		return "listeSpot";
 		
 	}
-
+	
+	/*
+	 * Controller qui permet d'afficher les détails d'un spot
+	 * affiche une liste des secteurs lié au spot choisi
+	 */
 	@GetMapping("/spot/{spotId}")
-	public String afficherSpot(Model model, @PathVariable("spotId") Long spotId) {
+	public String afficherSpot(
+			Model model, 
+			@PathVariable("spotId") Long spotId) {
+		
 		Spot spot = spotRepository.findById(spotId).get();
 		model.addAttribute("spotInfo", spot);
-
-		/*
-		 * Optional<Spot> spotInfo = spotRepository.findById(spotId);
-		 * model.addAttribute("spotInfo", spotInfo.get());
-		 */
 		
 		List <Secteur> listeSecteur = secteurRepository.findBySpot(spotId);
 		model.addAttribute("listeSecteur", listeSecteur);
 		
 		return "spot";
 	}
+	
+	/*
+	 * Controller qui renvoie vers le formulaire d'ajout de spot
+	 */
 	@GetMapping("/ajouter")
 	public String formSpot(Model model) {
+		
 		model.addAttribute("spot", new Spot());
+		
 		return "formSpot" ;
 	}
 	
+	/*
+	 * Controller pour l'action du bouton sauvegarder dans formulaire d'ajout de spot.
+	 */
 	@PostMapping("/save")
-	public String saveSpot(Model model, @ModelAttribute("spotForm") SpotForm spotForm, final RedirectAttributes redirectAttributes) {
+	public String saveSpot(
+			Model model,
+			@ModelAttribute("spotForm") SpotForm spotForm, 
+			final RedirectAttributes redirectAttributes) {
+		
 		spotService.saveSpot(spotForm);
+		
 		return "redirect:/listeSpot" ;
 	}
 	
@@ -95,8 +117,7 @@ public class SpotController {
 	public String deleteSpot(
 			@PathVariable("spotId") Long spotId, 
 			final RedirectAttributes redirect,
-			HttpServletRequest request
-			) {
+			HttpServletRequest request) {
 		
 		if (request.getRemoteUser() == null) {
 			return "formConnexion";
@@ -112,5 +133,4 @@ public class SpotController {
 			}
 		}
 	}
-
 }

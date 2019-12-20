@@ -25,8 +25,6 @@ import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
 import com.ludo.forms.SecteurForm;
 import com.ludo.metier.SecteurService;
-import com.ludo.metier.SpotService;
-import com.ludo.metier.VoieService;
 
 @Controller
 public class SecteurController {
@@ -39,27 +37,17 @@ public class SecteurController {
 	private VoieRepository voieRepository ;
 	@Autowired
 	private SecteurService secteurService ;
-	@Autowired
-	private SpotService spotService ;
-	@Autowired
-	private VoieService voieService ;
 	
-	
-	@GetMapping("/spot/{spotId}/ajouterSecteur")
-	public String formSecteur(Model model, @PathVariable("spotId") Long spotId) {
-		Spot spot = spotRepository.findById(spotId).get();
-		return "formSecteur";
-	}
-	@PostMapping("/spot/{spotId}/ajouterSecteur/save")
-	public String saveSecteur(Model model, @ModelAttribute("secteurForm") SecteurForm secteurForm, @PathVariable("spotId") Long spotId, BindingResult result, RedirectAttributes redirectAttributes) {
-		
-		secteurService.saveSecteur(spotId, secteurForm, result);
-		
-		return "redirect:/spot/" + spotId ;
-	}
-	
+	/*
+	 * Controller qui permet d'afficher les détails du spot et du secteur
+	 * Affiche une liste de voie lié au secteur choisi
+	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}")
-	public String afficherSecteur(Model model, @PathVariable("spotId")Long spotId, @PathVariable("secteurId")Long secteurId) {
+	public String afficherSecteur(
+			Model model, 
+			@PathVariable("spotId")Long spotId, 
+			@PathVariable("secteurId")Long secteurId) {
+		
 		Spot spot = spotRepository.findById(spotId).get();
 		Secteur secteur = secteurRepository.findById(secteurId).get();
 		
@@ -69,6 +57,34 @@ public class SecteurController {
 		List <Voie> listeVoie = voieRepository.findBySecteur(secteurId);
 		model.addAttribute("listeVoie", listeVoie);
 		return "secteur";
+	}
+	
+	/*
+	 * Controller pour accéder au formulaire d'ajout de secteur lié à un spot 
+	 */
+	@GetMapping("/spot/{spotId}/ajouterSecteur")
+	public String formSecteur(
+			Model model,
+			@PathVariable("spotId") Long spotId) {
+		
+		Spot spot = spotRepository.findById(spotId).get();
+		
+		return "formSecteur";
+	}
+	
+	/*
+	 * Controller pour l'action du bouton sauvegarder pour un nouveau secteur
+	 */
+	@PostMapping("/spot/{spotId}/ajouterSecteur/save")
+	public String saveSecteur(
+			Model model,
+			@ModelAttribute("secteurForm") SecteurForm secteurForm,
+			@PathVariable("spotId") Long spotId,
+			BindingResult result) {
+		
+		secteurService.saveSecteur(spotId, secteurForm, result);
+		
+		return "redirect:/spot/" + spotId ;
 	}
 	
 	/*
@@ -82,8 +98,7 @@ public class SecteurController {
 			@PathVariable("secteurId") Long secteurId, 
 			@PathVariable("spotId") Long spotId,
 			final RedirectAttributes redirect,
-			HttpServletRequest request
-			) {
+			HttpServletRequest request) {
 		
 		if (request.getRemoteUser() == null) {
 			return "formConnexion" ;
@@ -97,5 +112,4 @@ public class SecteurController {
 			}
 		}
 	}
-	
 }
