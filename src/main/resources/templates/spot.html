@@ -55,8 +55,8 @@
 										<th>Tye de roche</th>
 										<th>Localisation</th>
 										<th>Nombre de voie</th>
-										<th>Editer</th>
-										<th>Delete</th>
+										<th sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</th>
+										<th sec:authorize="hasAuthority('ADMINISTRATOR')">Supprimer</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -66,9 +66,9 @@
 										<td th:text="${secteur.typeRoche}"></td>
 										<td th:text="${secteur.localisation}"></td>
 										<td th:text="${secteur.nombreVoies}"></td>
-										<td>Editer</td>
-										<td><a onclick="return confirm('Etes vous sur ? Cela va effacer les voies et longueurs associés à ce secteur')"
-							th:href="@{/spot/{spotId}/deleteSecteur/{secteurId}/(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}">Supprimer</a></td>
+										<td sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</td>
+										<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ? Cela va effacer les voies et longueurs associés à ce secteur')"
+											th:href="@{/spot/{spotId}/deleteSecteur/{secteurId}/(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}">Supprimer</a></td>
 									</tr>
 								</tbody>
 							</table>

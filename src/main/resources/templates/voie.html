@@ -94,16 +94,16 @@
 									<tr>
 										<th>Cotation de la longueur</th>
 										<th>Nombre de points</th>
-										<th>Editer</th>
-										<th>Delete</th>
+										<th sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</th>
+										<th sec:authorize="hasAuthority('ADMINISTRATOR')">Supprimer</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="longueur:${listeLongueur}">
 										<td th:text="${longueur.cotation}"></td>
 										<td th:text="${longueur.nombrePoints}"></td>
-										<td>Editer</td>
-										<td><a onclick="return confirm('Etes vous sur ?')"
+										<td sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</td>
+										<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ?')"
 							th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie}, longueurId=${longueur.idLongueur})}">Supprimer</a></td>
 									</tr>
 								</tbody>

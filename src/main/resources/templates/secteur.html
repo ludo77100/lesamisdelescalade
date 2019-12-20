@@ -75,8 +75,8 @@
 										<th>Longueur minimum</th>
 										<th>Longueur maximum</th>
 										<th>Equipée</th>
-										<th>Editer</th>
-										<th>Delete</th>
+										<th sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</th>
+										<th sec:authorize="hasAuthority('ADMINISTRATOR')">Supprimer</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -87,8 +87,8 @@
 										<td th:text="${voie.longeurMin}"></td>
 										<td th:text="${voie.longueurMax}"></td>
 										<td th:text="${voie.equipee}"></td>
-										<td>Editer</td>
-										<td><a onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associées à ce secteur')"
+										<td sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</td>
+										<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associées à ce secteur')"
 							th:href="@{/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}">Supprimer</a></td>
 									</tr>
 								</tbody>
