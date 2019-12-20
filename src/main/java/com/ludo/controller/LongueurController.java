@@ -43,7 +43,7 @@ public class LongueurController {
 	@Autowired
 	private LongueurRepository longueurRepository;
 	@Autowired
-	private UtilisateurRepository utilisateurRepository ;
+	private UtilisateurRepository utilisateurRepository;
 	@Autowired
 	private SecteurService secteurService;
 	@Autowired
@@ -71,22 +71,36 @@ public class LongueurController {
 
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
 	}
-	
-	
+
 	/*
-	 * Cette méthode permet la suppression d'une longueur. Elle execute une vérification de rôle.
-	 * Seul le rôle ADMINISTRATOR peut supprimer une longueur
-	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger contre un anonyme qui taperait le PATH à la main dans son naviguateur
+	 * Cette méthode permet la suppression d'une longueur. Elle execute une
+	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
+	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
+	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}")
-	public String deleteLongueur(HttpServletRequest request, @PathVariable("longueurId")long longueurId, @PathVariable("voieId")Long voieId, @PathVariable("secteurId") Long secteurId,@PathVariable("spotId")Long spotId, final RedirectAttributes redirect) {
-		
-		UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		
-		  if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR"))  { 
-			  longueurRepository.deleteById(longueurId);
-			  	return "redirect:/spot/"+spotId+"/secteur/"+secteurId+"/voie/"+voieId ;
-		  }else
-			return "redirect:/spot/"+spotId+"/secteur/"+secteurId+"/voie/"+voieId+"longueur"+longueurId;
+	public String deleteLongueur(
+			HttpServletRequest request, 
+			@PathVariable("longueurId") long longueurId,
+			@PathVariable("voieId") Long voieId,
+			@PathVariable("secteurId") Long secteurId,
+			@PathVariable("spotId") Long spotId, 
+			final RedirectAttributes redirect
+			) {
+
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
+
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				longueurRepository.deleteById(longueurId);
+				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
+			} else
+				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
+		}
+
 	}
+
 }
