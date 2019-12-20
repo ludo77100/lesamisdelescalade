@@ -21,8 +21,9 @@ public class SpotService {
 	public void saveSpot(SpotForm spotForm) {
 		
 		Spot newSpot = new Spot();
+		
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Utilisateur utilisateur = utilisateurRepository.findByPseudo(util.getUsername());	
+		Utilisateur utilisateur = utilisateurRepository.findByPseudo(util.getUsername());
 		
 		newSpot.setNom(spotForm.getNom());
 		newSpot.setLocalite(spotForm.getLocalite());

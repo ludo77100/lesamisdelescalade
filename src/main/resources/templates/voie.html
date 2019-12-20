@@ -35,7 +35,7 @@
 					<!-- Carte pour le display des informations sur le secteur sélectionné -->
 
 					<div class="card spacer">
-						<div class="card-header"><h3 class="card-title">Informations Secteurs <a class="btn btn-primary float-right"
+						<div class="card-header"><h3 class="card-title">Informations Secteurs <a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
 								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
 								un Secteur</a></h3></div>
 						<div class="card-body">
@@ -59,7 +59,7 @@
 				<div class="col-lg-6">
 
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Liste des voies<a class="btn btn-primary float-right"
+						<div class="card-header"><h3 class="card-title">Liste des voies<a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
 								th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
 								une voie</a></h3></div>
 						<div class="card-body">
@@ -82,7 +82,7 @@
 					
 					<div class="card spacer">
 						<div class="card-header"><h3 class ="card-title">Liste des longueurs
-						<a class="btn btn-primary float-right"
+						<a class="btn btn-primary float-right" sec:authorize="isAuthenticated()" 
 								th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie})}">Ajouter
 								une longueur</a>
 								</h3>
@@ -94,12 +94,17 @@
 									<tr>
 										<th>Cotation de la longueur</th>
 										<th>Nombre de points</th>
+										<th>Editer</th>
+										<th>Delete</th>
 									</tr>
 								</thead>
 								<tbody>
 									<tr th:each="longueur:${listeLongueur}">
 										<td th:text="${longueur.cotation}"></td>
 										<td th:text="${longueur.nombrePoints}"></td>
+										<td>Editer</td>
+										<td><a onclick="return confirm('Etes vous sur ?')"
+							th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie}, longueurId=${longueur.idLongueur})}">Supprimer</a></td>
 									</tr>
 								</tbody>
 							</table>

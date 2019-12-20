@@ -80,4 +80,10 @@ public class VoieController {
 		model.addAttribute("listeLongueur", listeLongueur);
 		return "voie";
 	}
+	
+	@GetMapping("/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}")
+	public String deleteVoie(@PathVariable("voieId")Long voieId, @PathVariable("secteurId") Long secteurId,@PathVariable("spotId")Long spotId, final RedirectAttributes redirect) {
+		voieRepository.deleteById(voieId);
+		return "redirect:/spot/" +spotId+ "/secteur/" +secteurId ;
+	}
 }

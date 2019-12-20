@@ -51,7 +51,7 @@
 							Cette partie du tableau ne s'affiche que pour les administrateurs
 							 -->
 							<td sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</td>
-							<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ?')"
+							<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
 							th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}">Supprimer</a></td>
 						</tr>
 					</tbody>

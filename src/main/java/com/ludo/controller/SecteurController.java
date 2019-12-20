@@ -66,4 +66,11 @@ public class SecteurController {
 		model.addAttribute("listeVoie", listeVoie);
 		return "secteur";
 	}
+	
+	@GetMapping("/spot/{spotId}/deleteSecteur/{secteurId}")
+	public String deleteSecteur(@PathVariable("secteurId") Long secteurId,@PathVariable("spotId")Long spotId, final RedirectAttributes redirect) {
+		secteurRepository.deleteById(secteurId);
+		return "redirect:/spot/" + spotId ;
+	}
+	
 }

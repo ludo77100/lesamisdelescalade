@@ -22,10 +22,13 @@ public class Spot implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_site_escalade")
 	private Long idSiteEscalade ;
+	
 	@Column(name = "nom", nullable = false, unique = false)
 	private String nom ;
+	
 	@Column(name = "cotation_min", nullable = false, unique = false)
 	private String cotationMin ;
+	
 	@Column(name = "localite", nullable = false, unique = false)
 	private String localite ;
 	

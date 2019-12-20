@@ -36,7 +36,7 @@
 
 					<div class="card spacer">
 						<div class="card-header">
-							<h3 class="card-title">Informations Secteurs <a class="btn btn-primary float-right"
+							<h3 class="card-title">Informations Secteurs <a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
 								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
 								un Secteur</a></h3></div>
 						<div class="card-body">
@@ -61,7 +61,7 @@
 
 					<!-- Tableau pour le display de la liste des voies lié au secteur et spot en cours -->
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Liste des voies<a class="btn btn-primary float-right"
+						<div class="card-header"><h3 class="card-title">Liste des voies<a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
 								th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
 								une voie</a></h3></div>
 						<div class="card-body">
@@ -75,6 +75,8 @@
 										<th>Longueur minimum</th>
 										<th>Longueur maximum</th>
 										<th>Equipée</th>
+										<th>Editer</th>
+										<th>Delete</th>
 									</tr>
 								</thead>
 								<tbody>
@@ -85,6 +87,9 @@
 										<td th:text="${voie.longeurMin}"></td>
 										<td th:text="${voie.longueurMax}"></td>
 										<td th:text="${voie.equipee}"></td>
+										<td>Editer</td>
+										<td><a onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associées à ce secteur')"
+							th:href="@{/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}">Supprimer</a></td>
 									</tr>
 								</tbody>
 							</table>
