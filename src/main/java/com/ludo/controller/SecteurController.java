@@ -2,8 +2,11 @@ package com.ludo.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +21,7 @@ import com.ludo.dao.SpotRepository;
 import com.ludo.dao.VoieRepository;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
+import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
 import com.ludo.forms.SecteurForm;
 import com.ludo.metier.SecteurService;
@@ -67,10 +71,31 @@ public class SecteurController {
 		return "secteur";
 	}
 	
+	/*
+	 * Cette méthode permet la suppression d'un secteur. Elle execute une
+	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
+	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
+	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
+	 */
 	@GetMapping("/spot/{spotId}/deleteSecteur/{secteurId}")
-	public String deleteSecteur(@PathVariable("secteurId") Long secteurId,@PathVariable("spotId")Long spotId, final RedirectAttributes redirect) {
-		secteurRepository.deleteById(secteurId);
-		return "redirect:/spot/" + spotId ;
+	public String deleteSecteur(
+			@PathVariable("secteurId") Long secteurId, 
+			@PathVariable("spotId") Long spotId,
+			final RedirectAttributes redirect,
+			HttpServletRequest request
+			) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion" ;
+		} else {
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				secteurRepository.deleteById(secteurId);
+				return "/spot";
+			} else {
+				return "/spot";
+			}
+		}
 	}
 	
 }
