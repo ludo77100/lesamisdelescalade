@@ -96,15 +96,14 @@ public class VoieController {
 			) {
 		
 		if (request.getRemoteUser() == null) {
-			return "formConnexion" ;
+			return "formConnexion";
 		} else {
-			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();		
-		if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-			voieRepository.deleteById(voieId);
-			return "redirect:/spot/" +spotId+ "/secteur/" + secteurId;
-		} else
-
-		return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
-	}
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				voieRepository.deleteById(voieId);
+				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
+			} else
+				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
+		}
 	}
 }
