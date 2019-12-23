@@ -126,10 +126,11 @@ public class SpotController {
 		} else {
 
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			Long idUtil = utilisateurRepository.findById(utilDet);
-			
-			if (utilDet.getUsername() ==  || utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				spotRepository.deleteById(spotId);
+
+			Spot spot = spotRepository.findById(spotId).get(); //On récupère le spot en cours 
+
+			if (utilDet.getUsername().equals(spot.getUtilisateur().getUsername()) || utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				spotRepository.deleteById(spotId); //On supprime le spot 
 				return "redirect:/listeSpot";
 			} else {
 				return "redirect:/listeSpot";
