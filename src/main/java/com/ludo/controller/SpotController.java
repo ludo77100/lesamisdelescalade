@@ -20,6 +20,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ludo.dao.SecteurRepository;
 import com.ludo.dao.SpotRepository;
+import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
@@ -34,7 +35,8 @@ public class SpotController {
 	private SecteurRepository secteurRepository ;
 	@Autowired
 	private SpotService spotService ;
-	
+	@Autowired
+	private UtilisateurRepository utilisateurRepository ;
 	/*
 	 * Controller pour la page d'accueil du site
 	 */
@@ -124,8 +126,9 @@ public class SpotController {
 		} else {
 
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+			Long idUtil = utilisateurRepository.findById(utilDet);
+			
+			if (utilDet.getUsername() ==  || utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
 				spotRepository.deleteById(spotId);
 				return "redirect:/listeSpot";
 			} else {
