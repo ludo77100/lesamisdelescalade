@@ -50,8 +50,8 @@
 							<!-- 
 							Cette partie du tableau ne s'affiche que pour les administrateurs
 							 -->
-							<td th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}"
-							th:href="@/editSpot/{spotId}(spotId=${s.idSiteEscalade})">Editer</td>
+							<td th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}">
+							<a th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Editer</a></td>
 							<td th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}"><a onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
 							th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}">Supprimer</a></td>
 						</tr>

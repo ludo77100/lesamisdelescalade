@@ -102,10 +102,10 @@
 									<tr th:each="longueur:${listeLongueur}">
 										<td th:text="${longueur.cotation}"></td>
 										<td th:text="${longueur.nombrePoints}"></td>
-										<td sec:authorize="hasAuthority('ADMINISTRATOR')"
-										th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/editLongueur/{longueurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie}, longueurId=${longueur.idLongueur})}">Editer</td>
+										<td sec:authorize="hasAuthority('ADMINISTRATOR')">
+										<a th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/editLongueur/{longueurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie}, longueurId=${longueur.idLongueur})}">Editer</a></td>
 										<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ?')"
-							th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie}, longueurId=${longueur.idLongueur})}">Supprimer</a></td>
+										th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie}, longueurId=${longueur.idLongueur})}">Supprimer</a></td>
 									</tr>
 								</tbody>
 							</table>

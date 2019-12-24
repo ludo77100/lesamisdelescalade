@@ -66,8 +66,8 @@
 										<td th:text="${secteur.typeRoche}"></td>
 										<td th:text="${secteur.localisation}"></td>
 										<td th:text="${secteur.nombreVoies}"></td>
-										<td sec:authorize="hasAuthority('ADMINISTRATOR')"
-										th:href="@{/spot/{spotId}/editSecteur/{secteurId}/(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}">Editer</td>
+										<td sec:authorize="hasAuthority('ADMINISTRATOR')">
+										<a th:href="@{/spot/{spotId}/editSecteur/{secteurId}/(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}">Editer</a></td>
 										<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ? Cela va effacer les voies et longueurs associés à ce secteur')"
 											th:href="@{/spot/{spotId}/deleteSecteur/{secteurId}/(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}">Supprimer</a></td>
 									</tr>
