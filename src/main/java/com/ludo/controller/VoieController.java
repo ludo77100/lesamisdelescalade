@@ -116,4 +116,29 @@ public class VoieController {
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
 		}
 	}
+	
+	/*
+	 * Controller pour accéder à l'edition d'une voie
+	 */
+	@GetMapping("/spot/{spotId}/secteur/{secteurId}/editVoie/{voieId}")
+	public String editVoie(
+			Model model, 
+			@PathVariable("spotId") Long spotId, 
+			@PathVariable("secteurId")Long secteurId,
+			@PathVariable("voieId")Long voieId){
+		return "editVoie" ;
+	}
+	
+	/*
+	 * Controller pour l'action du bouton sauvegarder dans le formulaire d'étion d'une voie
+	 * Il renvoie vers la voie qui vient d'être édité
+	 */
+	@PostMapping("/spot/{spotId}/secteur/{secteurId}/saveEditVoie/{voieId}")
+	public String saveEditVoie(
+			Model model, 
+			@PathVariable("spotId")Long spotId,
+			@PathVariable("secteuId")Long secteurId,
+			@PathVariable("voieId")Long voieId) {
+		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId;
+	}
 }

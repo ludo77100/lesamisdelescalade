@@ -103,4 +103,31 @@ public class LongueurController {
 			}
 		}
 	}
+	
+	/*
+	 * Controller pour accéder à l'edition d'une longueur
+	 */
+	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/editLongueur/{longueurId}")
+	public String editLongueur(
+			Model model, 
+			@PathVariable("spotId") Long spotId, 
+			@PathVariable("secteurId")Long secteurId,
+			@PathVariable("voieId")Long voieId,
+			@PathVariable("longueurId")Long longueurId){
+		return "editlongueur" ;
+	}
+	
+	/*
+	 * Controller pour l'action du bouton sauvegarder dans le formulaire d'étion d'une longueur
+	 * Il renvoie vers la liste des longueurs
+	 */
+	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/saveEditLongueur/{idLongueur}")
+	public String saveEditLongueur(
+			Model model, 
+			@PathVariable("spotId")Long spotId,
+			@PathVariable("secteuId")Long secteurId,
+			@PathVariable("voieId")Long voieId,
+			@PathVariable("longueurId")Long longueurId) {
+		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId ;
+	}
 }
