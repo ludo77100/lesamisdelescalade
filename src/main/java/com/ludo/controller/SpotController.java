@@ -55,12 +55,16 @@ public class SpotController {
 			@RequestParam(name="size", defaultValue = "4")int s,
 			@RequestParam(name="mc", defaultValue = "")String mc) {
 		
+		UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		String pseudoUtilCo = utilDet.getUsername() ;
+		
 		Page<Spot> pageListeSpot = 
 				spotRepository.chercher("%"+mc+"%", PageRequest.of(p, s));
 		model.addAttribute("listeSpot", pageListeSpot.getContent());
 		int[] pages = new int[pageListeSpot.getTotalPages()];
 		model.addAttribute("pages", pages);
 		model.addAttribute("pageCourante", p);
+		model.addAttribute("pseudoUtilCo", pseudoUtilCo);
 	
 		return "listeSpot";
 		
@@ -136,5 +140,22 @@ public class SpotController {
 				return "redirect:/listeSpot";
 			}
 		}
+	}
+	
+	/*
+	 * Controller pour accéder à l'édition d'un spot
+	 */
+	@GetMapping("/editSpot/{spotId}")
+	public String editSpot(Model model, @PathVariable("spotId") Long spotId){
+		return "editSpot" ;
+	}
+	
+	/*
+	 * Controller pour l'action du bouton sauvegarder du formulaire d'édition d'un spot
+	 * Il renvoie sur le secteur qui vient d'être édité
+	 */
+	@PostMapping("/saveEditSpot/{spotId}")
+	public String saveEditSpot(Model model, @PathVariable("spotId")Long spotId) {
+		return "redirect:/spot/"+ spotId ;
 	}
 }

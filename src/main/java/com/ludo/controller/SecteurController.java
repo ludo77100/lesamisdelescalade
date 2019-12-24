@@ -112,4 +112,27 @@ public class SecteurController {
 			}
 		}
 	}
+	
+	/*
+	 * Controller pour accéder à l'edition d'un secteur
+	 */
+	@GetMapping("/spot/{spotId}/editSecteur/{secteurId}")
+	public String editSpot(
+			Model model, 
+			@PathVariable("spotId") Long spotId, 
+			@PathVariable("secteurId")Long secteurId){
+		return "editSecteur" ;
+	}
+	
+	/*
+	 * Controller pour l'action du bouton sauvegarder dans le formulaire d'étion d'un secteur
+	 * Il renvoie vers le secteur qui vient d'être édité
+	 */
+	@PostMapping("/spot/{spotId}/saveEditSecteur/{secteurId}")
+	public String saveEditSpot(
+			Model model, 
+			@PathVariable("spotId")Long spotId,
+			@PathVariable("secteuId")Long secteurId) {
+		return "redirect:/spot/"+ spotId +"/secteur/" +secteurId;
+	}
 }
