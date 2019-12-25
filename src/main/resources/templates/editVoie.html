@@ -21,7 +21,7 @@
 				<div class="card">
 					<div class="card-header">Ajouter une voie</div>
 					<div class="card-body">
-						<form th:action="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie/save(spotId=${spotId}, secteurId=${secteurId})}" method="post">
+						<form th:action="@{/spot/{spotId}/secteur/{secteurId}/saveEditVoie/{voieId}(spotId=${spotId}, secteurId=${secteurId}, voieId=${voie.idVoie})}" method="post">
 
 							<div class="form-group">
 								<label class="control-label">Nom de la voie :</label> <input

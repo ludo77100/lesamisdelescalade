@@ -34,4 +34,18 @@ public class VoieService {
 		voieRepository.save(newVoie);
 	}
 
+	public void saveEditVoie(VoieForm voieForm, Long voieId) {
+		
+		Voie voieEdit = voieRepository.findById(voieId).get();
+		
+		voieEdit.setNomVoie(voieForm.getNomVoie());
+		voieEdit.setCotation(voieForm.getCotation());
+		voieEdit.setNombrePointVoie(voieForm.getNombrePointVoie());
+		voieEdit.setLongeurMin(voieForm.getLongueurMin());
+		voieEdit.setLongueurMax(voieForm.getLongueurMax());
+		voieEdit.setEquipee(voieForm.getEquipee());
+		
+		voieRepository.save(voieEdit);
+	}
+
 }

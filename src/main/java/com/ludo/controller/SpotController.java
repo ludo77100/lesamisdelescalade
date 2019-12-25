@@ -163,7 +163,9 @@ public class SpotController {
 	 * Il renvoie sur le secteur qui vient d'être édité
 	 */
 	@PostMapping("/saveEditSpot/{spotId}")
-	public String saveEditSpot(Model model,@ModelAttribute("spotForm") SpotForm spotForm, @PathVariable("spotId")Long spotId) {
+	public String saveEditSpot(Model model,
+			@ModelAttribute("spotForm") SpotForm spotForm, 
+			@PathVariable("spotId")Long spotId) {
 		
 		spotService.saveEditSpot(spotForm, spotId);
 		

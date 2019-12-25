@@ -1,6 +1,7 @@
 package com.ludo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -126,6 +127,15 @@ public class VoieController {
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId){
+		
+		Optional<Voie> v = voieRepository.findById(voieId);
+		Voie voie = null ;
+		
+		if(v.isPresent()) {
+			voie = v.get();
+			}
+		model.addAttribute("voie", voie);
+		
 		return "editVoie" ;
 	}
 	
@@ -136,9 +146,13 @@ public class VoieController {
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/saveEditVoie/{voieId}")
 	public String saveEditVoie(
 			Model model, 
+			@ModelAttribute("voieForm")VoieForm voieForm,
 			@PathVariable("spotId")Long spotId,
-			@PathVariable("secteuId")Long secteurId,
+			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId) {
+		
+		voieService.saveEditVoie(voieForm, voieId);
+		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId;
 	}
 }
