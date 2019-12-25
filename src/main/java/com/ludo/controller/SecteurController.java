@@ -1,6 +1,7 @@
 package com.ludo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -24,6 +25,7 @@ import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
 import com.ludo.forms.SecteurForm;
+import com.ludo.forms.SpotForm;
 import com.ludo.metier.SecteurService;
 
 @Controller
@@ -121,6 +123,15 @@ public class SecteurController {
 			Model model, 
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId")Long secteurId){
+		
+		Optional<Secteur> s = secteurRepository.findById(secteurId);
+		Secteur secteur = null ;
+		
+		if(s.isPresent()) {
+			secteur = s.get();
+			}
+		model.addAttribute("secteur", secteur);
+		
 		return "editSecteur" ;
 	}
 	
@@ -131,8 +142,12 @@ public class SecteurController {
 	@PostMapping("/spot/{spotId}/saveEditSecteur/{secteurId}")
 	public String saveEditSecteur(
 			Model model, 
+			@ModelAttribute("secteurForm") SecteurForm secteurForm, 
 			@PathVariable("spotId")Long spotId,
-			@PathVariable("secteuId")Long secteurId) {
+			@PathVariable("secteurId")Long secteurId) {
+		
+		secteurService.saveEditSecteur(secteurForm, secteurId);
+		
 		return "redirect:/spot/"+ spotId +"/secteur/" +secteurId;
 	}
 }

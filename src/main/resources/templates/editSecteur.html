@@ -21,7 +21,7 @@
 			<div class="card">
 				<div class="card-header">Ajouter un secteur</div>
 				<div class="card-body">
-					<form th:action="@{/spot/{spotId}/ajouterSecteur/save(spotId=${spotId})}" method="post">
+					<form th:action="@{/spot/{spotId}/saveEditSecteur/{secteurId}(spotId=${spotId}, secteurId=${secteur.idSecteur})}" method="post">
 
 						<div class="form-group">
 							<label class="control-label">Nom du secteur:</label> <input

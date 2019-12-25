@@ -33,4 +33,17 @@ public class SecteurService {
 	
 	}
 
+	public void saveEditSecteur(SecteurForm secteurForm, Long secteurId) {
+
+		Secteur secteurEdit = secteurRepository.findById(secteurId).get();
+		
+		secteurEdit.setNomSecteur(secteurForm.getNomSecteur());
+		secteurEdit.setLocalisation(secteurForm.getLocalisation());
+		secteurEdit.setAcces(secteurForm.getAcces());
+		secteurEdit.setTypeRoche(secteurForm.getTypeRoche());
+		secteurEdit.setNombreVoies(secteurForm.getNombreVoies());
+		
+		secteurRepository.save(secteurEdit);
+	}
+
 }
