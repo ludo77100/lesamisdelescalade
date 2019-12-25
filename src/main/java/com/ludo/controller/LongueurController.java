@@ -1,5 +1,7 @@
 package com.ludo.controller;
 
+import java.util.Optional;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import com.ludo.dao.LongueurRepository;
 import com.ludo.dao.SecteurRepository;
 import com.ludo.dao.SpotRepository;
 import com.ludo.dao.VoieRepository;
+import com.ludo.entities.Longueur;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
@@ -114,6 +117,15 @@ public class LongueurController {
 			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId,
 			@PathVariable("longueurId")Long longueurId){
+		
+		Optional<Longueur> l = longueurRepository.findById(longueurId);
+		Longueur longueur = null ;
+		
+		if(l.isPresent()) {
+			longueur = l.get();
+			}
+		model.addAttribute("longueur", longueur);
+		
 		return "editlongueur" ;
 	}
 	
@@ -121,13 +133,17 @@ public class LongueurController {
 	 * Controller pour l'action du bouton sauvegarder dans le formulaire d'étion d'une longueur
 	 * Il renvoie vers la liste des longueurs
 	 */
-	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/saveEditLongueur/{idLongueur}")
+	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/saveEditLongueur/{longueurId}")
 	public String saveEditLongueur(
 			Model model, 
+			@ModelAttribute("longueurForm")LongueurForms longueurForm,
 			@PathVariable("spotId")Long spotId,
-			@PathVariable("secteuId")Long secteurId,
+			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId,
 			@PathVariable("longueurId")Long longueurId) {
+		
+		longueurService.saveEditLongueur(longueurForm, longueurId);
+		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId ;
 	}
 }

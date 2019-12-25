@@ -31,5 +31,14 @@ public class LongueurService {
 		
 		longueurRepository.save(newLongueur);
 	}
+	public void saveEditLongueur(LongueurForms longueurForm, Long longueurId) {
+		
+		Longueur longueurEdit = longueurRepository.findById(longueurId).get();
+		
+		longueurEdit.setCotation(longueurForm.getCotation());
+		longueurEdit.setNombrePoints(longueurForm.getNombrePoints());
+		
+		longueurRepository.save(longueurEdit);
+	}
 
 }
