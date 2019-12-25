@@ -1,6 +1,7 @@
 package com.ludo.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -147,6 +148,13 @@ public class SpotController {
 	 */
 	@GetMapping("/editSpot/{spotId}")
 	public String editSpot(Model model, @PathVariable("spotId") Long spotId){
+		Optional<Spot> s = spotRepository.findById(spotId);
+		Spot spot = null ;
+		
+		if (s.isPresent()) {
+			spot = s.get();
+		}
+		model.addAttribute("spot", spot);
 		return "editSpot" ;
 	}
 	
@@ -155,7 +163,10 @@ public class SpotController {
 	 * Il renvoie sur le secteur qui vient d'être édité
 	 */
 	@PostMapping("/saveEditSpot/{spotId}")
-	public String saveEditSpot(Model model, @PathVariable("spotId")Long spotId) {
+	public String saveEditSpot(Model model,@ModelAttribute("spotForm") SpotForm spotForm, @PathVariable("spotId")Long spotId) {
+		
+		spotService.saveEditSpot(spotForm, spotId);
+		
 		return "redirect:/spot/"+ spotId ;
 	}
 }

@@ -21,7 +21,7 @@
 				<div class="card">
 					<div class="card-header">Ajouter un spot</div>
 					<div class="card-body">
-						<form th:action="@{save}" method="post">
+						<form th:action="@{/saveEditSpot/{spotId} (spotId=${spot.idSiteEscalade})}" method="post">
 
 							<div class="form-group">
 								<label class="control-label">Nom :</label> <input

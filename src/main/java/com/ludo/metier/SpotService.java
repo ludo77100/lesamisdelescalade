@@ -33,4 +33,14 @@ public class SpotService {
 		spotRepository.save(newSpot);
 	}
 
+	public void saveEditSpot(SpotForm spotForm, Long spotId) {
+		Spot spotEdit = spotRepository.findById(spotId).get();
+		
+		spotEdit.setNom(spotForm.getNom());
+		spotEdit.setLocalite(spotForm.getLocalite());
+		spotEdit.setCotationMin(spotForm.getCotationMin());
+				
+		spotRepository.save(spotEdit);
+	}
+
 }
