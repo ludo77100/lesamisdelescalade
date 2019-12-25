@@ -42,6 +42,8 @@ public class LongueurController {
 	@Autowired
 	private LongueurService longueurService;
 	
+	/////////////////////////AJOUT LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	
 	/*
 	 * Controller pour accéder au formulaire d'ajout de longueur lié à une voie
 	 */
@@ -77,35 +79,7 @@ public class LongueurController {
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
 	}
 	
-	/*
-	 * Cette méthode permet la suppression d'une longueur. Elle execute une
-	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
-	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
-	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
-	 */
-	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}")
-	public String deleteLongueur(
-			HttpServletRequest request, 
-			@PathVariable("longueurId") long longueurId,
-			@PathVariable("voieId") Long voieId,
-			@PathVariable("secteurId") Long secteurId,
-			@PathVariable("spotId") Long spotId, 
-			final RedirectAttributes redirect) {
-
-		if (request.getRemoteUser() == null) {
-			return "formConnexion";
-		} else {
-
-			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-
-			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				longueurRepository.deleteById(longueurId);
-				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
-			} else {
-				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
-			}
-		}
-	}
+	/////////////////////////EDITION LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\	
 	
 	/*
 	 * Controller pour accéder à l'edition d'une longueur
@@ -145,5 +119,37 @@ public class LongueurController {
 		longueurService.saveEditLongueur(longueurForm, longueurId);
 		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId ;
+	}
+	
+	/////////////////////////SUPPRESSION LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	
+	/*
+	 * Cette méthode permet la suppression d'une longueur. Elle execute une
+	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
+	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
+	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
+	 */
+	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}")
+	public String deleteLongueur(
+			HttpServletRequest request, 
+			@PathVariable("longueurId") long longueurId,
+			@PathVariable("voieId") Long voieId,
+			@PathVariable("secteurId") Long secteurId,
+			@PathVariable("spotId") Long spotId, 
+			final RedirectAttributes redirect) {
+
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
+
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				longueurRepository.deleteById(longueurId);
+				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
+			} else {
+				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
+			}
+		}
 	}
 }

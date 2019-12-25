@@ -18,6 +18,9 @@ public class VoieService {
 	@Autowired
 	private VoieRepository voieRepository ;
 	
+	/*
+	 * Méthode pour l'ajout d'une nouvelle voie
+	 */
 	public void saveVoie(Long secteurId, VoieForm voieForm, BindingResult result) {
 		
 		Voie newVoie = new Voie();
@@ -34,6 +37,9 @@ public class VoieService {
 		voieRepository.save(newVoie);
 	}
 
+	/*
+	 * Méthode pour l'édition d'une voie
+	 */
 	public void saveEditVoie(VoieForm voieForm, Long voieId) {
 		
 		Voie voieEdit = voieRepository.findById(voieId).get();

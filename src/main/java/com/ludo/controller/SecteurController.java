@@ -40,9 +40,11 @@ public class SecteurController {
 	@Autowired
 	private SecteurService secteurService ;
 	
+	/////////////////////////DISPLAY SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	
 	/*
 	 * Controller qui permet d'afficher les détails du spot et du secteur
-	 * Affiche une liste de voie lié au secteur choisi
+	 * Affiche une liste de voie liés au secteur choisi
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}")
 	public String afficherSecteur(
@@ -60,6 +62,8 @@ public class SecteurController {
 		model.addAttribute("listeVoie", listeVoie);
 		return "secteur";
 	}
+	
+	/////////////////////////AJOUT SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	/*
 	 * Controller pour accéder au formulaire d'ajout de secteur lié à un spot 
@@ -89,31 +93,7 @@ public class SecteurController {
 		return "redirect:/spot/" + spotId ;
 	}
 	
-	/*
-	 * Cette méthode permet la suppression d'un secteur. Elle execute une
-	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
-	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
-	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
-	 */
-	@GetMapping("/spot/{spotId}/deleteSecteur/{secteurId}")
-	public String deleteSecteur(
-			@PathVariable("secteurId") Long secteurId, 
-			@PathVariable("spotId") Long spotId,
-			final RedirectAttributes redirect,
-			HttpServletRequest request) {
-		
-		if (request.getRemoteUser() == null) {
-			return "formConnexion" ;
-		} else {
-			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				secteurRepository.deleteById(secteurId);
-				return "/spot";
-			} else {
-				return "/spot";
-			}
-		}
-	}
+	/////////////////////////EDITION SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	/*
 	 * Controller pour accéder à l'edition d'un secteur
@@ -149,5 +129,33 @@ public class SecteurController {
 		secteurService.saveEditSecteur(secteurForm, secteurId);
 		
 		return "redirect:/spot/"+ spotId +"/secteur/" +secteurId;
+	}
+	
+	/////////////////////////SUPPRESSION SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	
+	/*
+	 * Cette méthode permet la suppression d'un secteur. Elle execute une
+	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
+	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
+	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
+	 */
+	@GetMapping("/spot/{spotId}/deleteSecteur/{secteurId}")
+	public String deleteSecteur(
+			@PathVariable("secteurId") Long secteurId, 
+			@PathVariable("spotId") Long spotId,
+			final RedirectAttributes redirect,
+			HttpServletRequest request) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion" ;
+		} else {
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				secteurRepository.deleteById(secteurId);
+				return "/spot";
+			} else {
+				return "/spot";
+			}
+		}
 	}
 }

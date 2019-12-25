@@ -18,6 +18,9 @@ public class SpotService {
 	@Autowired
 	private UtilisateurRepository utilisateurRepository ;
 
+	/*
+	 * Méthode pour l'ajout d'un nouveau spot
+	 */
 	public void saveSpot(SpotForm spotForm) {
 		
 		Spot newSpot = new Spot();
@@ -33,6 +36,9 @@ public class SpotService {
 		spotRepository.save(newSpot);
 	}
 
+	/*
+	 * Méthode pour l'édition d'un spot
+	 */
 	public void saveEditSpot(SpotForm spotForm, Long spotId) {
 		Spot spotEdit = spotRepository.findById(spotId).get();
 		

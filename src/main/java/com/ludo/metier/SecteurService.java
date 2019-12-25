@@ -17,9 +17,13 @@ public class SecteurService {
 	@Autowired
 	private SecteurRepository secteurRepository ;
 	
+	/*
+	 * Méthode pour l'ajout d'un nouveau secteur
+	 */
 	public void saveSecteur(Long idSite, SecteurForm secteurForm, BindingResult result) {
 		
 		Secteur newSecteur = new Secteur();
+		
 		newSecteur.setNomSecteur(secteurForm.getNomSecteur());
 		newSecteur.setLocalisation(secteurForm.getLocalisation());
 		newSecteur.setAcces(secteurForm.getAcces());
@@ -33,6 +37,9 @@ public class SecteurService {
 	
 	}
 
+	/*
+	 * Méthode pour l'édition d'un secteur
+	 */
 	public void saveEditSecteur(SecteurForm secteurForm, Long secteurId) {
 
 		Secteur secteurEdit = secteurRepository.findById(secteurId).get();

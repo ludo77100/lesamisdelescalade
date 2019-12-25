@@ -42,10 +42,18 @@ public class VoieController {
 	private VoieService voieService;
 	@Autowired
 	private LongueurRepository longueurRepository;
-
+	
+	/////////////////////////DISPLAY VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	
+	/*
+	 * Controller pour afficher les information détaillées de la voie slectioné sur la vue précédente
+	 * Affiche également la liste des longueurs associés à cette voie
+	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}")
-	public String afficherVoie(Model model, @PathVariable("spotId") Long spotId,
-			@PathVariable("secteurId") Long secteurId, @PathVariable("voieId") Long voieId) {
+	public String afficherVoie(Model model, 
+			@PathVariable("spotId") Long spotId,
+			@PathVariable("secteurId") Long secteurId, 
+			@PathVariable("voieId") Long voieId) {
 
 		Spot spot = spotRepository.findById(spotId).get();
 		Secteur secteur = secteurRepository.findById(secteurId).get();
@@ -60,6 +68,8 @@ public class VoieController {
 		return "voie";
 	}
 
+	/////////////////////////AJOUT VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	
 	/*
 	 * Controller pour accéder au formulaire d'ajout de voie lié à un secteur
 	 */
@@ -91,32 +101,8 @@ public class VoieController {
 
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
 	}
-
-	/*
-	 * Cette méthode permet la suppression d'une voie. Elle execute une
-	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une voie
-	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
-	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
-	 */
-	@GetMapping("/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}")
-	public String deleteVoie(
-			@PathVariable("voieId") Long voieId, 
-			@PathVariable("secteurId") Long secteurId,
-			@PathVariable("spotId") Long spotId, 
-			final RedirectAttributes redirect,
-			HttpServletRequest request) {
-		
-		if (request.getRemoteUser() == null) {
-			return "formConnexion";
-		} else {
-			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				voieRepository.deleteById(voieId);
-				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
-			} else
-				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
-		}
-	}
+	
+	/////////////////////////EDITION VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	/*
 	 * Controller pour accéder à l'edition d'une voie
@@ -154,5 +140,33 @@ public class VoieController {
 		voieService.saveEditVoie(voieForm, voieId);
 		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId;
+	}
+	
+	/////////////////////////SUPPRESSION VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	
+	/*
+	 * Cette méthode permet la suppression d'une voie. Elle execute une
+	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une voie
+	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
+	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
+	 */
+	@GetMapping("/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}")
+	public String deleteVoie(
+			@PathVariable("voieId") Long voieId, 
+			@PathVariable("secteurId") Long secteurId,
+			@PathVariable("spotId") Long spotId, 
+			final RedirectAttributes redirect,
+			HttpServletRequest request) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				voieRepository.deleteById(voieId);
+				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
+			} else
+				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
+		}
 	}
 }

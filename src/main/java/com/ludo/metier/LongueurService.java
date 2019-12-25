@@ -18,6 +18,10 @@ public class LongueurService {
 	VoieRepository voieRepository ;
 	@Autowired
 	LongueurRepository longueurRepository;
+	
+	/*
+	 * Méthode pour l'ajout d'une nouvelle longueur
+	 */
 	public void saveLongueur(Long voieId, LongueurForms longueurForms, BindingResult result) {
 		
 		Longueur newLongueur = new Longueur();
@@ -31,6 +35,10 @@ public class LongueurService {
 		
 		longueurRepository.save(newLongueur);
 	}
+	
+	/*
+	 * Méthode pour l'édition d'une longueur
+	 */
 	public void saveEditLongueur(LongueurForms longueurForm, Long longueurId) {
 		
 		Longueur longueurEdit = longueurRepository.findById(longueurId).get();
