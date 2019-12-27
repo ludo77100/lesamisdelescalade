@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ludo.dao.CommentaireRepository;
 import com.ludo.dao.SecteurRepository;
 import com.ludo.dao.SpotRepository;
+import com.ludo.entities.Commentaire;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
@@ -35,6 +37,8 @@ public class SpotController {
 	private SecteurRepository secteurRepository ;
 	@Autowired
 	private SpotService spotService ;
+	@Autowired
+	private CommentaireRepository commentaireRepository ;
 
 	/*
 	 * Controller pour la page d'accueil du site
@@ -85,6 +89,9 @@ public class SpotController {
 		
 		List <Secteur> listeSecteur = secteurRepository.findBySpot(spotId);
 		model.addAttribute("listeSecteur", listeSecteur);
+		
+		List<Commentaire> listeCommentaire = commentaireRepository.findCommentaireBySpot(spotId);
+		model.addAttribute("listeCommentaire", listeCommentaire);
 		
 		return "spot";
 	}

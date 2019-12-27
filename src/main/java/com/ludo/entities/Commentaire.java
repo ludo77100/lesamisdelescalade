@@ -1,7 +1,7 @@
 package com.ludo.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,8 +22,6 @@ public class Commentaire implements Serializable {
 	private Long idCommentaire ;
 	@Column(name = "date_heure_commentaire", nullable = false, unique = false)
 	private Date dateHeureCommentaire ; 
-	@Column(name = "commentaite_cat", nullable = false, unique = false)
-	private String commentaireCat ; /*news ou spot ou ...*/
 	@Column(name = "commentaire", nullable = false, unique = false)
 	private String commentaire ;
 	
@@ -46,12 +44,11 @@ public class Commentaire implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Commentaire(Long idCommentaire, Date dateHeureCommentaire, String commentaireCat, String commentaire,
+	public Commentaire(Long idCommentaire, Date dateHeureCommentaire, String commentaire,
 			Spot spot, Utilisateur utilisateur) {
 		super();
 		this.idCommentaire = idCommentaire;
 		this.dateHeureCommentaire = dateHeureCommentaire;
-		this.commentaireCat = commentaireCat;
 		this.commentaire = commentaire;
 		this.spot = spot;
 		this.utilisateur = utilisateur;
@@ -71,14 +68,6 @@ public class Commentaire implements Serializable {
 
 	public void setDateHeureCommentaire(Date dateHeureCommentaire) {
 		this.dateHeureCommentaire = dateHeureCommentaire;
-	}
-
-	public String getCommentaireCat() {
-		return commentaireCat;
-	}
-
-	public void setCommentaireCat(String commentaireCat) {
-		this.commentaireCat = commentaireCat;
 	}
 
 	public String getCommentaire() {
@@ -103,8 +92,5 @@ public class Commentaire implements Serializable {
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
-	}
-
-	
-	
+	}	
 }

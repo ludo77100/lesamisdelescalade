@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+<title>Ajouter un nouveau commentaire</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+
+	<!-- Cette page permet d'afficher un formulaire afin de renter un nouveau comentaire en base de données -->
+
+	<div layout:fragment="content">
+	<div class="row">
+	<div class="col-lg-3"></div>
+		<div class="col-lg-6 spacer">
+			<div class="card">
+				<div class="card-header">Ajouter un commentaire</div>
+				<div class="card-body">
+					<form th:action="@{/saveCommentaire/{spotId}(spotId=${spotId})}" method="post">
+
+						<div class="form-group">
+							<label class="control-label">Votre commentaire:</label> <input
+								class="form-control" type="text" name="commentaire" required="required">
+						</div>
+
+						<div>
+							<button type="submit" class="btn btn-primary">Envoyer</button>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+			<div class="col-lg-3"></div></div>
+	</div>
+</body>
+</html>
