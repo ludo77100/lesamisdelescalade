@@ -41,7 +41,7 @@ public class Spot implements Serializable{
 	/*
 	 * Relation avec la table commentaire
 	 */
-	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Commentaire> commentaire;
 	
 	/*
