@@ -14,7 +14,8 @@ import javax.persistence.ManyToOne;
 import lombok.Data;
 import net.bytebuddy.dynamic.loading.ClassReloadingStrategy.Strategy;
 
-@Entity@Data
+@Entity
+@Data
 public class Commentaire implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
