@@ -78,6 +78,7 @@ public class SpotController {
 	/*
 	 * Controller qui permet d'afficher les détails d'un spot
 	 * affiche une liste des secteurs lié au spot choisi
+	 * Les commentaire lié au spot sont chargé dans ce controller
 	 */
 	@GetMapping("/spot/{spotId}")
 	public String afficherSpot(
@@ -160,7 +161,7 @@ public class SpotController {
 	 * Cette méthode permet la suppression d'une longueur. Elle execute une
 	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
 	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
-	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
+	 * contre un anonyme qui taperait le PATH à la main dans son navigateur
 	 */
 	@GetMapping("/deleteSpot/{spotId}")
 	public String deleteSpot(
