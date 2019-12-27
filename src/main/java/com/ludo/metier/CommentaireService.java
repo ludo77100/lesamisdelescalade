@@ -36,5 +36,15 @@ public class CommentaireService {
 		
 		commentaireRepository.save(newCommentaire);
 	}
+	
+	public void saveEditCommentaire(CommentaireForm commentaireForm, Long comId) {
+		
+		Commentaire comEdit = commentaireRepository.findById(comId).get();
+		
+		comEdit.setCommentaire(commentaireForm.getCommentaire());
+		
+		commentaireRepository.save(comEdit);
+		
+	}
 
 }
