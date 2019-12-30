@@ -194,11 +194,21 @@ public class SpotController {
 	@GetMapping("/listeSpot/rendreOfficiel/{spotId}")
 	public String rendreOfficiel(
 			@PathVariable("spotId")Long spotId,
-			final RedirectAttributes redirect) {
-		Spot spot = spotRepository.findById(spotId).get();
+			final RedirectAttributes redirect,
+			HttpServletRequest request) {
 		
-		spotService.rendreOfficiel(spotId);
-		
-		return "redirect:/listeSpot" ;
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
+
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+				spotService.rendreOfficiel(spotId);
+				return "redirect:/listeSpot";
+			} else {
+				return "redirect:/listeSpot";
+	}
+}
 	}
 }
