@@ -8,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Commentaire;
-import com.ludo.entities.Secteur;
 
 @Repository
 public interface CommentaireRepository extends JpaRepository<Commentaire, Long>{

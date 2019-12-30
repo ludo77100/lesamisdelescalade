@@ -27,15 +27,13 @@
 			<!-- Début du tableau de la liste des spots d'escalade, le retour de résultats de la rechereche s'affiche ici -->
 
 			<div class="col-lg-12 spacer">
-				<table class="table">
+				<table class="table table-striped">
 					<thead>
 						<tr>
+							<th><!-- Tag Officiel les Amis de l'Escalade --></th>
 							<th>Nom</th>
 							<th>Localité</th>
 							<th>Cotation minimal</th>
-							<!-- 
-							Cette partie du tableau ne s'affiche que pour les administrateurs
-							 -->
 							<th>Editer</th>
 							<th>Supprimer</th>
 
@@ -43,13 +41,11 @@
 					</thead>
 					<tbody>
 						<tr th:each="s:${listeSpot}">
+						<td text="">tag officiel</td>
 							<td><a th:text="${s.nom}"
 								th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a></td>
 							<td th:text="${s.localite}"></td>
 							<td th:text="${s.cotationMin}"></td>
-							<!-- 
-							Cette partie du tableau ne s'affiche que pour les administrateurs
-							 -->
 							<td th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}">
 							<a th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Editer</a></td>
 							<td th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}"><a onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"

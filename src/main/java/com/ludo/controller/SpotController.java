@@ -57,7 +57,7 @@ public class SpotController {
 	public String listeSpot(
 			Model model, 
 			@RequestParam(name="page", defaultValue = "0")int p, 
-			@RequestParam(name="size", defaultValue = "4")int s,
+			@RequestParam(name="size", defaultValue = "15")int s,
 			@RequestParam(name="mc", defaultValue = "")String mc) {
 		
 		UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
