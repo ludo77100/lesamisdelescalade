@@ -49,5 +49,17 @@ public class SpotService {
 				
 		spotRepository.save(spotEdit);
 	}
+	
+	/*
+	 * Rend officiel les amis de l'escalade un spot
+	 */
+	public void rendreOfficiel(Long spotId) {
+		Spot spotRendreOfficiel = spotRepository.findById(spotId).get();
+		
+		spotRendreOfficiel.setOfficiel(true);
+		
+		spotRepository.save(spotRendreOfficiel);
+		
+	}
 
 }

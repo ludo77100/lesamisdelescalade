@@ -124,7 +124,7 @@ public class SpotController {
 		return "redirect:/listeSpot" ;
 	}
 	
-	/////////////////////////EDITION SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	/////////////////////////EDITION SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	/*
 	 * Controller pour accéder à l'édition d'un spot
@@ -155,7 +155,7 @@ public class SpotController {
 		return "redirect:/spot/"+ spotId ;
 	}
 	
-	/////////////////////////SUPPRESSION SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	/////////////////////////SUPPRESSION SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	/*
 	 * Cette méthode permet la suppression d'une longueur. Elle execute une
@@ -184,5 +184,21 @@ public class SpotController {
 				return "redirect:/listeSpot";
 			}
 		}
+	}
+	
+	/////////////////////////OFFICIEL LES AMIS DE L'ESCALADE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	
+	/*
+	 * Cette méthode permet de passer un spot en officiel les amis de l'escalade
+	 */
+	@GetMapping("/listeSpot/rendreOfficiel/{spotId}")
+	public String rendreOfficiel(
+			@PathVariable("spotId")Long spotId,
+			final RedirectAttributes redirect) {
+		Spot spot = spotRepository.findById(spotId).get();
+		
+		spotService.rendreOfficiel(spotId);
+		
+		return "redirect:/listeSpot" ;
 	}
 }
