@@ -41,7 +41,10 @@
 					</thead>
 					<tbody>
 						<tr th:each="s:${listeSpot}">
-						<td text="">tag officiel</td>
+							<td>
+								<span th:if="${s.officiel == TRUE}">Officiel</span>
+   								<span th:unless="${s.officiel == TRUE}">Non Officiel</span>
+							</td>
 							<td><a th:text="${s.nom}"
 								th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a></td>
 							<td th:text="${s.localite}"></td>
