@@ -32,6 +32,9 @@ public class Spot implements Serializable{
 	@Column(name = "localite", nullable = false, unique = false)
 	private String localite ;
 	
+	@Column(name = "officiel", nullable = false, unique = false)
+	private boolean officiel ;
+	
 	/*
 	 * Relation avec la table Secteur
 	 */
@@ -62,15 +65,18 @@ public class Spot implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Spot(Long idSiteEscalade, @NotNull String nom, @NotNull String cotationMin, @NotNull String localite,
-			Collection<Secteur> secteur, Collection<Commentaire> commentaire, Utilisateur utilisateur) {
+	public Spot(Long idSiteEscalade, String nom, String cotationMin, String localite, boolean officiel,
+			Collection<Secteur> secteur, Collection<Commentaire> commentaire, Collection<Topo> topo,
+			Utilisateur utilisateur) {
 		super();
 		this.idSiteEscalade = idSiteEscalade;
 		this.nom = nom;
 		this.cotationMin = cotationMin;
 		this.localite = localite;
+		this.officiel = officiel;
 		this.secteur = secteur;
 		this.commentaire = commentaire;
+		this.topo = topo;
 		this.utilisateur = utilisateur;
 	}
 
@@ -106,6 +112,14 @@ public class Spot implements Serializable{
 		this.localite = localite;
 	}
 
+	public boolean isOfficiel() {
+		return officiel;
+	}
+
+	public void setOfficiel(boolean officiel) {
+		this.officiel = officiel;
+	}
+
 	public Collection<Secteur> getSecteur() {
 		return secteur;
 	}
@@ -122,6 +136,14 @@ public class Spot implements Serializable{
 		this.commentaire = commentaire;
 	}
 
+	public Collection<Topo> getTopo() {
+		return topo;
+	}
+
+	public void setTopo(Collection<Topo> topo) {
+		this.topo = topo;
+	}
+
 	public Utilisateur getUtilisateur() {
 		return utilisateur;
 	}
@@ -130,6 +152,5 @@ public class Spot implements Serializable{
 		this.utilisateur = utilisateur;
 	}
 
-	
-	
+
 }
