@@ -55,11 +55,13 @@ public class SpotService {
 	 */
 	public void rendreOfficiel(Long spotId) {
 		Spot spotRendreOfficiel = spotRepository.findById(spotId).get();
-		
-		spotRendreOfficiel.setOfficiel(true);
-		
+
+		if (!spotRendreOfficiel.isOfficiel()) {
+			spotRendreOfficiel.setOfficiel(true);
+		} else {
+			spotRendreOfficiel.setOfficiel(false);
+		}
 		spotRepository.save(spotRendreOfficiel);
-		
 	}
 
 }
