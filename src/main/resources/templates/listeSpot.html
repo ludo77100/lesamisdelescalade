@@ -34,8 +34,7 @@
 							<th>Nom</th>
 							<th>Localité</th>
 							<th>Cotation minimal</th>
-							<th>Editer</th>
-							<th>Supprimer</th>
+							<th><!-- Actions --></th>
 
 						</tr>
 					</thead>
@@ -48,11 +47,18 @@
 							<td><a th:text="${s.nom}"
 								th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a></td>
 							<td th:text="${s.localite}"></td>
-							<td th:text="${s.cotationMin}"></td>
-							<td th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}">
-							<a th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Editer</a></td>
-							<td th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}"><a onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
-							th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}">Supprimer</a></td>
+							<td th:text="${s.cotationMin}"></td>				
+							<td>
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle mx-1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
+									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}" class="nav-item"><a class="nav-link" th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Edition</a></li>
+										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
+											th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}" title="Lien 3">Suppression</a></li>
+										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" onclick="return confirm('Merci de confirmer cette action')" th:href="@{/listeSpot/rendreOfficiel/{spotId}(spotId=${s.idSiteEscalade})}">Rendre/Enlever officiel</a></li>
+									</ul>
+							</div>
+							</td>
 						</tr>
 					</tbody>
 				</table>
