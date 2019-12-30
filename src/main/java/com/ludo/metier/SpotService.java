@@ -51,7 +51,7 @@ public class SpotService {
 	}
 	
 	/*
-	 * Rend officiel les amis de l'escalade un spot
+	 *Change le statut d'un spot officiel les amis de l'escalade 
 	 */
 	public void rendreOfficiel(Long spotId) {
 		Spot spotRendreOfficiel = spotRepository.findById(spotId).get();
