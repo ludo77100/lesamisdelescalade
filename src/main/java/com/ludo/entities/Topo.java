@@ -25,6 +25,8 @@ public class Topo implements Serializable {
 	private Date dateParution ;
 	@Column(name = "description", nullable = false, unique = false)
 	private String description ;
+	@Column(name = "lieu", nullable = false, unique = false)
+	private String lieu ;
 	@Column(name = "reserve_par", nullable = true, unique = false)
 	private String reservePar ;
 	
