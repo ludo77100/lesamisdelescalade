@@ -32,7 +32,33 @@
 					
 					<div class="card">
 						<div class="card-header">Ajouter un Topo</div>
-						<div class="card-body"></div>
+						<div class="card-body">
+						<form th:action="@{saveTopo}" method="post">
+
+							<div class="form-group">
+								<label class="control-label">Nom :</label> <input
+									class="form-control" type="text" name="nom" required="required">
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Date de parution :</label> <input
+									class="form-control" type="date" name="dateParution" required="required">
+							</div>
+
+							<div class="form-group">
+								<label class="control-label">Description :</label> <input
+									class="form-control" type="text" name="description" required="required">
+							</div>
+							
+							<div class="form-group">
+								<label class="control-label">Lieu :</label> <input
+									class="form-control" type="text" name="lieu" required="required">
+							</div>
+							<div>
+								<button type="submit" class="btn btn-primary">Sauvegarder</button>
+							</div>
+						</form>
+						</div>
 					</div>
 					
 					<div class="card spacer">

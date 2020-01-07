@@ -1,7 +1,7 @@
 package com.ludo.entities;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,13 +22,11 @@ public class Topo implements Serializable {
 	@Column(name = "reserve", nullable = false, unique = false)
 	private boolean reserve ;
 	@Column(name = "date_parution", nullable = false, unique = false)
-	private Date dateParution ;
+	private String dateParution ;
 	@Column(name = "description", nullable = false, unique = false)
 	private String description ;
 	@Column(name = "lieu", nullable = false, unique = false)
 	private String lieu ;
-	@Column(name = "reserve_par", nullable = true, unique = false)
-	private String reservePar ;
 	
 	/*
 	 * Relation avec la table Utilisateur
@@ -49,15 +47,15 @@ public class Topo implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Topo(Long idTopo, String nom, boolean reserve, Date dateParution, String description, String reservePar,
-			Utilisateur utilisateur, Spot spot) {
+	public Topo(Long idTopo, String nom, boolean reserve, String dateParution, String description, String lieu,
+			 Utilisateur utilisateur, Spot spot) {
 		super();
 		this.idTopo = idTopo;
 		this.nom = nom;
 		this.reserve = reserve;
 		this.dateParution = dateParution;
 		this.description = description;
-		this.reservePar = reservePar;
+		this.lieu = lieu;
 		this.utilisateur = utilisateur;
 		this.spot = spot;
 	}
@@ -86,11 +84,11 @@ public class Topo implements Serializable {
 		this.reserve = reserve;
 	}
 
-	public Date getDateParution() {
+	public String getDateParution() {
 		return dateParution;
 	}
 
-	public void setDateParution(Date dateParution) {
+	public void setDateParution(String dateParution) {
 		this.dateParution = dateParution;
 	}
 
@@ -102,12 +100,12 @@ public class Topo implements Serializable {
 		this.description = description;
 	}
 
-	public String getReservePar() {
-		return reservePar;
+	public String getLieu() {
+		return lieu;
 	}
 
-	public void setReservePar(String reservePar) {
-		this.reservePar = reservePar;
+	public void setLieu(String lieu) {
+		this.lieu = lieu;
 	}
 
 	public Utilisateur getUtilisateur() {
@@ -125,6 +123,7 @@ public class Topo implements Serializable {
 	public void setSpot(Spot spot) {
 		this.spot = spot;
 	}
-	
+
+
 	
 }
