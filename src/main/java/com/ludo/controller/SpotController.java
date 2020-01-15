@@ -58,10 +58,8 @@ public class SpotController {
 			Model model, 
 			@RequestParam(name="page", defaultValue = "0")int p, 
 			@RequestParam(name="size", defaultValue = "15")int s,
-			@RequestParam(name="mc", defaultValue = "")String mc) {
-		
-		UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		String pseudoUtilCo = utilDet.getUsername() ;
+			@RequestParam(name="mc", defaultValue = "")String mc,
+			HttpServletRequest request) {
 		
 		Page<Spot> pageListeSpot = 
 				spotRepository.chercher("%"+mc+"%", PageRequest.of(p, s));
@@ -69,10 +67,15 @@ public class SpotController {
 		int[] pages = new int[pageListeSpot.getTotalPages()];
 		model.addAttribute("pages", pages);
 		model.addAttribute("pageCourante", p);
-		model.addAttribute("pseudoUtilCo", pseudoUtilCo);
-	
-		return "listeSpot";
 		
+		if (request.getRemoteUser() != null) {
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			String pseudoUtilCo = utilDet.getUsername() ;
+			model.addAttribute("pseudoUtilCo", pseudoUtilCo);
+			return "listeSpot";
+		} else {
+		return "listeSpot";
+		}
 	}
 	
 	/*

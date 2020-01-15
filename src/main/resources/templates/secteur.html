@@ -28,6 +28,7 @@
 									th:text="${spotInfo.localite}"></label></li>
 								<li class="list-group-item"><label>Cotation
 										minimum: </label><label th:text="${spotInfo.cotationMin}"></label></li>
+								<li class="list-group-item"><a class="btn btn-primary" th:href="@{/listeTopo}">Accéder à la liste des Topo</a></li>
 							</ul>
 						</div>
 					</div>
@@ -94,6 +95,10 @@
 									</tr>
 								</tbody>
 							</table>
+														
+							<!-- On affiche un message si la liste est vide -->
+							<p class="text-center red" th:if="${listeVoie.empty}">Il n'y rien à afficher !</p>
+							
 						</div>
 
 					</div>

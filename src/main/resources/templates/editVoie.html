@@ -4,7 +4,7 @@
 	layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8" />
-<title>Ajouter un nouveau spot</title>
+<title>Modifier une voie</title>
 
 <link rel="stylesheet" type="text/css"
 	href="../static/css/bootstrap.min.css"
@@ -19,35 +19,35 @@
 			<div class="col-lg-3"></div>
 			<div class="col-lg-6 spacer">
 				<div class="card">
-					<div class="card-header">Ajouter une voie</div>
+					<div class="card-header">Modifier une voie</div>
 					<div class="card-body">
 						<form th:action="@{/spot/{spotId}/secteur/{secteurId}/saveEditVoie/{voieId}(spotId=${spotId}, secteurId=${secteurId}, voieId=${voie.idVoie})}" method="post">
 
 							<div class="form-group">
 								<label class="control-label">Nom de la voie :</label> <input
-									class="form-control" type="text" name="nomVoie" required="required">
+									class="form-control" type="text" name="nomVoie" required="required" th:value="${voie.nomVoie}">
 							</div>
 
 							<div class="form-group">
 								<label class="control-label">Cotation :</label> <input
-									class="form-control" type="text" name="cotation" required="required">
+									class="form-control" type="text" name="cotation" required="required" th:value="${voie.cotation}">
 							</div>
 
 							<div class="form-group">
 								<label class="control-label">Nombre de points :</label> <input
-									class="form-control" type="text" name="nombrePointVoie" required="required">
+									class="form-control" type="text" name="nombrePointVoie" required="required" th:value="${voie.nombrePointVoie}">
 							</div>
 							<div class="form-group">
 								<label class="control-label">Longueur minimum :</label> <input
-									class="form-control" type="text" name="longueurMin" required="required">
+									class="form-control" type="text" name="longueurMin" required="required" th:value="${voie.longeurMin}">
 							</div>
 							<div class="form-group">
 								<label class="control-label">Longueur maximum :</label> <input
-									class="form-control" type="text" name="longueurMax" required="required">
+									class="form-control" type="text" name="longueurMax" required="required" th:value="${voie.longueurMax}">
 							</div>
 							<div class="form-group">
 								<label class="control-label">Equipée :</label> 
-								<select name="equipee" class="form-control">
+								<select name="equipee" class="form-control" th:value="${voie.equipee}">
 								<option value="">Merci de choisir</option>
 								<option value="oui">Oui</option>
 								<option value="non">Non</option>

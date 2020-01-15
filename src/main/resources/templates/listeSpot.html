@@ -52,9 +52,9 @@
 							<div class="dropdown">
 								<button class="btn btn-primary dropdown-toggle mx-1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}" class="nav-item"><a class="nav-link" th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Edition</a></li>
-										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.idUtilisateur == #authentication.getPrincipal().getIdUtilisateur())}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
-											th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}" title="Lien 3">Suppression</a></li>
+										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.pseudo == pseudoUtilCo)}" class="nav-item"><a class="nav-link" th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Edition</a></li>
+										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.pseudo == pseudoUtilCo)}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
+											th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}">Suppression</a></li>
 										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" onclick="return confirm('Merci de confirmer cette action')" th:href="@{/listeSpot/rendreOfficiel/{spotId}(spotId=${s.idSiteEscalade})}">Rendre/Enlever officiel</a></li>
 									</ul>
 							</div>
@@ -62,6 +62,10 @@
 						</tr>
 					</tbody>
 				</table>
+											
+							<!-- On affiche un message si la liste est vide -->
+							<p class="text-center red" th:if="${listeSpot.empty}">Il n'y rien à afficher !</p>
+											
 			</div>
 		</div>
 

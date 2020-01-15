@@ -1,0 +1,78 @@
+ <!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{layout}">
+<head>
+<meta charset="UTF-8" />
+<title>Liste des topos</title>
+
+<link rel="stylesheet" type="text/css"
+	href="../static/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+
+	<!-- Cette page permet d'afficher la liste des spots, c'est également ici que l'ont peut faire une recherche et que sont affichés les résultats d'une recherche -->
+
+	<div layout:fragment="content">
+		<div class="container-fluid">
+
+			<!-- <!-- Barre de recherche de spot, recherche dans le nom du spot -->
+
+			<form th:action="@{/listeTopo}" method="get">
+				<input type="search" name="mc" th:value="${mc}"></input>
+				<button class="btn btn-primary">Chercher</button>
+			</form>
+
+			<!-- Début du tableau de la liste des spots d'escalade, le retour de résultats de la rechereche s'affiche ici -->
+
+			<div class="col-lg-12 spacer">
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>Spot</th>
+							<th>Nom du Topo</th>
+							<th>Date de parution</th>
+							<th>Description</th>
+							<th>Lieu</th>
+							<th>Réservation</th>				
+
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="t:${listeTopo}">
+							<td th:text="${t.spotNom}"></td>
+							<td th:text="${t.nom}"></td>
+							<td th:text="${t.dateParution}"></td>
+							<td th:text="${t.description}"></td>				
+							<td th:text="${t.lieu}"></td>
+							<td><a th:href="@{/listeTopo/reserverTopo/{topoId}(topoId=${t.idTopo})}">Réserver</a></td>
+						</tr>
+					</tbody>
+				</table>
+														
+							<!-- On affiche un message si la liste est vide -->
+							<p class="text-center red" th:if="${listeTopo.empty}">Il n'y rien à afficher !</p>
+											
+			</div>
+		</div>
+
+		<!-- Fin du tableau de la liste de spot, début de la barre de pagination -->
+
+		<div class="navbar navbar-expand-lg navbar-light bg-light">
+			<ul class="navbar-nav">
+				<li th:class="${pageCourante} == ${status.index}?'active':''"
+					class="nav-item" th:each="page, status:${pages}"><a
+					class="nav-link"
+					th:href="@{listeTopo(page=${status.index}, pc=${p})}"
+					th:text="${status.index + 1}"></a></li>
+			</ul>
+		</div>
+	
+		</div>
+
+		<!-- Fin de la barre de pagination -->
+
+
+</body>
+</html>

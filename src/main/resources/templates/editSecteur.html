@@ -25,27 +25,27 @@
 
 						<div class="form-group">
 							<label class="control-label">Nom du secteur:</label> <input
-								class="form-control" type="text" name="nomSecteur" required="required">
+								class="form-control" type="text" name="nomSecteur" required="required" th:value="${secteur.nomSecteur}">
 						</div>
 
 						<div class="form-group">
 							<label class="control-label">Accès :</label> <input
-								class="form-control" type="text" name="acces" required="required">
+								class="form-control" type="text" name="acces" required="required" th:value="${secteur.acces}">
 						</div>
 
 						<div class="form-group">
 							<label class="control-label">Type de roche :</label> <input
-								class="form-control" type="text" name="typeRoche" required="required">
+								class="form-control" type="text" name="typeRoche" required="required" th:value="${secteur.typeRoche}">
 						</div>
 
 						<div class="form-group">
 							<label class="control-label">Localisation:</label> <input
-								class="form-control" type="text" name="localisation" required="required">
+								class="form-control" type="text" name="localisation" required="required" th:value="${secteur.localisation}">
 						</div>
 
 						<div class="form-group">
 							<label class="control-label">Nombre de voies :</label> <input
-								class="form-control" type="text" name="nombreVoies" required="required">
+								class="form-control" type="text" name="nombreVoies" required="required" th:value="${secteur.nombreVoies}">
 						</div>
 						<div>
 							<button type="submit" class="btn btn-primary">Sauvegarder</button>

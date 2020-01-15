@@ -19,15 +19,18 @@ public class Topo implements Serializable {
 	private Long idTopo;
 	@Column(name = "nom", nullable = false, unique = false)
 	private String nom ;
-	@Column(name = "reserve", nullable = false, unique = false)
-	private boolean reserve ;
+	@Column(name = "disponible", nullable = false, unique = false)
+	private boolean disponible ;
 	@Column(name = "date_parution", nullable = false, unique = false)
 	private String dateParution ;
 	@Column(name = "description", nullable = false, unique = false)
 	private String description ;
+	@Column(name = "spot_nom", nullable = false, unique = false)
+	private String spotNom ;
 	@Column(name = "lieu", nullable = false, unique = false)
 	private String lieu ;
-	
+
+
 	/*
 	 * Relation avec la table Utilisateur
 	 */
@@ -47,14 +50,15 @@ public class Topo implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Topo(Long idTopo, String nom, boolean reserve, String dateParution, String description, String lieu,
-			 Utilisateur utilisateur, Spot spot) {
+	public Topo(Long idTopo, String nom, boolean disponible, String dateParution, String description, String spotNom,
+			String lieu, Utilisateur utilisateur, Spot spot) {
 		super();
 		this.idTopo = idTopo;
 		this.nom = nom;
-		this.reserve = reserve;
+		this.disponible = disponible;
 		this.dateParution = dateParution;
 		this.description = description;
+		this.spotNom = spotNom;
 		this.lieu = lieu;
 		this.utilisateur = utilisateur;
 		this.spot = spot;
@@ -76,12 +80,12 @@ public class Topo implements Serializable {
 		this.nom = nom;
 	}
 
-	public boolean isReserve() {
-		return reserve;
+	public boolean isDisponible() {
+		return disponible;
 	}
 
-	public void setReserve(boolean reserve) {
-		this.reserve = reserve;
+	public void setDisponible(boolean disponible) {
+		this.disponible = disponible;
 	}
 
 	public String getDateParution() {
@@ -98,6 +102,14 @@ public class Topo implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public String getSpotNom() {
+		return spotNom;
+	}
+
+	public void setSpotNom(String spotNom) {
+		this.spotNom = spotNom;
 	}
 
 	public String getLieu() {
@@ -124,6 +136,6 @@ public class Topo implements Serializable {
 		this.spot = spot;
 	}
 
-
+	
 	
 }

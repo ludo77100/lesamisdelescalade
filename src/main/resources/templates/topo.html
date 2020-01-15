@@ -15,59 +15,163 @@
 		<div class="container-fluid">
 			<div class="row">
 				<div class="col-lg-6">
-					
-					<div class="card">
-						<div class="card-header">Liste de mes Topos</div>
-						<div class="card-body"></div>
-					</div>
-					
-					<div class="card spacer">
-						<div class="card-header">Demande de résérvation</div>
-						<div class="card-body"></div>
-					</div>
-					
-				</div>
-				
-				<div class="col-lg-6">
-					
-					<div class="card">
-						<div class="card-header">Ajouter un Topo</div>
+
+					<div class="card border-primary">
+						<div class="card-header border-primary"><h4 class="text-center">Liste de mes Topos</h4></div>
 						<div class="card-body">
-						<form th:action="@{saveTopo}" method="post">
+							<table class="table table-striped">
+								<thead>
+									<tr>
+										<th>Spot</th>
+										<th>Nom du Topo</th>
+										<th>Date de parution</th>
+										<th>Description</th>
+										<th>Lieu</th>
+										<th>Disponibilité</th>
+										<th>
+											<!-- Actions -->
+										</th>
 
-							<div class="form-group">
-								<label class="control-label">Nom :</label> <input
-									class="form-control" type="text" name="nom" required="required">
-							</div>
-
-							<div class="form-group">
-								<label class="control-label">Date de parution :</label> <input
-									class="form-control" type="date" name="dateParution" required="required">
-							</div>
-
-							<div class="form-group">
-								<label class="control-label">Description :</label> <input
-									class="form-control" type="text" name="description" required="required">
-							</div>
-							
-							<div class="form-group">
-								<label class="control-label">Lieu :</label> <input
-									class="form-control" type="text" name="lieu" required="required">
-							</div>
-							<div>
-								<button type="submit" class="btn btn-primary">Sauvegarder</button>
-							</div>
-						</form>
+									</tr>
+								</thead>
+								<tbody>
+									<tr th:each="t:${listeTopo}">
+										<td th:text="${t.spotNom}"></td>
+										<td th:text="${t.nom}"></td>
+										<td th:text="${t.dateParution}"></td>
+										<td th:text="${t.description}"></td>
+										<td th:text="${t.lieu}"></td>
+										<td><span th:if="${t.disponible == TRUE}">Disponible</span>
+											<span th:unless="${t.disponible == TRUE}">Indisponible</span>
+										</td>
+										<td><div class="dropdown">
+												<button class="btn btn-link dropdown-toggle mx-1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true"><img src="/images/action_ico.png" alt="action"></button>
+												<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+													<li class="nav-item"><a class="nav-link"
+														onclick="return confirm('Merci de confirmer cette action')"
+														th:href="@{/topo/changerDispoTopo/{topoId}(topoId=${t.idTopo})}">Modifier
+															disponibilité</a></li>
+													<li class="nav-item"><a class="nav-link" href=#>Edition</a></li>
+													<li class="nav-item"><a class="nav-link text-danger"
+														onclick="return confirm('Etes vous sur ?')"
+														th:href="@{/deleteTopo/{topoId}(topoId=${t.idTopo})}">Suppression</a></li>
+												</ul>
+											</div></td>
+									</tr>
+								</tbody>
+							</table>
 						</div>
 					</div>
-					
-					<div class="card spacer">
-						<div class="card-header">Mes Topos réservés</div>
-						<div class="card-body"></div>
+
+					<div class="card spacer border-primary">
+						<div class="card-header border-primary"><h4 class="text-center">Ajouter un Topo</h4></div>
+						<div class="card-body">
+							<form th:action="@{/saveTopo}" method="post">
+
+								<div class="form-group">
+									<label class="control-label">Spot :</label> <select
+										name="spotNom" class="form-control">
+										<option th:each="ls:${listeSpotForm}" th:text="${ls.nom}"></option>
+									</select>
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Nom :</label> <input
+										class="form-control" type="text" name="nom"
+										required="required">
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Date de parution :</label> <input
+										class="form-control" type="date" name="dateParution"
+										required="required">
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Description :</label> <input
+										class="form-control" type="text" name="description"
+										required="required">
+								</div>
+
+								<div class="form-group">
+									<label class="control-label">Lieu :</label> <input
+										class="form-control" type="text" name="lieu"
+										required="required">
+								</div>
+								<div>
+									<button type="submit" class="btn btn-success">Sauvegarder</button>
+								</div>
+							</form>
+						</div>
 					</div>
-					
+
 				</div>
-				
+
+				<div class="col-lg-6">
+					<div class="card border-primary">
+						<div class="card-header border-primary"><h4 class="text-center">Demande de résérvation</h4></div>
+						<div class="card-body">
+							
+							<!-- On affiche un message si la liste est vide -->
+							<p class="text-center red" th:if="${listeDemandeReservation.empty}">Il n'y rien à afficher !</p>
+							
+							<div class="card border-secondary"
+								th:each="reservation:${listeDemandeReservation}">
+								<div class="card-header">
+									Nom du topo: <span th:text="${reservation.topo.nom}"></span>
+								</div>
+								<div class="card-body">
+									<p>
+										Pseudo du demandeur: <span th:text="${reservation.reservant}"></span>
+									</p>
+									<p>
+										Email du demandeur: <span
+											th:text="${reservation.utilisateur.email}"></span>
+									</p>
+								</div>
+								<div class="card-footer bg-dark">
+									<a class="btn btn-success"
+										th:href="@{/topo/accepterReservation/{reservationId}(reservationId=${reservation.idReservation})}">Accepter</a>
+									<a class="btn btn-danger"
+										th:href="@{/topo/terminerReservation/{reservationId}(reservationId=${reservation.idReservation})}">Refuser</a>
+								</div>
+							</div>
+						</div>
+
+					</div>
+
+
+					<div class="card spacer border-primary">
+						<div class="card-header border-primary"><h4 class="text-center">Mes Topos réservés</h4></div>
+						<div class="card-body">
+							<!-- On affiche un message si la liste est vide -->
+							<p class="text-center red" th:if="${listeTopoReserve.empty}">Il n'y rien à afficher !</p>
+							
+							<div class="card border-secondary"
+								th:each="reservation:${listeTopoReserve}">
+
+								<div class="card-header">
+									Nom du topo: <span th:text="${reservation.topo.nom}"></span>
+								</div>
+								<div class="card-body">
+									<p>
+										Pseudo du demandeur: <span th:text="${reservation.reservant}"></span>
+									</p>
+									<p>
+										Email du demandeur: <span
+											th:text="${reservation.utilisateur.email}"></span>
+									</p>
+								</div>
+								<div class="card-footer bg-dark">
+									<a class="btn btn-success"
+										th:href="@{/topo/terminerReservation/{reservationId}(reservationId=${reservation.idReservation})}">Clôturer réservation</a>
+								</div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+
 			</div>
 		</div>
 	</div>

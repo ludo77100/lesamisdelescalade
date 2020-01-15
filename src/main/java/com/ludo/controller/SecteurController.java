@@ -152,9 +152,9 @@ public class SecteurController {
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
 				secteurRepository.deleteById(secteurId);
-				return "/spot";
+				return "redirect:/spot/" + spotId;
 			} else {
-				return "/spot";
+				return "redirect:/spot/" + spotId;
 			}
 		}
 	}

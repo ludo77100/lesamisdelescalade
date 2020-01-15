@@ -70,6 +70,12 @@ public class Utilisateur implements Serializable, UserDetails {
 	 */
 	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
 	private Collection<Topo> topo;
+	
+	/*
+	 * Relation avec la table Reservation
+	 */
+	@OneToMany(mappedBy = "utilisateur", fetch = FetchType.LAZY)
+	private Collection<Reservation> reservation ;
 
 	@ElementCollection(targetClass = RoleEnum.class, fetch = FetchType.EAGER)
 	@Cascade(value = CascadeType.REMOVE)

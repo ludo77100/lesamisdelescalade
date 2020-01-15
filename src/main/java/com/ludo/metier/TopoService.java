@@ -20,6 +20,8 @@ public class TopoService {
 	private TopoRepository topoRepository;
 	@Autowired
 	private UtilisateurRepository utilisateurRepository ;
+	@Autowired
+	private SpotRepository spotRepository ;
 	
 	public void saveTopo(TopoForm topoForm) {
 
@@ -28,15 +30,30 @@ public class TopoService {
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Utilisateur utilisateur = utilisateurRepository.findByPseudo(util.getUsername());
 		
+		Spot spotx = spotRepository.findSpotByName(topoForm.getSpotNom());
+		
 		newTopo.setNom(topoForm.getNom());
-		newTopo.setReserve(false);
+		newTopo.setDisponible(false);
 		newTopo.setDateParution(topoForm.getDateParution());
 		newTopo.setDescription(topoForm.getDescription());
 		newTopo.setLieu(topoForm.getLieu());
 		newTopo.setUtilisateur(utilisateur);
-
+		newTopo.setSpot(spotx);
+		newTopo.setSpotNom(topoForm.getSpotNom());
+		
 		topoRepository.save(newTopo);
 		
+	}
+
+	public void changerDispoTopo(Long topoId) {
+		Topo topoDispo = topoRepository.findById(topoId).get();
+
+		if (!topoDispo.isDisponible()) {
+			topoDispo.setDisponible(true);
+		} else {
+			topoDispo.setDisponible(false);
+		}
+		topoRepository.save(topoDispo);
 	}
 
 }

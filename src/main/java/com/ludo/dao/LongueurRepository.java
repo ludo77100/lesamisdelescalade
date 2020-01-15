@@ -5,9 +5,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
+import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Longueur;
 
+@Repository
 public interface LongueurRepository extends JpaRepository<Longueur, Long>{
 
 	@Query("select l from Longueur l where l.voie.idVoie like :x")
