@@ -2,11 +2,13 @@ package com.ludo.controller;
 
 import java.util.List;
 
+import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -40,20 +42,25 @@ public class TopoController {
 	@Autowired
 	ReservationRepository reservationRepository ;
 	/*
-	 * Controller qui renvoie la liste des spots
+	 * Controller qui renvoie la liste des topos
 	 */
 	@GetMapping("/listeTopo")
 	public String listeTopo(
 			Model model, 
 			@RequestParam(name="page", defaultValue = "0")int p, 
 			@RequestParam(name="size", defaultValue = "15")int s,
-			@RequestParam(name="mc", defaultValue = "")String mc) {
+			@RequestParam(name="mc", defaultValue = "")String mc,
+			HttpServletRequest request) {
 		
 		/*
 		 * UserDetails utilDet = (Utilisateur)
 		 * SecurityContextHolder.getContext().getAuthentication().getPrincipal(); String
 		 * pseudoUtilCo = utilDet.getUsername() ;
 		 */
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		Page<Topo> pageListeTopo = 
 				topoRepository.chercher("%"+mc+"%", PageRequest.of(p, s));
@@ -64,11 +71,15 @@ public class TopoController {
 
 	
 		return "listeTopo";
-		
+		}
 	}
 	
 	@GetMapping("/topo")
-	public String topo(Model model) {
+	public String topo(Model model, HttpServletRequest request) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		
@@ -92,7 +103,12 @@ public class TopoController {
 		//Liste des topo réservés
 		List <Reservation> listeTopoReserve = reservationRepository.findByProprietaireReserve(utilDet.getUsername());
 		model.addAttribute("listeTopoReserve", listeTopoReserve);
+		
+		//Liste des topo que l'utilisateur en cours à reserve pour son compte
+		List<Reservation> listeTopoPrete = reservationRepository.findByPrete(utilDet.getUsername());
+		model.addAttribute("listeTopoPrete", listeTopoPrete);
 		return "/topo" ;
+		}
 	}
 	
 	@PostMapping("/saveTopo")
@@ -153,8 +169,7 @@ public class TopoController {
 				return "redirect:/topo";
 			} else {
 				return "redirect:/topo";
-	}
-}
-	}
-	
+					}
+				}
+			}	
 }

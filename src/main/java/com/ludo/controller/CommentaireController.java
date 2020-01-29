@@ -1,14 +1,14 @@
 package com.ludo.controller;
 
-import java.util.Optional;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -49,6 +49,8 @@ public class CommentaireController {
 			
 			model.addAttribute("spotId", spot.getIdSiteEscalade());
 			
+			model.addAttribute("commentaire", new Commentaire());
+			
 		return "formCommentaire" ;
 	}
 	
@@ -58,11 +60,18 @@ public class CommentaireController {
 	@PostMapping("/saveCommentaire/{spotId}")
 	public String saveCommentaire(
 			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
-			@PathVariable("spotId")Long spotId) {
+			@PathVariable("spotId")Long spotId,
+			@Valid Commentaire commentaire,
+			BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "formCommentaire";			
+		} else {
 		
 		commentaireService.saveCommentaire(commentaireForm, spotId);
 		
 		return "redirect:/spot/" +spotId ;
+		}
 	}
 	
 	/////////////////////////EDITION COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
@@ -74,18 +83,26 @@ public class CommentaireController {
 	public String editCommentaire(
 			Model model,
 			@PathVariable("comId")Long comId,
-			@PathVariable("spotId")Long spotId) {
+			@PathVariable("spotId")Long spotId,
+			HttpServletRequest request) {
 		
-		Optional<Commentaire> c = commentaireRepository.findById(comId);
-		Commentaire commentaire = null ;
-		
-		if (c.isPresent()) {
-			commentaire = c.get();
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
+
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+
+				Commentaire commentaire = commentaireRepository.findById(comId).get();
+
+				model.addAttribute("commentaire", commentaire);
+				model.addAttribute("spotId", spotId);
+
+				return "editCommentaire";
+			} else
+				return "redirect:/spot/" + spotId;
 		}
-		model.addAttribute("commentaire", commentaire);
-		model.addAttribute("spotId", spotId);
-		
-		return "editCommentaire" ;
 	}
 	
 	/*
@@ -122,9 +139,8 @@ public class CommentaireController {
 		} else {
 
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
-			Commentaire commentaire = commentaireRepository.findById(comId).get();
 			
-			if (utilDet.getUsername().equals(commentaire.getUtilisateur().getUsername()) || utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
+			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
 				commentaireRepository.deleteById(comId);
 				return "redirect:/spot/" +spotId ;
 			}

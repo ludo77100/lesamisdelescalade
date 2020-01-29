@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -77,14 +78,22 @@ public class VoieController {
 	public String formVoie(
 			Model model, 
 			@PathVariable("spotId") Long spotId,
-			@PathVariable("secteurId") Long secteurId) {
+			@PathVariable("secteurId") Long secteurId,
+			HttpServletRequest request) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		Spot spot = spotRepository.findById(spotId).get();
 		Secteur secteur = secteurRepository.findById(secteurId).get();
 		
+		model.addAttribute("voie", new Voie());
+		
 		return "formVoie";
+		}
 	}
-	
+		
 	/*
 	 * Controller pour l'action du bouton sauvegarder pour un nouveau secteur
 	 */
@@ -93,10 +102,15 @@ public class VoieController {
 			Model model, 
 			@ModelAttribute("voieForm") VoieForm voieForm,
 			@PathVariable("spotId") Long spotId, 
-			@PathVariable("secteurId") Long secteurId, 
+			@PathVariable("secteurId") Long secteurId,
+			@Valid Voie voie,
 			BindingResult result,
 			RedirectAttributes redirectAttributes) {
 
+		if (result.hasErrors()) {
+			return "formVoie";
+		}
+		
 		voieService.saveVoie(secteurId, voieForm, result);
 
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
@@ -112,7 +126,12 @@ public class VoieController {
 			Model model, 
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId")Long secteurId,
-			@PathVariable("voieId")Long voieId){
+			@PathVariable("voieId")Long voieId,
+			HttpServletRequest request){
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		Optional<Voie> v = voieRepository.findById(voieId);
 		Voie voie = null ;
@@ -123,6 +142,7 @@ public class VoieController {
 		model.addAttribute("voie", voie);
 		
 		return "editVoie" ;
+		}
 	}
 	
 	/*

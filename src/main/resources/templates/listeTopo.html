@@ -1,7 +1,7 @@
  <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}">
+	layout:decorate="~{layout}">	
 <head>
 <meta charset="UTF-8" />
 <title>Liste des topos</title>
@@ -35,7 +35,8 @@
 							<th>Date de parution</th>
 							<th>Description</th>
 							<th>Lieu</th>
-							<th>Réservation</th>				
+							<th>Propriétaire</th>
+							<th sec:authorize="isAuthenticated()" >Réservation</th>				
 
 						</tr>
 					</thead>
@@ -46,7 +47,8 @@
 							<td th:text="${t.dateParution}"></td>
 							<td th:text="${t.description}"></td>				
 							<td th:text="${t.lieu}"></td>
-							<td><a th:href="@{/listeTopo/reserverTopo/{topoId}(topoId=${t.idTopo})}">Réserver</a></td>
+							<td th:text="${t.utilisateur.pseudo}"></td>
+							<td><a sec:authorize="isAuthenticated()" th:href="@{/listeTopo/reserverTopo/{topoId}(topoId=${t.idTopo})}">Réserver</a></td>
 						</tr>
 					</tbody>
 				</table>

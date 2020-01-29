@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -12,6 +13,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -106,11 +108,16 @@ public class SpotController {
 	 * Controller qui renvoie vers le formulaire d'ajout de spot
 	 */
 	@GetMapping("/ajouter")
-	public String formSpot(Model model) {
+	public String formSpot(Model model, HttpServletRequest request) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		model.addAttribute("spot", new Spot());
 		
 		return "formSpot" ;
+		}
 	}
 	
 	/*
@@ -120,7 +127,12 @@ public class SpotController {
 	public String saveSpot(
 			Model model,
 			@ModelAttribute("spotForm") SpotForm spotForm, 
-			final RedirectAttributes redirectAttributes) {
+			@Valid Spot spot,
+			BindingResult result) {
+		
+		if (result.hasErrors()) {
+			return "formSpot" ;			
+		}
 		
 		spotService.saveSpot(spotForm);
 		
@@ -133,29 +145,46 @@ public class SpotController {
 	 * Controller pour accéder à l'édition d'un spot
 	 */
 	@GetMapping("/editSpot/{spotId}")
-	public String editSpot(Model model, @PathVariable("spotId") Long spotId){
+	public String editSpot(Model model, @PathVariable("spotId") Long spotId, HttpServletRequest request){
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
+		
 		Optional<Spot> s = spotRepository.findById(spotId);
 		Spot spot = null ;
 		
 		if (s.isPresent()) {
 			spot = s.get();
 		}
+		
 		model.addAttribute("spot", spot);
+		
 		return "editSpot" ;
+		}
 	}
 	
 	/*
 	 * Controller pour l'action du bouton sauvegarder du formulaire d'édition d'un spot
-	 * Il renvoie sur le secteur qui vient d'être édité
+	 * Il renvoie sur le spot qui vient d'être édité
 	 */
 	@PostMapping("/saveEditSpot/{spotId}")
 	public String saveEditSpot(Model model,
 			@ModelAttribute("spotForm") SpotForm spotForm, 
-			@PathVariable("spotId")Long spotId) {
+			@PathVariable("spotId")Long spotId,
+			@Valid Spot spot, 
+			BindingResult result,
+			RedirectAttributes redirectAttributes) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("spotId", spotId);
+			return "editSpot";			
+		} else {
 		
 		spotService.saveEditSpot(spotForm, spotId);
 		
 		return "redirect:/spot/"+ spotId ;
+		}
 	}
 	
 	/////////////////////////SUPPRESSION SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

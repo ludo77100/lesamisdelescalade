@@ -25,32 +25,20 @@
 			</form>
 
 			<!-- Début du tableau de la liste des spots d'escalade, le retour de résultats de la rechereche s'affiche ici -->
+			
+			<div class = "card-deck col-lg-12 container-fluid spacer row">
 
-			<div class="col-lg-12 spacer">
-				<table class="table table-striped">
-					<thead>
-						<tr>
-							<th><!-- Tag Officiel les Amis de l'Escalade --></th>
-							<th>Nom</th>
-							<th>Localité</th>
-							<th>Cotation minimal</th>
-							<th><!-- Actions --></th>
-
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each="s:${listeSpot}">
-							<td>
-								<span th:if="${s.officiel == TRUE}">Officiel</span>
-   								<span th:unless="${s.officiel == TRUE}">Non Officiel</span>
-							</td>
-							<td><a th:text="${s.nom}"
-								th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a></td>
-							<td th:text="${s.localite}"></td>
-							<td th:text="${s.cotationMin}"></td>				
-							<td>
-							<div class="dropdown">
-								<button class="btn btn-primary dropdown-toggle mx-1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
+			<div class = "card col-lg-6 spacer-line spacer text-center" th:each="s:${listeSpot}">
+			<div class = "card-header" ><h3><a th:text="${s.nom}"
+								th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a></h3></div>
+			<div class = "card-body">
+				<ul class="list-group list-group-flush">
+					<li class="list-group-item"><label th:text="${s.localite}"></label></li>
+					<li class="list-group-item"><label>Cotation minimum: </label><label th:text="${s.cotationMin}"></label></li>
+					<li class="list-group-item"><span th:if="${s.officiel == TRUE}">Officiel</span> <span th:unless="${s.officiel == TRUE}">Non Officiel</span></li>
+				</ul>
+				<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle mx-1 spacer" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
 									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.pseudo == pseudoUtilCo)}" class="nav-item"><a class="nav-link" th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Edition</a></li>
 										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.pseudo == pseudoUtilCo)}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
@@ -58,15 +46,16 @@
 										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" onclick="return confirm('Merci de confirmer cette action')" th:href="@{/listeSpot/rendreOfficiel/{spotId}(spotId=${s.idSiteEscalade})}">Rendre/Enlever officiel</a></li>
 									</ul>
 							</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-											
+			</div>
+			</div>
+			
+
+									
 							<!-- On affiche un message si la liste est vide -->
 							<p class="text-center red" th:if="${listeSpot.empty}">Il n'y rien à afficher !</p>
 											
 			</div>
+			
 		</div>
 
 		<!-- Fin du tableau de la liste de spot, début de la barre de pagination -->

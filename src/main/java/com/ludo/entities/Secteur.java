@@ -14,6 +14,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+
+import org.hibernate.validator.constraints.Range;
+
+import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
 
 @Entity
 public class Secteur implements Serializable {
@@ -22,14 +27,19 @@ public class Secteur implements Serializable {
 	@Column(name = "id_secteur")
 	private Long idSecteur;
 	@Column(name = "nom_secteur", nullable = false, unique = false)
+	@Size(min = 4, max = 20)
 	private String nomSecteur;
 	@Column(name = "acces", nullable = false, unique = false)
+	@Size(min = 4, max = 20)
 	private String acces;
 	@Column(name = "type_roche", nullable = false, unique = false)
+	@Size(min = 4, max = 20)
 	private String typeRoche;
 	@Column(name = "localisation", nullable = false, unique = false)
+	@Size(min = 4, max = 20)
 	private String localisation;
 	@Column(name = "nombre_voies", nullable = false, unique = false)
+	@Range(min= 0, max = 999 )
 	private int nombreVoies;
 	
 	/*

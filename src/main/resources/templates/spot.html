@@ -95,14 +95,20 @@
 				
 				<div class="col-lg-8">
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Commentaires<a class="btn btn-primary float-right" th:href="@{/ajoutCommentaire/{spotId}(spotId=${spotInfo.idSiteEscalade})}">Ajouter un commentaire</a></h3></div>
+						<div class="card-header"><h3 class="card-title">Commentaires<a class="btn btn-primary float-right" sec:authorize="isAuthenticated()" th:href="@{/ajoutCommentaire/{spotId}(spotId=${spotInfo.idSiteEscalade})}">Ajouter un commentaire</a></h3></div>
+						
+																	
+							<!-- On affiche un message si la liste est vide -->
+							<p class="text-center red spacer" th:if="${listeCommentaire.empty}">Il n'y rien à afficher !</p>
+				
+						
 						<div class="card-body">
 							<div class="spacer" th:each="commentaire:${listeCommentaire}">
 								<div class="card">
 									<div class="card-body"><p th:text="${commentaire.commentaire}"></p></div> <!-- Contenu du commentaire  -->
 									<div class="card-footer">Le <span th:text="${commentaire.dateHeureCommentaire}"></span>
-										<a class="btn btn-primary float-right" th:href="@{/spot/{spotId}/editCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Edition</a>
-										<a onclick="return confirm('Etes vous sur ?')" class="btn btn-primary float-right mx-1" th:href="@{/spot/{spotId}/deleteCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Suppression</a></div>
+										<a class="btn btn-primary float-right" th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" th:href="@{/spot/{spotId}/editCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Edition</a>
+										<a onclick="return confirm('Etes vous sur ?')" class="btn btn-primary float-right mx-1" th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" th:href="@{/spot/{spotId}/deleteCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Suppression</a></div>
 								</div>
 							</div>
 						</div>

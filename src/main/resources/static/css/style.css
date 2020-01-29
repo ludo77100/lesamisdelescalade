@@ -7,6 +7,11 @@
 	margin-top: 20px;
 }
 
+.spacer-line{
+	margin-left: 20px ;
+	margin-right: 20px;
+}
+
 .bord{
 	border: 1px solid black ;
 }

@@ -17,6 +17,9 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 
 	@Query("select r from Reservation r where r.proprietaire like :x and etatDemande = true")
 	List<Reservation> findByProprietaireReserve(@Param("x")String username);
+
+	@Query("select r from Reservation r where r.reservant like :x")
+	List<Reservation> findByPrete(@Param("x")String username);
 	
 
 }

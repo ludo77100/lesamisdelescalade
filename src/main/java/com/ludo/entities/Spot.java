@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 public class Spot implements Serializable{
 	
@@ -24,12 +26,15 @@ public class Spot implements Serializable{
 	private Long idSiteEscalade ;
 	
 	@Column(name = "nom", nullable = false, unique = false)
+	@Length(min = 2, max = 255)
 	private String nom ;
 	
 	@Column(name = "cotation_min", nullable = false, unique = false)
+	@Length(min = 2, max = 2)
 	private String cotationMin ;
 	
 	@Column(name = "localite", nullable = false, unique = false)
+	@Length(min = 2, max = 255)
 	private String localite ;
 	
 	@Column(name = "officiel", nullable = false, unique = false)
@@ -50,7 +55,7 @@ public class Spot implements Serializable{
 	/*
 	 * Relation avec la table Topo
 	 */
-	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY)
+	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
 	private Collection<Topo> topo ;
 	
 	/*

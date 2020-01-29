@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -71,13 +72,19 @@ public class SecteurController {
 	@GetMapping("/spot/{spotId}/ajouterSecteur")
 	public String formSecteur(
 			Model model,
-			@PathVariable("spotId") Long spotId) {
+			@PathVariable("spotId") Long spotId, HttpServletRequest request) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		Spot spot = spotRepository.findById(spotId).get();
 		
+		model.addAttribute("secteur", new Secteur());
+		
 		return "formSecteur";
+		}
 	}
-	
 	/*
 	 * Controller pour l'action du bouton sauvegarder pour un nouveau secteur
 	 */
@@ -86,7 +93,13 @@ public class SecteurController {
 			Model model,
 			@ModelAttribute("secteurForm") SecteurForm secteurForm,
 			@PathVariable("spotId") Long spotId,
-			BindingResult result) {
+			@Valid Secteur secteur,
+			BindingResult result
+			) {
+		
+		if (result.hasErrors()) {
+			return "formSecteur" ;			
+		}
 		
 		secteurService.saveSecteur(spotId, secteurForm, result);
 		
@@ -102,7 +115,12 @@ public class SecteurController {
 	public String editSecteur(
 			Model model, 
 			@PathVariable("spotId") Long spotId, 
-			@PathVariable("secteurId")Long secteurId){
+			@PathVariable("secteurId")Long secteurId,
+			HttpServletRequest request){
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		Optional<Secteur> s = secteurRepository.findById(secteurId);
 		Secteur secteur = null ;
@@ -113,8 +131,8 @@ public class SecteurController {
 		model.addAttribute("secteur", secteur);
 		
 		return "editSecteur" ;
+		}
 	}
-	
 	/*
 	 * Controller pour l'action du bouton sauvegarder dans le formulaire d'étion d'un secteur
 	 * Il renvoie vers le secteur qui vient d'être édité

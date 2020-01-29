@@ -3,6 +3,7 @@ package com.ludo.controller;
 import java.util.Optional;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -52,13 +53,21 @@ public class LongueurController {
 			Model model, 
 			@PathVariable("spotId") Long spotId,
 			@PathVariable("secteurId") Long secteurId, 
-			@PathVariable("voieId") Long voieId) {
+			@PathVariable("voieId") Long voieId,
+			HttpServletRequest request) {
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		Spot spot = spotRepository.findById(spotId).get();
 		Secteur secteur = secteurRepository.findById(secteurId).get();
 		Voie voie = voieRepository.findById(voieId).get();
 		
+		model.addAttribute("longueur", new Longueur());
+		
 		return "formLongueur";
+		}
 	}
 	
 	/*
@@ -71,12 +80,18 @@ public class LongueurController {
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId") Long secteurId,
 			@PathVariable("voieId") Long voieId, 
+			@Valid Longueur longueur,
 			BindingResult result, 
 			RedirectAttributes redirectAttributes) {
 
+		if (result.hasErrors()) {
+			return "formLongueur";			
+		} else {
+		
 		longueurService.saveLongueur(voieId, longueurForms, result);
 
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
+		}
 	}
 	
 	/////////////////////////EDITION LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\	
@@ -90,7 +105,12 @@ public class LongueurController {
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId,
-			@PathVariable("longueurId")Long longueurId){
+			@PathVariable("longueurId")Long longueurId,
+			HttpServletRequest request){
+		
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
 		
 		Optional<Longueur> l = longueurRepository.findById(longueurId);
 		Longueur longueur = null ;
@@ -101,6 +121,7 @@ public class LongueurController {
 		model.addAttribute("longueur", longueur);
 		
 		return "editlongueur" ;
+		}
 	}
 	
 	/*

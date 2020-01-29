@@ -19,23 +19,26 @@
 			<div class="col-lg-3"></div>
 			<div class="col-lg-6 spacer">
 				<div class="card">
-					<div class="card-header">Ajouter un spot</div>
+					<div class="card-header">Editer un spot</div>
 					<div class="card-body">
-						<form th:action="@{/saveEditSpot/{spotId} (spotId=${spot.idSiteEscalade})}" method="post">
+						<form th:action="@{/saveEditSpot/{spotId} (spotId=${spotId})}" method="post">
 
 							<div class="form-group">
 								<label class="control-label">Nom :</label> <input
 									class="form-control" type="text" name="nom" required="required" th:value="${spot.nom}">
+								<span class="red" th:errors="${spot.nom}"></span>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label">Localité :</label> <input
 									class="form-control" type="text" name="localite" required="required" th:value="${spot.localite}">
+								<span class="red" th:errors="${spot.localite}"></span>
 							</div>
 
 							<div class="form-group">
 								<label class="control-label">Cotation minimum :</label> <input
 									class="form-control" type="text" name="cotationMin" required="required" th:value="${spot.cotationMin}">
+								<span class="red" th:errors="${spot.cotationMin}"></span>
 							</div>
 							<div>
 								<button type="submit" class="btn btn-primary">Sauvegarder</button>

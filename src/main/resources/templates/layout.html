@@ -48,8 +48,7 @@
 					<button class="btn btn-primary dropdown-toggle mx-1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Spots d'escalade <span class="caret"></span></button>
 						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
 							<li class="nav-item"><a class="nav-link" th:href=@{/listeSpot}>Liste des Spots</a></li>
-							<li class="nav-item"><a class="nav-link" th:href="@{/listeTopo}">Liste des Topos</a></li>
-							<li class="nav-item"><a class="nav-link" href="#" title="Lien 3">Recherche détaillée</a></li>
+							<li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/listeTopo}">Liste des Topos</a></li>
 							<li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link" th:href=@{/ajouter}>Ajouter un Spot</a></li>
 						</ul>
 					</div>
@@ -64,7 +63,6 @@
 						</button>
 							<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
 								<li class="nav-item"><a class="nav-link" th:href=@{/infosPersonnelles}>Mes infos personnelles</a></li>
-								<li class="nav-item"><a class="nav-link" href="#">Mes spots</a></li>
 								<li class="nav-item"><a class="nav-link" th:href=@{/topo}>Mes topos</a></li>
 							</ul>
 					</div>

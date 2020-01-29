@@ -3,6 +3,7 @@ package com.ludo.entities;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +43,7 @@ public class Reservation implements Serializable{
 	/*
 	 * Relation avec la table Topo
 	 */
-	@OneToOne
+	@OneToOne(cascade = CascadeType.DETACH)
 	private Topo topo ;
 
 
