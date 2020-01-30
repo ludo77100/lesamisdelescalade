@@ -14,6 +14,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
 @Entity
 public class Voie implements Serializable {
 	@Id 
@@ -21,8 +23,10 @@ public class Voie implements Serializable {
 	@Column(name = "id_voie")
 	private Long idVoie ;
 	@Column(name = "nom_voie", nullable = false, unique = false)
+	@Length(min = 4, max = 35)
 	private String nomVoie ;
 	@Column(name = "cotation", nullable = false, unique = false)
+	@Length(min = 2, max = 2)
 	private String cotation ;
 	@Column(name = "nombre_point_voie", nullable = false, unique = false)
 	private int nombrePointVoie ;

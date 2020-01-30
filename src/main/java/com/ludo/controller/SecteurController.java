@@ -142,11 +142,19 @@ public class SecteurController {
 			Model model, 
 			@ModelAttribute("secteurForm") SecteurForm secteurForm, 
 			@PathVariable("spotId")Long spotId,
-			@PathVariable("secteurId")Long secteurId) {
+			@PathVariable("secteurId")Long secteurId,
+			@Valid Secteur secteur,
+			BindingResult result) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("secteurId", secteurId);
+			return "editSecteur";			
+		} else {
 		
 		secteurService.saveEditSecteur(secteurForm, secteurId);
 		
 		return "redirect:/spot/"+ spotId +"/secteur/" +secteurId;
+	}
 	}
 	
 	/////////////////////////SUPPRESSION SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

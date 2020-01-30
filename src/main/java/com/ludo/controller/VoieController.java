@@ -155,13 +155,24 @@ public class VoieController {
 			@ModelAttribute("voieForm")VoieForm voieForm,
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("secteurId")Long secteurId,
-			@PathVariable("voieId")Long voieId) {
+			@PathVariable("voieId")Long voieId,
+			@Valid Voie voie,
+			BindingResult result) {
+		
+		if (result.hasErrors()) {
+			
+			model.addAttribute("voieId", voieId);
+			
+			return "editVoie";
+			
+		} else {
 		
 		voieService.saveEditVoie(voieForm, voieId);
 		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId;
+		}
 	}
-	
+
 	/////////////////////////SUPPRESSION VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	/*

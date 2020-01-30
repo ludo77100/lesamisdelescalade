@@ -22,17 +22,18 @@
 					<div class="card-header">Modifier une longueur</div>
 					<div class="card-body">
 						<form
-							th:action="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/saveEditLongueur/{longueurId}(spotId=${spotId}, secteurId=${secteurId}, voieId=${voieId}, longueurId=${longueur.idLongueur})}"
+							th:action="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/saveEditLongueur/{longueurId}(spotId=${spotId}, secteurId=${secteurId}, voieId=${voieId}, longueurId=${longueurId})}"
 							method="post">
 
 							<div class="form-group">
 								<label class="control-label">Cotation de la voie:</label> <input
 									class="form-control" type="text" name="cotation" required="required" th:value="${longueur.cotation}">
+									<span class = "red" th:errors="${longueur.cotation}"></span>
 							</div>
 
 							<div class="form-group">
-								<label class="control-label">Nombre de points :</label> <input
-									class="form-control" type="text" name="nombrePoints" required="required" th:value="${longueur.nombrePoints}">
+								<label class="control-label">Nombre de points :</label> <input class="form-control" type="number" min="1" max="999" name="nombrePoints" required="required" th:value="${longueur.nombrePoints}">
+								<span class = "red" th:errors="${longueur.nombrePoints}"></span>
 							</div>
 							<div>
 								<button type="submit" class="btn btn-primary">Sauvegarder</button>

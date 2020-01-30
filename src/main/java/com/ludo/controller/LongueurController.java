@@ -135,7 +135,15 @@ public class LongueurController {
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId,
-			@PathVariable("longueurId")Long longueurId) {
+			@PathVariable("longueurId")Long longueurId,
+			@Valid Longueur longueur,
+			BindingResult result) {
+		
+		if (result.hasErrors()) {
+			
+			model.addAttribute("longueurId", longueurId);
+			return "editLongueur" ;
+		}
 		
 		longueurService.saveEditLongueur(longueurForm, longueurId);
 		

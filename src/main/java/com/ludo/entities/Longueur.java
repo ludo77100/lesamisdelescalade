@@ -10,6 +10,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Longueur implements Serializable {
@@ -18,6 +19,7 @@ public class Longueur implements Serializable {
 	@Column(name = "id_longueur")
 	private Long idLongueur ;
 	@Column(name = "cotation", nullable = false, unique = false)
+	@Size(min = 2, max = 2)
 	private String cotation ;
 	@Column(name = "nombre_points", nullable = false, unique = false)
 	private int nombrePoints ;
