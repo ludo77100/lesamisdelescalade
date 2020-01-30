@@ -61,7 +61,7 @@ public class TopoController {
 		if (request.getRemoteUser() == null) {
 			return "formConnexion";
 		} else {
-		
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Page<Topo> pageListeTopo = 
 				topoRepository.chercher("%"+mc+"%", PageRequest.of(p, s));
 		model.addAttribute("listeTopo", pageListeTopo.getContent());

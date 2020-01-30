@@ -20,7 +20,24 @@
 						<h4 class="text-center">Les topos que j'ai réservé</h4>
 					</div>
 					<div class="card-body">
-						<table class="table table-striped">
+						
+						<div class="col-lg-12 row">
+							<div class="col-lg-4 " th:each="t:${listeTopoPrete}">
+								<div class="card border-info spacer">
+									<div class="card-header">
+										<h4 th:text="${t.topo.nom}"></h4>
+									</div>
+									<div class="card-body text-info">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item"><label
+												th:text="${t.topo.utilisateur.email}"></label></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- <table class="table table-striped">
 							<thead>
 								<tr>
 								<th>email</th>
@@ -33,7 +50,7 @@
 								<td th:text="${t.topo.nom}"></td>
 								</tr>
 							</tbody>
-						</table>
+						</table> -->
 					</div>
 				</div>
 			</div>

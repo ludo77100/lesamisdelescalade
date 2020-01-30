@@ -4,7 +4,7 @@
 	layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8" />
-<title>Ajouter un nouveau commentaire</title>
+<title>Modieir un commentaire</title>
 
 <link rel="stylesheet" type="text/css"
 	href="../static/css/bootstrap.min.css"
@@ -26,6 +26,7 @@
 						<div class="form-group">
 							<label class="control-label">Votre commentaire:</label> <input
 								class="form-control" type="text" name="commentaire" required="required" th:value="${commentaire.commentaire}">
+								<span class = "red" th:errors="${commentaire.commentaire}"></span>
 						</div>
 
 						<div>

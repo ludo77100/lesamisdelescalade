@@ -58,21 +58,21 @@ public class CommentaireController {
 	 * Controller pour l'action du bouton sauvegarder dans formulaire d'ajout de commentaire.
 	 */
 	@PostMapping("/saveCommentaire/{spotId}")
-	public String saveCommentaire(
+	public String saveCommentaire(Model model,
 			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
-			@PathVariable("spotId")Long spotId,
+			@PathVariable("spotId") Long spotId,
 			@Valid Commentaire commentaire,
 			BindingResult result) {
 		
-		if (result.hasErrors()) {
-			return "formCommentaire";			
-		} else {
+			if (result.hasErrors()) {
+				return "formCommentaire" ;
+			}
 		
 		commentaireService.saveCommentaire(commentaireForm, spotId);
 		
 		return "redirect:/spot/" +spotId ;
 		}
-	}
+	
 	
 	/////////////////////////EDITION COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
@@ -111,9 +111,17 @@ public class CommentaireController {
 	 */
 	@PostMapping("/spot/{spotId}/saveEditCommentaire/{comId}")
 	public String saveEditCommentaire(
+			Model model,
 			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
 			@PathVariable("comId")Long comId,
-			@PathVariable("spotId")Long spotId) {
+			@PathVariable("spotId")Long spotId,
+			@Valid Commentaire commentaire,
+			BindingResult result) {
+		
+		if (result.hasErrors()) {
+			model.addAttribute("commentaireId", comId);
+			return "editCommentaire";
+		}
 		
 		commentaireService.saveEditCommentaire(commentaireForm, comId);
 		
