@@ -26,7 +26,7 @@ public class Spot implements Serializable{
 	private Long idSiteEscalade ;
 	
 	@Column(name = "nom", nullable = false, unique = false)
-	@Length(min = 2, max = 255)
+	@Length(min = 2, max = 35)
 	private String nom ;
 	
 	@Column(name = "cotation_min", nullable = false, unique = false)
