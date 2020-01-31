@@ -26,17 +26,20 @@
 
 					<div class="form-group">
 						<label class="control-label">Pseudo :</label> <input
-							class="form-control" type="text" name="pseudo" required="required">
+							class="form-control" type="text" name="pseudo" required="required" th:value="${utilisateur.pseudo}">
+							<span class="red" th:errors="${utilisateur.pseudo}"></span>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label">Mot de passe :</label> <input
-							class="form-control" type="password" name="motDePass" required="required">
+							class="form-control" type="password" name="motDePass" required="required" th:value="${utilisateur.motDePass}">
+							<span class="red" th:errors="${utilisateur.motDePass}"></span>
 					</div>
 
 					<div class="form-group">
 						<label class="control-label">email :</label> <input
-							class="form-control" type="email" name="email" required="required">
+							class="form-control" type="email" name="email" required="required"  th:value="${utilisateur.email}">
+							<span class="red" th:errors="${utilisateur.email}"></span>
 					</div>
 
 					<div>

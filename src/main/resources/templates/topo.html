@@ -15,42 +15,27 @@
 		<div class="container-fluid">
 
 			<div class="col-lg-12">
-				<div class="card spacer">
-					<div class="card-header">
+				<div class="card border-primary spacer">
+					<div class="card-header border-primary">
 						<h4 class="text-center">Les topos que j'ai réservé</h4>
 					</div>
 					<div class="card-body">
 						
 						<div class="col-lg-12 row">
-							<div class="col-lg-4 " th:each="t:${listeTopoPrete}">
-								<div class="card border-info spacer">
-									<div class="card-header">
-										<h4 th:text="${t.topo.nom}"></h4>
+							<div class="col-lg-3 " th:each="t:${listeTopoPrete}">
+								<div class="card border-primary">
+									<div class="card-header text-white bg-info">
+										<h4 class = "text-center" th:text="${t.topo.nom}"></h4>
 									</div>
-									<div class="card-body text-info">
-										<ul class="list-group list-group-flush">
-											<li class="list-group-item"><label
-												th:text="${t.topo.utilisateur.email}"></label></li>
-										</ul>
+									<div class="card-body">
+											<p class ="text-center">Votre réservation à été acceptée par <span th:text="${t.topo.utilisateur.getUsername()}"></span>, vous pouvez contacter le propriétaire grâce à l'adresse mail ci-dessous !</p>
 									</div>
+									<div class="card-footer text-center bg-dark  text-white">Mail: <p
+												th:text="${t.topo.utilisateur.email}"></p></div>
 								</div>
 							</div>
 						</div>
 
-						<!-- <table class="table table-striped">
-							<thead>
-								<tr>
-								<th>email</th>
-								<th>Spot</th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr th:each="t:${listeTopoPrete}">
-								<td th:text="${t.topo.utilisateur.email}"></td>
-								<td th:text="${t.topo.nom}"></td>
-								</tr>
-							</tbody>
-						</table> -->
 					</div>
 				</div>
 			</div>

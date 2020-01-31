@@ -30,7 +30,7 @@
 			
 
 			<div class = "col-lg-12 row">
-			<div class = "col-lg-4 " th:each="s:${listeSpot}">
+			<div class = "col-lg-4" th:each="s:${listeSpot}">
 			<div class = "card border-info spacer">
 			<div class = "card-header" ><h3><a th:text="${s.nom}"
 								th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a><span class = "float-right btn btn-success" th:if="${s.officiel == TRUE}">Officiel</span> <span class = "float-right btn btn-secondary" th:unless="${s.officiel == TRUE}">Non Officiel</span></h3></div>

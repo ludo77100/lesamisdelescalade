@@ -141,6 +141,7 @@ public class SpotController {
 	
 	/////////////////////////EDITION SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
+	
 	/*
 	 * Controller pour accéder à l'édition d'un spot
 	 */

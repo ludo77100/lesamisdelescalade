@@ -59,9 +59,9 @@ public class CommentaireController {
 	 */
 	@PostMapping("/saveCommentaire/{spotId}")
 	public String saveCommentaire(Model model,
-			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
 			@PathVariable("spotId") Long spotId,
-			@Valid Commentaire commentaire,
+			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
+			@Valid Commentaire comm,
 			BindingResult result) {
 		
 			if (result.hasErrors()) {

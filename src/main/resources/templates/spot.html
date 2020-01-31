@@ -106,7 +106,7 @@
 							<div class="spacer" th:each="commentaire:${listeCommentaire}">
 								<div class="card">
 									<div class="card-body"><p th:text="${commentaire.commentaire}"></p></div> <!-- Contenu du commentaire  -->
-									<div class="card-footer">Le <span th:text="${commentaire.dateHeureCommentaire}"></span>
+									<div class="card-footer">Le <span th:text="${commentaire.dateHeureCommentaire}"></span> par <span th:text="${commentaire.utilisateur.getUsername()}"></span>
 										<a class="btn btn-primary float-right" th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" th:href="@{/spot/{spotId}/editCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Edition</a>
 										<a onclick="return confirm('Etes vous sur ?')" class="btn btn-primary float-right mx-1" th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" th:href="@{/spot/{spotId}/deleteCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Suppression</a></div>
 								</div>

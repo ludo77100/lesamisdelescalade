@@ -7,5 +7,9 @@ import com.ludo.entities.Utilisateur;
 
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long>{
+	
 	Utilisateur findByPseudo (String pseudo);
+	Utilisateur findByEmail(String email);
+
+
 }
