@@ -60,7 +60,11 @@ public class SecteurController {
 		model.addAttribute("secteurInfo", secteur);
 		
 		List <Voie> listeVoie = voieRepository.findBySecteur(secteurId);
+		int nbVoies = listeVoie.size();
 		model.addAttribute("listeVoie", listeVoie);
+		model.addAttribute("nbVoies", nbVoies);
+		
+		
 		return "secteur";
 	}
 	

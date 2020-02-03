@@ -40,8 +40,6 @@
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><label>Nom du secteur:</label><label
 									th:text="${secteurInfo.nomSecteur}"></label></li>
-								<li class="list-group-item"><label>Accès: </label><label
-									th:text="${secteurInfo.acces}"></label></li>
 								<li class="list-group-item"><label>Type de roche: </label><label
 									th:text="${secteurInfo.typeRoche}"></label></li>
 								<li class="list-group-item"><label>Localisation: </label><label
@@ -66,8 +64,6 @@
 									th:text="${voieInfo.nomVoie}"></label></li>
 								<li class="list-group-item"><label>Cotation de la
 										voie: </label><label th:text="${voieInfo.cotation}"></label></li>
-								<li class="list-group-item"><label>Nombre de
-										points: </label><label th:text="${voieInfo.nombrePointVoie}"></label></li>
 								<li class="list-group-item"><label>Longueur
 										minimum: </label><label th:text="${voieInfo.longeurMin}"></label></li>
 								<li class="list-group-item"><label>Longueur
@@ -94,7 +90,6 @@
 									<div class="card-body">
 										<ul class="list-group list-group-flush">
 											<li class="list-group-item"><label th:text="${longueur.cotation}"></label></li>
-											<li class="list-group-item"><label th:text="${longueur.nombrePoints}"></label></li>
 											<li class="list-group-item"><!-- <label th:text="${voie.longeur}"></label> --></li>
 										</ul>
 										<div class="dropdown">

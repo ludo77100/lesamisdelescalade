@@ -3,18 +3,16 @@ package com.ludo.forms;
 public class SecteurForm {
 	
 	private Long idSecteur ;
-	private String acces ;
 	private String localisation ;
 	private String nomSecteur ;
 	private int nombreVoies ;
 	private String typeRoche ;
 	
 	
-	public SecteurForm(Long idSecteur, String acces, String localisation, String nomSecteur, int nombreVoies,
+	public SecteurForm(Long idSecteur, String localisation, String nomSecteur, int nombreVoies,
 			String typeRoche) {
 		super();
 		this.idSecteur = idSecteur;
-		this.acces = acces;
 		this.localisation = localisation;
 		this.nomSecteur = nomSecteur;
 		this.nombreVoies = nombreVoies;
@@ -38,17 +36,6 @@ public class SecteurForm {
 	public void setIdSecteur(Long idSecteur) {
 		this.idSecteur = idSecteur;
 	}
-
-
-	public String getAcces() {
-		return acces;
-	}
-
-
-	public void setAcces(String acces) {
-		this.acces = acces;
-	}
-
 
 	public String getLocalisation() {
 		return localisation;

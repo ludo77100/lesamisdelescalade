@@ -26,7 +26,6 @@ public class SecteurService {
 		
 		newSecteur.setNomSecteur(secteurForm.getNomSecteur());
 		newSecteur.setLocalisation(secteurForm.getLocalisation());
-		newSecteur.setAcces(secteurForm.getAcces());
 		newSecteur.setTypeRoche(secteurForm.getTypeRoche());
 		newSecteur.setNombreVoies(secteurForm.getNombreVoies());
 		
@@ -46,7 +45,6 @@ public class SecteurService {
 		
 		secteurEdit.setNomSecteur(secteurForm.getNomSecteur());
 		secteurEdit.setLocalisation(secteurForm.getLocalisation());
-		secteurEdit.setAcces(secteurForm.getAcces());
 		secteurEdit.setTypeRoche(secteurForm.getTypeRoche());
 		secteurEdit.setNombreVoies(secteurForm.getNombreVoies());
 		

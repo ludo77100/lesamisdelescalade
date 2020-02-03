@@ -112,7 +112,7 @@ public class VoieController {
 		}
 		
 		voieService.saveVoie(secteurId, voieForm, result);
-
+		
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
 	}
 	

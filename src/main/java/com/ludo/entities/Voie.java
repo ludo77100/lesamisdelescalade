@@ -28,8 +28,6 @@ public class Voie implements Serializable {
 	@Column(name = "cotation", nullable = false, unique = false)
 	@Length(min = 2, max = 2)
 	private String cotation ;
-	@Column(name = "nombre_point_voie", nullable = false, unique = false)
-	private int nombrePointVoie ;
 	@Column(name = "longeur_min", nullable = false, unique = false)
 	private  Double longeurMin ;
 	@Column(name = "longueur_max", nullable = false, unique = false)
@@ -45,14 +43,13 @@ public class Voie implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Voie(Long idVoie, @NotNull String nomVoie, @NotNull String cotation, @NotNull int nombrePointVoie,
+	public Voie(Long idVoie, @NotNull String nomVoie, @NotNull String cotation, 
 			@NotNull Double longeurMin, @NotNull Double longueurMax, @NotNull String equipee, Secteur secteur,
 			Collection<Longueur> longueur) {
 		super();
 		this.idVoie = idVoie;
 		this.nomVoie = nomVoie;
 		this.cotation = cotation;
-		this.nombrePointVoie = nombrePointVoie;
 		this.longeurMin = longeurMin;
 		this.longueurMax = longueurMax;
 		this.equipee = equipee;
@@ -76,12 +73,6 @@ public class Voie implements Serializable {
 	}
 	public void setCotation(String cotation) {
 		this.cotation = cotation;
-	}
-	public int getNombrePointVoie() {
-		return nombrePointVoie;
-	}
-	public void setNombrePointVoie(int nombrePointVoie) {
-		this.nombrePointVoie = nombrePointVoie;
 	}
 	public Double getLongeurMin() {
 		return longeurMin;

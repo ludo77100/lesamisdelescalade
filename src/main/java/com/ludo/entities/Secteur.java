@@ -29,9 +29,6 @@ public class Secteur implements Serializable {
 	@Column(name = "nom_secteur", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String nomSecteur;
-	@Column(name = "acces", nullable = false, unique = false)
-	@Size(min = 4, max = 20)
-	private String acces;
 	@Column(name = "type_roche", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String typeRoche;
@@ -60,12 +57,11 @@ public class Secteur implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Secteur(Long idSecteur, String nomSecteur, String acces, String typeRoche, String localisation,
+	public Secteur(Long idSecteur, String nomSecteur, String typeRoche, String localisation,
 			int nombreVoies, Spot spot, Collection<Voie> voie) {
 		super();
 		this.idSecteur = idSecteur;
 		this.nomSecteur = nomSecteur;
-		this.acces = acces;
 		this.typeRoche = typeRoche;
 		this.localisation = localisation;
 		this.nombreVoies = nombreVoies;
@@ -87,14 +83,6 @@ public class Secteur implements Serializable {
 
 	public void setNomSecteur(String nomSecteur) {
 		this.nomSecteur = nomSecteur;
-	}
-
-	public String getAcces() {
-		return acces;
-	}
-
-	public void setAcces(String acces) {
-		this.acces = acces;
 	}
 
 	public String getTypeRoche() {

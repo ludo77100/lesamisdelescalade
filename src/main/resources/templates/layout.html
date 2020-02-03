@@ -40,44 +40,34 @@
 
 	<!-- fin du header et début de la barre de navigation, utilisation de JS pour avoir un menu déroulant -->
 	<div class="container-fluid">
-		<div class="row px-3 py-3" style="background-color: #e3f2fd;">
-			<ul class="navbar-nav navbar-expand-lg">
-				<li><a class="btn btn-primary" th:href=@{/index}>Accueil</a></li>
-				<li>
-					<div class="dropdown">
-					<button class="btn btn-primary dropdown-toggle mx-1" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Spots d'escalade <span class="caret"></span></button>
-						<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-							<li class="nav-item"><a class="nav-link" th:href=@{/listeSpot}>Liste des Spots</a></li>
-							<li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/listeTopo}">Liste des Topos</a></li>
-							<li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link" th:href=@{/ajouter}>Ajouter un Spot</a></li>
-						</ul>
-					</div>
-				</li>
+		<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+			 <a class="navbar-brand" th:href=@{/index}>Accueil</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse"
+				data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false"
+				aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+
+			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			<ul class="navbar-nav mr-auto">
+				<li class="nav-item"><a class="nav-link" th:href=@{/listeSpot}>Liste des Spots</a></li>
+				<li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link" th:href="@{/listeTopo}">Liste des Topos</a></li>
+				<li class="nav-item"><a sec:authorize="isAuthenticated()" class="nav-link" th:href=@{/ajouter}>Ajouter un Spot</a></li>
 			</ul>
+			
 			<ul class="navbar-nav navbar-expand-lg ml-auto">
-				<li>
-					<div class="dropdown">
-						<button sec:authorize="isAuthenticated()" class="btn btn-primary dropdown-toggle ml-auto px-1" type="button"id="dropdownMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">[[${#httpServletRequest.remoteUser}]] 
-							<span class="caret">
-							</span>
-						</button>
-							<ul class="dropdown-menu" aria-labelledby="dropdownMenu">
-								<li class="nav-item"><a class="nav-link" th:href=@{/infosPersonnelles}>Mes infos personnelles</a></li>
-								<li class="nav-item"><a class="nav-link" th:href=@{/topo}>Mes topos</a></li>
-							</ul>
-					</div>
-						<li sec:authorize="!isAuthenticated()" class="nav-item px-1"><a class="btn btn-primary" th:href="@{/connexionUtilisateur}">Inscription/Connexion</a></li>
-						<li class="nav-item px-1">
-							<form sec:authorize="isAuthenticated()"th:action="@{/logout}" method="post">
-								<input type="submit" class="btn btn-primary" value="Se déconnecter" />
-							</form>
-						</li>
+				<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" th:href=@{/infosPersonnelles}>Mes infos personnelles</a></li>
+				<li sec:authorize="isAuthenticated()" class="nav-item"><a class="nav-link" th:href=@{/topo}>Mes topos</a></li>
+				<li sec:authorize="!isAuthenticated()" class="nav-item"><a class="btn btn-info" th:href="@{/connexionUtilisateur}">Inscription/Connexion</a></li>
+				<li sec:authorize="isAuthenticated()" class="nav-item"><form th:action="@{/logout}" method="post"><input type="submit" class="btn btn-info" value="Se déconnecter" /></form></li>
 			</ul>
-		</div>
+			</div>
+		</nav>
 	</div>	
 		<!-- fin de la navbar et début du contenu -->
 
-		<section class="spacer " layout:fragment="content"></section>
+		<section class="spacer" layout:fragment="content"></section>
 
 		<!-- fin du contenu et début du footer -->
 

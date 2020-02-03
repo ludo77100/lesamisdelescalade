@@ -27,13 +27,15 @@ public class VoieService {
 		
 		newVoie.setNomVoie(voieForm.getNomVoie());
 		newVoie.setCotation(voieForm.getCotation());
-		newVoie.setNombrePointVoie(voieForm.getNombrePointVoie());
 		newVoie.setLongeurMin(voieForm.getLongueurMin());
 		newVoie.setLongueurMax(voieForm.getLongueurMax());
 		newVoie.setEquipee(voieForm.getEquipee());
 		
 		Secteur secteurVoie = secteurRepository.findById(secteurId).get();
 		newVoie.setSecteur(secteurVoie);
+		
+		secteurVoie.setNombreVoies(secteurVoie.getNombreVoies() + 1);
+		
 		voieRepository.save(newVoie);
 	}
 
@@ -46,12 +48,10 @@ public class VoieService {
 		
 		voieEdit.setNomVoie(voieForm.getNomVoie());
 		voieEdit.setCotation(voieForm.getCotation());
-		voieEdit.setNombrePointVoie(voieForm.getNombrePointVoie());
 		voieEdit.setLongeurMin(voieForm.getLongueurMin());
 		voieEdit.setLongueurMax(voieForm.getLongueurMax());
 		voieEdit.setEquipee(voieForm.getEquipee());
 		
 		voieRepository.save(voieEdit);
 	}
-
 }
