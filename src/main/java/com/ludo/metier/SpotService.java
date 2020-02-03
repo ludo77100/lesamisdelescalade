@@ -30,7 +30,6 @@ public class SpotService {
 		
 		newSpot.setNom(spotForm.getNom());
 		newSpot.setLocalite(spotForm.getLocalite());
-		newSpot.setCotationMin(spotForm.getCotationMin());
 		newSpot.setUtilisateur(utilisateur);
 		newSpot.setOfficiel(false);
 
@@ -45,7 +44,6 @@ public class SpotService {
 		
 		spotEdit.setNom(spotForm.getNom());
 		spotEdit.setLocalite(spotForm.getLocalite());
-		spotEdit.setCotationMin(spotForm.getCotationMin());
 				
 		spotRepository.save(spotEdit);
 	}

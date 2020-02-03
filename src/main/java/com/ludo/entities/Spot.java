@@ -29,10 +29,6 @@ public class Spot implements Serializable{
 	@Length(min = 2, max = 35)
 	private String nom ;
 	
-	@Column(name = "cotation_min", nullable = false, unique = false)
-	@Length(min = 2, max = 2)
-	private String cotationMin ;
-	
 	@Column(name = "localite", nullable = false, unique = false)
 	@Length(min = 2, max = 255)
 	private String localite ;
@@ -70,13 +66,12 @@ public class Spot implements Serializable{
 		// TODO Auto-generated constructor stub
 	}
 
-	public Spot(Long idSiteEscalade, String nom, String cotationMin, String localite, boolean officiel,
+	public Spot(Long idSiteEscalade, String nom, String localite, boolean officiel,
 			Collection<Secteur> secteur, Collection<Commentaire> commentaire, Collection<Topo> topo,
 			Utilisateur utilisateur) {
 		super();
 		this.idSiteEscalade = idSiteEscalade;
 		this.nom = nom;
-		this.cotationMin = cotationMin;
 		this.localite = localite;
 		this.officiel = officiel;
 		this.secteur = secteur;
@@ -101,13 +96,6 @@ public class Spot implements Serializable{
 		this.nom = nom;
 	}
 
-	public String getCotationMin() {
-		return cotationMin;
-	}
-
-	public void setCotationMin(String cotationMin) {
-		this.cotationMin = cotationMin;
-	}
 
 	public String getLocalite() {
 		return localite;
