@@ -39,8 +39,12 @@ public class CommentaireController {
 	
 	/////////////////////////AJOUT COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/*
-	 * Controller qui renvoie vers le formulaire d'ajout de commentaire
+	
+	/**
+	 * Controleur pour l'accès au formulaire de saisie d'un commantiaire
+	 * @param model instance du model en cours
+	 * @param spotId correspond au spot sur lequel le commentaire va être ajouté
+	 * @return le formulaire de saisie d'un nouveau commentaire
 	 */
 	@GetMapping("/ajoutCommentaire/{spotId}")
 	public String ajoutCommentaire(Model model,
@@ -48,7 +52,6 @@ public class CommentaireController {
 			Spot spot = spotRepository.findById(spotId).get();
 			
 			model.addAttribute("spotId", spot.getIdSiteEscalade());
-			
 			model.addAttribute("commentaire", new Commentaire());
 			
 		return "formCommentaire" ;
@@ -56,6 +59,16 @@ public class CommentaireController {
 	
 	/*
 	 * Controller pour l'action du bouton sauvegarder dans formulaire d'ajout de commentaire.
+	 */
+	
+	/**
+	 * Controlleur pour sauvergarder le commentaire qui vient d'être saisi
+	 * @param model instance du model en cours
+	 * @param spotId correspond au spot sur lequel le commentaire va être ajouté
+	 * @param commentaireForm 
+	 * @param comm
+	 * @param result renvoie les erreur selon les critères de saisie
+	 * @return si erreur, vers le formulaire de saisie du commentaire, si pas d'erreur vers la page du spot
 	 */
 	@PostMapping("/saveCommentaire/{spotId}")
 	public String saveCommentaire(Model model,
@@ -78,6 +91,15 @@ public class CommentaireController {
 	
 	/*
 	 * Controller pour accéder à l'édition d'un commentaire
+	 */
+	
+	/**
+	 * 
+	 * @param model instance du model en cours
+	 * @param comId id du commentaire à éditer
+	 * @param spotId spot auquel est lié le commentaire
+	 * @param request 
+	 * @return
 	 */
 	@GetMapping("/spot/{spotId}/editCommentaire/{comId}")
 	public String editCommentaire(

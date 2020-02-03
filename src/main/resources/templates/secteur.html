@@ -66,34 +66,31 @@
 								une voie</a></h3></div>
 						<div class="card-body">
 						
-							<table class="table spacer">
-								<thead>
-									<tr>
-										<th>Nom de la voie</th>
-										<th>Cotation de la voie</th>
-										<th>Nombre de points</th>
-										<th>Longueur minimum</th>
-										<th>Longueur maximum</th>
-										<th>Equipée</th>
-										<th sec:authorize="hasAuthority('ADMINISTRATOR')">Editer</th>
-										<th sec:authorize="hasAuthority('ADMINISTRATOR')">Supprimer</th>
-									</tr>
-								</thead>
-								<tbody>
-									<tr th:each="voie:${listeVoie}">
-										<td><a th:text="${voie.nomVoie}" th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}"></a></td>
-										<td th:text="${voie.cotation}"></td>
-										<td th:text="${voie.nombrePointVoie}"></td>
-										<td th:text="${voie.longeurMin}"></td>
-										<td th:text="${voie.longueurMax}"></td>
-										<td th:text="${voie.equipee}"></td>
-										<td sec:authorize="hasAuthority('ADMINISTRATOR')">
-										<a th:href="@{/spot/{spotId}/secteur/{secteurId}/editVoie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}">Editer</a></td>
-										<td sec:authorize="hasAuthority('ADMINISTRATOR')"><a onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associées à ce secteur')"
-							th:href="@{/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}">Supprimer</a></td>
-									</tr>
-								</tbody>
-							</table>
+						<div class = "col-lg-12 row">
+							<div class = "col-lg-6" th:each="voie:${listeVoie}">
+								<div class="card spacer">
+									<div class="card-header"><h3><a th:text="${voie.nomVoie}" th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}"></a></h3></div>
+									<div class="card-body">
+										<ul class="list-group list-group-flush">
+											<li class="list-group-item"><label th:text="${voie.cotation}"></label></li>
+											<li class="list-group-item"><label th:text="${voie.nombrePointVoie}"></label></li>
+											<li class="list-group-item"><label th:text="${voie.longeurMin}"></label></li>
+											<li class="list-group-item"><label th:text="${voie.longueurMax}"></label></li>
+											<li class="list-group-item"><label th:text="${voie.equipee}"></label></li>
+										</ul>
+										<div class="dropdown">
+											<button class="btn btn-primary dropdown-toggle mx-1 spacer" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
+												<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+													<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" 
+														th:href="@{/spot/{spotId}/secteur/{secteurId}/editVoie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}">Edition</a></li>
+													<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associés à ce spot')"
+														th:href="@{/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}">Suppression</a></li>
+												</ul>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 														
 							<!-- On affiche un message si la liste est vide -->
 							<p class="text-center red" th:if="${listeVoie.empty}">Il n'y rien à afficher !</p>
