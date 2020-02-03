@@ -21,12 +21,12 @@
 			<div class="card">
 				<div class="card-header">Ajouter un commentaire</div>
 				<div class="card-body">
-					<form th:action="@{/saveCommentaire/{spotId}(spotId=${spotId})}" method="post">
+					<form th:action="@{/spot/{spotId}/saveCommentaire/(spotId=${spotId})}" method="post">
 
 						<div class="form-group">
-							<label class="control-label">Votre commentaire:</label> <input
-								class="form-control" type="text" name="commentaire" required="required" th:value="${commentaire.commentaire}">
-								<span class="red" th:errors="${commentaire.commentaire}"></span>
+							<label class="control-label">Votre commentaire:</label> 
+							<input class="form-control" type="text" name="contenu" required="required" th:value="${commentaire.contenu}"/>
+								<span class="red" th:errors="${commentaire.contenu}"></span>
 						</div>
 
 						<div>

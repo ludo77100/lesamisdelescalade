@@ -18,7 +18,7 @@ import com.ludo.enums.RoleEnum;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
-	
+
 	/*
 	 * @Autowired public WebMvcConfig(UtilisateurRepository utilisateurRepository) {
 	 * // Ceci n'est pas à recopier en production List<RoleEnum> userRole =
@@ -28,6 +28,7 @@ public class WebMvcConfig extends WebMvcConfigurerAdapter{
 	 * Utilisateur("admin", "admin", "Admin", adminRole);
 	 * 
 	 * utilisateurRepository.save(user); utilisateurRepository.save(adminUser); }
-	 * 
 	 */
+
+	 
 }

@@ -40,48 +40,25 @@ public class CommentaireController {
 	/////////////////////////AJOUT COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	
-	/**
-	 * Controleur pour l'accès au formulaire de saisie d'un commantiaire
-	 * @param model instance du model en cours
-	 * @param spotId correspond au spot sur lequel le commentaire va être ajouté
-	 * @return le formulaire de saisie d'un nouveau commentaire
-	 */
-	@GetMapping("/ajoutCommentaire/{spotId}")
+	@GetMapping("/spot/{spotId}/ajoutCommentaire/")
 	public String ajoutCommentaire(Model model,
 			@PathVariable("spotId")Long spotId) {
-			Spot spot = spotRepository.findById(spotId).get();
 			
-			model.addAttribute("spotId", spot.getIdSiteEscalade());
 			model.addAttribute("commentaire", new Commentaire());
+			model.addAttribute("spotId", spotId);
 			
 		return "formCommentaire" ;
 	}
 	
-	/*
-	 * Controller pour l'action du bouton sauvegarder dans formulaire d'ajout de commentaire.
-	 */
-	
-	/**
-	 * Controlleur pour sauvergarder le commentaire qui vient d'être saisi
-	 * @param model instance du model en cours
-	 * @param spotId correspond au spot sur lequel le commentaire va être ajouté
-	 * @param commentaireForm 
-	 * @param comm
-	 * @param result renvoie les erreur selon les critères de saisie
-	 * @return si erreur, vers le formulaire de saisie du commentaire, si pas d'erreur vers la page du spot
-	 */
-	@PostMapping("/saveCommentaire/{spotId}")
-	public String saveCommentaire(Model model,
-			@PathVariable("spotId") Long spotId,
-			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
-			@Valid Commentaire comm,
-			BindingResult result) {
+
+	@PostMapping("/spot/{spotId}/saveCommentaire/")
+	public String saveCommentaire(Model model, Commentaire commentaire,
+			@PathVariable("spotId") Long spotId) {
 		
-			if (result.hasErrors()) {
-				return "formCommentaire" ;
-			}
+		Spot spot = spotRepository.findById(spotId).get();
 		
-		commentaireService.saveCommentaire(commentaireForm, spotId);
+		commentaire.setSpot(spot);
+		commentaireRepository.save(commentaire);
 		
 		return "redirect:/spot/" +spotId ;
 		}
@@ -89,17 +66,13 @@ public class CommentaireController {
 	
 	/////////////////////////EDITION COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/*
-	 * Controller pour accéder à l'édition d'un commentaire
-	 */
-	
 	/**
-	 * 
+	 * Controller pour accéder à l'édition d'un commentaire
 	 * @param model instance du model en cours
 	 * @param comId id du commentaire à éditer
 	 * @param spotId spot auquel est lié le commentaire
-	 * @param request 
-	 * @return
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return Le formulaire d'édition d'un commentaire
 	 */
 	@GetMapping("/spot/{spotId}/editCommentaire/{comId}")
 	public String editCommentaire(
@@ -131,24 +104,29 @@ public class CommentaireController {
 	 * Controller pour l'action du bouton sauvegarder du formulaire d'édition d'un commentaire
 	 * Il renvoie sur le secteur du commentaire qui vient d'être édité
 	 */
+	
+	/**
+	 * 
+	 * @param model instance du model en cours
+	 * @param commentaireForm 
+	 * @param comId
+	 * @param spotId
+	 * @param commentaire
+	 * @param result
+	 * @return
+	 */
 	@PostMapping("/spot/{spotId}/saveEditCommentaire/{comId}")
 	public String saveEditCommentaire(
 			Model model,
 			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
-			@PathVariable("comId")Long comId,
 			@PathVariable("spotId")Long spotId,
-			@Valid Commentaire commentaire,
-			BindingResult result) {
-		
-		if (result.hasErrors()) {
-			model.addAttribute("commentaireId", comId);
-			return "editCommentaire";
-		}
+			@PathVariable("comId")Long comId) {
+	
 		
 		commentaireService.saveEditCommentaire(commentaireForm, comId);
 		
 		return "redirect:/spot/" +spotId ;
-	}	
+		}
 	
 	/////////////////////////SUPPRESSION COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	

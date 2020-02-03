@@ -11,21 +11,24 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
 
 import lombok.Data;
 
 @Entity
-@Data
 public class Commentaire implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name ="id_commentaire")
 	private Long idCommentaire ;
+	
 	@Column(name = "date_heure_commentaire", nullable = false, unique = false)
 	private Date dateHeureCommentaire ; 
-	@Column(name = "commentaire", nullable = false, unique = false)
-	private String commentaire ;
+	
+	@Column(name = "contenu", nullable = false, unique = false)
+	@Length(min = 2, max = 255)
+	private String contenu ;
 	
 	/*
 	 * Relation avec la table Spot
@@ -46,12 +49,12 @@ public class Commentaire implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Commentaire(Long idCommentaire, Date dateHeureCommentaire, String commentaire,
+	public Commentaire(Long idCommentaire, Date dateHeureCommentaire, @Length(min = 2, max = 255) String contenu,
 			Spot spot, Utilisateur utilisateur) {
 		super();
 		this.idCommentaire = idCommentaire;
 		this.dateHeureCommentaire = dateHeureCommentaire;
-		this.commentaire = commentaire;
+		this.contenu = contenu;
 		this.spot = spot;
 		this.utilisateur = utilisateur;
 	}
@@ -72,12 +75,12 @@ public class Commentaire implements Serializable {
 		this.dateHeureCommentaire = dateHeureCommentaire;
 	}
 
-	public String getCommentaire() {
-		return commentaire;
+	public String getContenu() {
+		return contenu;
 	}
 
-	public void setCommentaire(String commentaire) {
-		this.commentaire = commentaire;
+	public void setContenu(String contenu) {
+		this.contenu = contenu;
 	}
 
 	public Spot getSpot() {
@@ -94,5 +97,8 @@ public class Commentaire implements Serializable {
 
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
-	}	
+	}
+
+	
+	
 }
