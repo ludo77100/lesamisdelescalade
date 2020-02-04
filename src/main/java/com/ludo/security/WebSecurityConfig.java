@@ -45,7 +45,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
               .antMatchers("/auth/admin**").hasAuthority(adminRole)
               .anyRequest().permitAll()
           .and()
-              .formLogin().loginPage("/login").defaultSuccessUrl("/index").failureUrl("/login")
+              .formLogin().loginPage("/login").defaultSuccessUrl("/").failureUrl("/login")
               .usernameParameter("pseudo").passwordParameter("motDePass")
           .and()
               .logout().invalidateHttpSession(true)

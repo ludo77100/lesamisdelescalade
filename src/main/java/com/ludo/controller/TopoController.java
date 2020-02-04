@@ -52,18 +52,16 @@ public class TopoController {
 			@RequestParam(name="mc", defaultValue = "")String mc,
 			HttpServletRequest request) {
 		
-		/*
-		 * UserDetails utilDet = (Utilisateur)
-		 * SecurityContextHolder.getContext().getAuthentication().getPrincipal(); String
-		 * pseudoUtilCo = utilDet.getUsername() ;
-		 */
-		
+
 		if (request.getRemoteUser() == null) {
 			return "formConnexion";
 		} else {
+			
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Page<Topo> pageListeTopo = 
-				topoRepository.chercher("%"+mc+"%", PageRequest.of(p, s));
+			String pseudo = utilDet.getUsername();
+		
+			Page<Topo> pageListeTopo = 
+				topoRepository.chercher("%"+mc+"%", PageRequest.of(p, s), pseudo);
 		model.addAttribute("listeTopo", pageListeTopo.getContent());
 		int[] pages = new int[pageListeTopo.getTotalPages()];
 		model.addAttribute("pages", pages);

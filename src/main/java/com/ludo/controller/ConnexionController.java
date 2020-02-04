@@ -20,7 +20,7 @@ public class ConnexionController {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		
 		if(!(auth instanceof AnonymousAuthenticationToken)) {
-			return new ModelAndView("redirect:/index");
+			return new ModelAndView("redirect:/");
 		}
 		
 		return new ModelAndView("formConnexion");

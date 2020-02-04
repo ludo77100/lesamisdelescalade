@@ -134,7 +134,7 @@ public class SpotController {
 		
 		spotService.saveSpot(spotForm);
 		
-		return "redirect:/index" ;
+		return "redirect:/" ;
 	}
 	
 	/////////////////////////EDITION SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
