@@ -33,9 +33,7 @@ public class VoieService {
 		
 		Secteur secteurVoie = secteurRepository.findById(secteurId).get();
 		newVoie.setSecteur(secteurVoie);
-		
-		secteurVoie.setNombreVoies(secteurVoie.getNombreVoies() + 1);
-		
+			
 		voieRepository.save(newVoie);
 	}
 

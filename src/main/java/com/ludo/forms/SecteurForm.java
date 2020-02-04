@@ -5,17 +5,14 @@ public class SecteurForm {
 	private Long idSecteur ;
 	private String localisation ;
 	private String nomSecteur ;
-	private int nombreVoies ;
 	private String typeRoche ;
 	
 	
-	public SecteurForm(Long idSecteur, String localisation, String nomSecteur, int nombreVoies,
-			String typeRoche) {
+	public SecteurForm(Long idSecteur, String localisation, String nomSecteur, String typeRoche) {
 		super();
 		this.idSecteur = idSecteur;
 		this.localisation = localisation;
 		this.nomSecteur = nomSecteur;
-		this.nombreVoies = nombreVoies;
 		this.typeRoche = typeRoche;
 	}
 
@@ -55,17 +52,6 @@ public class SecteurForm {
 	public void setNomSecteur(String nomSecteur) {
 		this.nomSecteur = nomSecteur;
 	}
-
-
-	public int getNombreVoies() {
-		return nombreVoies;
-	}
-
-
-	public void setNombreVoies(int nombreVoies) {
-		this.nombreVoies = nombreVoies;
-	}
-
 
 	public String getTypeRoche() {
 		return typeRoche;

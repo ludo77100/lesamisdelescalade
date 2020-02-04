@@ -1,8 +1,11 @@
 package com.ludo.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -57,7 +60,15 @@ public class UtilisateurController {
 	}
 	
 	@GetMapping("/infosPersonnelles")
-	public String infoPersoUtil() {
-		return "/infosPerso" ;
+	public String infoPersoUtil(Model model, HttpServletRequest request) {
+
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
+			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+			
+			model.addAttribute("infosUtilisateur", utilDet);
+			return "/infosPerso";
+		}
 	}
 }

@@ -27,7 +27,6 @@ public class SecteurService {
 		newSecteur.setNomSecteur(secteurForm.getNomSecteur());
 		newSecteur.setLocalisation(secteurForm.getLocalisation());
 		newSecteur.setTypeRoche(secteurForm.getTypeRoche());
-		newSecteur.setNombreVoies(secteurForm.getNombreVoies());
 		
 		Spot siteSec = spotRepository.findById(idSite).get();
 		
@@ -46,7 +45,6 @@ public class SecteurService {
 		secteurEdit.setNomSecteur(secteurForm.getNomSecteur());
 		secteurEdit.setLocalisation(secteurForm.getLocalisation());
 		secteurEdit.setTypeRoche(secteurForm.getTypeRoche());
-		secteurEdit.setNombreVoies(secteurForm.getNombreVoies());
 		
 		secteurRepository.save(secteurEdit);
 	}

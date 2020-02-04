@@ -35,16 +35,13 @@ public class Secteur implements Serializable {
 	@Column(name = "localisation", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String localisation;
-	@Column(name = "nombre_voies", nullable = false, unique = false)
-	@Range(min= 0, max = 999 )
-	private int nombreVoies;
 	
 	/*
 	 * Relation avec la table Spot
 	 */
 	@ManyToOne
 	@JoinColumn(name = "SPOTID")
-	private Spot spot;
+	private Spot spot; 
 	
 	/*
 	 * Relation ave la table Voie
@@ -58,13 +55,12 @@ public class Secteur implements Serializable {
 	}
 
 	public Secteur(Long idSecteur, String nomSecteur, String typeRoche, String localisation,
-			int nombreVoies, Spot spot, Collection<Voie> voie) {
+			 Spot spot, Collection<Voie> voie) {
 		super();
 		this.idSecteur = idSecteur;
 		this.nomSecteur = nomSecteur;
 		this.typeRoche = typeRoche;
 		this.localisation = localisation;
-		this.nombreVoies = nombreVoies;
 		this.spot = spot;
 		this.voie = voie;
 	}
@@ -101,14 +97,7 @@ public class Secteur implements Serializable {
 		this.localisation = localisation;
 	}
 
-	public int getNombreVoies() {
-		return nombreVoies;
-	}
-
-	public void setNombreVoies(int nombreVoies) {
-		this.nombreVoies = nombreVoies;
-	}
-
+	
 	public Spot getSpot() {
 		return spot;
 	}

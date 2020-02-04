@@ -45,14 +45,20 @@ public class CommentaireController {
 	
 	@GetMapping("/spot/{spotId}/ajoutCommentaire/")
 	public String ajoutCommentaire(Model model,
-			@PathVariable("spotId")Long spotId) {
+			@PathVariable("spotId")Long spotId,
+			HttpServletRequest request) {
 			
+		if (request.getRemoteUser() == null) {
+			return "formConnexion";
+		} else {
+		
 			Spot spot = spotRepository.findById(spotId).get();
 
 			model.addAttribute("spotId", spot.getIdSiteEscalade());
 			model.addAttribute("commentaire", new Commentaire());
 			
 		return "formCommentaire" ;
+		}
 	}
 	
 

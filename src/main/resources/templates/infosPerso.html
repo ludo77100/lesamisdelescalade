@@ -20,26 +20,8 @@
 							<h2>Mes informations personnelle</h2>
 						</div>
 						<div class=card-body>
-							<p>Nom d'utilisateur: [[${#httpServletRequest.remoteUser}]]</p>
-							
-							<form
-							action=#
-							method="post">
-
-							<div class="form-group">
-								<label class="control-label">Modifier votre adresse email</label> <input
-									class="form-control" type="text" name="cotation" required="required">
-							</div>
-
-							<div class="form-group">
-								<label class="control-label">Modifier votre mot de passe</label> <input
-									class="form-control" type="password" name="nombrePoints" required="required">
-							</div>
-							<div>
-								<button type="submit" class="btn btn-primary">Sauvegarder</button>
-							</div>
-						</form>
-							
+							<p><span>Mon nom d'utilisateur: </span><span th:text="${infosUtilisateur.pseudo}"></span></p>
+							<p><span>Mon adresse email: </span><span th:text="${infosUtilisateur.email}"></span></p>
 						</div>
 					</div>
 				</div>
