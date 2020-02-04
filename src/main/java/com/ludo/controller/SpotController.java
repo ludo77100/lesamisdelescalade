@@ -41,21 +41,13 @@ public class SpotController {
 	private SpotService spotService ;
 	@Autowired
 	private CommentaireRepository commentaireRepository ;
-
-	/*
-	 * Controller pour la page d'accueil du site
-	 */
-	@GetMapping("/index")
-	public String index() {
-		return "index";
-	}
 	
 	/////////////////////////DISPLAY SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	/*
 	 * Controller qui renvoie la liste des spots
 	 */
-	@GetMapping("/listeSpot")
+	@GetMapping("/index")
 	public String listeSpot(
 			Model model, 
 			@RequestParam(name="page", defaultValue = "0")int p, 
