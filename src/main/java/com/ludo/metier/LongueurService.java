@@ -27,6 +27,7 @@ public class LongueurService {
 		Longueur newLongueur = new Longueur();
 	
 		newLongueur.setCotation(longueurForms.getCotation());
+		newLongueur.setLongueurLong(longueurForms.getLongueurLong());
 		newLongueur.setNombrePoints(longueurForms.getNombrePoints());
 		
 		Voie voie = voieRepository.findById(voieId).get();
@@ -39,12 +40,13 @@ public class LongueurService {
 	/*
 	 * Méthode pour l'édition d'une longueur
 	 */
-	public void saveEditLongueur(LongueurForms longueurForm, Long longueurId) {
+	public void saveEditLongueur(LongueurForms longueurForms, Long longueurId) {
 		
 		Longueur longueurEdit = longueurRepository.findById(longueurId).get();
 		
-		longueurEdit.setCotation(longueurForm.getCotation());
-		longueurEdit.setNombrePoints(longueurForm.getNombrePoints());
+		longueurEdit.setCotation(longueurForms.getCotation());
+		longueurEdit.setLongueurLong(longueurForms.getLongueurLong());
+		longueurEdit.setNombrePoints(longueurForms.getNombrePoints());
 		
 		longueurRepository.save(longueurEdit);
 	}

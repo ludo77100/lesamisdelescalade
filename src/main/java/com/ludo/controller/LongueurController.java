@@ -76,7 +76,7 @@ public class LongueurController {
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur/save")
 	public String saveLongueur(
 			Model model, 
-			@ModelAttribute("longueurForm") LongueurForms longueurForms,
+			@ModelAttribute("longueurForms") LongueurForms longueurForms,
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId") Long secteurId,
 			@PathVariable("voieId") Long voieId, 
@@ -131,7 +131,7 @@ public class LongueurController {
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/saveEditLongueur/{longueurId}")
 	public String saveEditLongueur(
 			Model model, 
-			@ModelAttribute("longueurForm")LongueurForms longueurForm,
+			@ModelAttribute("longueurForms")LongueurForms longueurForms,
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId,
@@ -145,7 +145,7 @@ public class LongueurController {
 			return "editLongueur" ;
 		}
 		
-		longueurService.saveEditLongueur(longueurForm, longueurId);
+		longueurService.saveEditLongueur(longueurForms, longueurId);
 		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId ;
 	}

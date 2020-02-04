@@ -32,6 +32,11 @@
 							</div>
 
 							<div class="form-group">
+								<label class="control-label">Longueur :</label> <input class="form-control" type="number" min="0" max="100000" name="longueurLong" required="required" th:value="${longueur.longueurLong}">
+									<span class="red" th:errors="${longueur.longueurLong}"></span>
+							</div>
+
+							<div class="form-group">
 								<label class="control-label">Nombre de points :</label> <input class="form-control" type="number" min="1" max="999" name="nombrePoints" required="required" th:value="${longueur.nombrePoints}">
 									<span class="red" th:errors="${longueur.nombrePoints}"></span>
 							</div>
