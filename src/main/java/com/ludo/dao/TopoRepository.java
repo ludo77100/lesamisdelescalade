@@ -20,6 +20,6 @@ public interface TopoRepository extends JpaRepository<Topo, Long> {
 	List<Topo> findAllByUser(@Param("x")UserDetails utilDet);
 
 	
-	@Query("select t from Topo t where t.nom like :x and disponible = true and utilisateur.pseudo not like :pseudo")
+	@Query("select t from Topo t where (t.nom like :x or t.spotNom like :x ) and (t.disponible = true and t.utilisateur.pseudo not like :pseudo)")
 	public Page<Topo> chercher(@Param("x")String mc, Pageable pageable, @Param("pseudo")String pseudo);
 }
