@@ -53,7 +53,7 @@
 				<div class="col-lg-6">
 
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Liste des voies<a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
+						<div class="card-header"><h3 class="card-title">Information voie<a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
 								th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
 								une voie</a></h3></div>
 						<div class="card-body">
@@ -62,10 +62,7 @@
 									th:text="${voieInfo.nomVoie}"></label></li>
 								<li class="list-group-item"><label>Cotation de la
 										voie: </label><label th:text="${voieInfo.cotation}"></label></li>
-								<li class="list-group-item"><label>Longueur
-										minimum: </label><label th:text="${voieInfo.longeurMin}"></label></li>
-								<li class="list-group-item"><label>Longueur
-										maximum: </label><label th:text="${voieInfo.longueurMax}"></label></li>
+								<li class="list-group-item"><label>Longueur:</label><label th:text="${voieInfo.longueurVoie}"></label></li>
 								<li class="list-group-item"><label>Equipée: </label><label
 									th:text="${voieInfo.equipee}"></label></li>
 							</ul>

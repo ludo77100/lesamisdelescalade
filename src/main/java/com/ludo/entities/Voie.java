@@ -13,7 +13,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 @Entity
@@ -28,10 +27,8 @@ public class Voie implements Serializable {
 	@Column(name = "cotation", nullable = false, unique = false)
 	@Length(min = 2, max = 2)
 	private String cotation ;
-	@Column(name = "longeur_min", nullable = false, unique = false)
-	private  Double longeurMin ;
-	@Column(name = "longueur_max", nullable = false, unique = false)
-	private Double longueurMax ;
+	@Column(name = "longueurVoie", nullable = false, unique = false)
+	private Double longueurVoie ;
 	@Column(name = "equipee", nullable = false, unique = false)
 	private String equipee ;
 	@ManyToOne
@@ -43,15 +40,13 @@ public class Voie implements Serializable {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public Voie(Long idVoie, @NotNull String nomVoie, @NotNull String cotation, 
-			@NotNull Double longeurMin, @NotNull Double longueurMax, @NotNull String equipee, Secteur secteur,
-			Collection<Longueur> longueur) {
+	public Voie(Long idVoie, @Length(min = 4, max = 35) String nomVoie, @Length(min = 2, max = 2) String cotation,
+			Double longueurVoie, String equipee, Secteur secteur, Collection<Longueur> longueur) {
 		super();
 		this.idVoie = idVoie;
 		this.nomVoie = nomVoie;
 		this.cotation = cotation;
-		this.longeurMin = longeurMin;
-		this.longueurMax = longueurMax;
+		this.longueurVoie = longueurVoie;
 		this.equipee = equipee;
 		this.secteur = secteur;
 		this.longueur = longueur;
@@ -74,17 +69,11 @@ public class Voie implements Serializable {
 	public void setCotation(String cotation) {
 		this.cotation = cotation;
 	}
-	public Double getLongeurMin() {
-		return longeurMin;
+	public Double getLongueurVoie() {
+		return longueurVoie;
 	}
-	public void setLongeurMin(Double longeurMin) {
-		this.longeurMin = longeurMin;
-	}
-	public Double getLongueurMax() {
-		return longueurMax;
-	}
-	public void setLongueurMax(Double longueurMax) {
-		this.longueurMax = longueurMax;
+	public void setLongueurVoie(Double longueurVoie) {
+		this.longueurVoie = longueurVoie;
 	}
 	public String getEquipee() {
 		return equipee;
@@ -105,6 +94,6 @@ public class Voie implements Serializable {
 		this.longueur = longueur;
 	}
 	
-
-
+	
+	
 }
