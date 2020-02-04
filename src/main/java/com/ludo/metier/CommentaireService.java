@@ -24,14 +24,16 @@ public class CommentaireService {
 	CommentaireRepository commentaireRepository ;
 	@Autowired
 	SpotRepository spotRepository ;
+	
 	public void saveCommentaire(CommentaireForm commentaireForm, Long spotId) {
+		
 		Commentaire newCommentaire = new Commentaire() ;
 		Spot spotActuel = spotRepository.findById(spotId).get();
 
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Utilisateur utilisateur = utilisateurRepository.findByPseudo(util.getUsername());
 		
-		newCommentaire.setCommentaire(commentaireForm.getCommentaire());
+		newCommentaire.setContenu(commentaireForm.getContenu());
 		newCommentaire.setDateHeureCommentaire(commentaireForm.getDateHeureCommentaire());
 		newCommentaire.setUtilisateur(utilisateur);
 		newCommentaire.setSpot(spotActuel);
@@ -43,7 +45,7 @@ public class CommentaireService {
 		
 		Commentaire comEdit = commentaireRepository.findById(comId).get();
 		
-		comEdit.setCommentaire(commentaireForm.getCommentaire());
+		comEdit.setContenu(commentaireForm.getContenu());
 		
 		commentaireRepository.save(comEdit);
 		

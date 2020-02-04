@@ -1,14 +1,14 @@
 package com.ludo.controller;
 
-import java.util.Date;
-
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,26 +47,28 @@ public class CommentaireController {
 	public String ajoutCommentaire(Model model,
 			@PathVariable("spotId")Long spotId) {
 			
+			Spot spot = spotRepository.findById(spotId).get();
+
+			model.addAttribute("spotId", spot.getIdSiteEscalade());
 			model.addAttribute("commentaire", new Commentaire());
-			model.addAttribute("spotId", spotId);
 			
 		return "formCommentaire" ;
 	}
 	
 
 	@PostMapping("/spot/{spotId}/saveCommentaire/")
-	public String saveCommentaire(Model model, Commentaire commentaire,
-			@PathVariable("spotId") Long spotId) {
+	public String saveCommentaire(Model model, 
+			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
+			@PathVariable("spotId") Long spotId,
+			@Valid Commentaire commentaire,
+			BindingResult result) {
 		
-		UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Utilisateur utilisateur = utilisateurRepository.findByPseudo(utilDet.getUsername());
-		Spot spot = spotRepository.findById(spotId).get();
-		Date date = new Date() ;
-		
-		commentaire.setUtilisateur(utilisateur);
-		commentaire.setDateHeureCommentaire(date);
-		commentaire.setSpot(spot);
-		commentaireRepository.save(commentaire);
+		if (result.hasErrors()) {
+			model.addAttribute("spotId", spotId);
+			return "formCommentaire" ;
+		} else {
+			commentaireService.saveCommentaire(commentaireForm, spotId);
+		}
 		
 		return "redirect:/spot/" +spotId ;
 		}
@@ -128,12 +130,20 @@ public class CommentaireController {
 			Model model,
 			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
 			@PathVariable("spotId")Long spotId,
-			@PathVariable("comId")Long comId) {
+			@PathVariable("comId")Long comId,
+			@Valid Commentaire commentaire,
+			BindingResult result) {
 	
+		if (result.hasErrors()) {
+			model.addAttribute("spotId", spotId);
+			model.addAttribute("comId", comId);
+			return "editCommentaire" ;
+		} else {
 		
 		commentaireService.saveEditCommentaire(commentaireForm, comId);
 		
 		return "redirect:/spot/" +spotId ;
+			}
 		}
 	
 	/////////////////////////SUPPRESSION COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\

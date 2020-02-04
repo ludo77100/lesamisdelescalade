@@ -6,7 +6,7 @@ import java.util.Date;
 public class CommentaireForm {
 
 	private Date dateHeureCommentaire = new Date() ; 
-	private String commentaire ;
+	private String contenu ;
 	private Long idCommentaire ;
 	
 	public CommentaireForm() {
@@ -14,10 +14,10 @@ public class CommentaireForm {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public CommentaireForm(Date dateHeureCommentaire, String commentaire, Long idCommentaire) {
+	public CommentaireForm(Date dateHeureCommentaire, String contenu, Long idCommentaire) {
 		super();
 		this.dateHeureCommentaire = dateHeureCommentaire;
-		this.commentaire = commentaire;
+		this.contenu = contenu;
 		this.idCommentaire = idCommentaire;
 	}
 	
@@ -29,12 +29,12 @@ public class CommentaireForm {
 		this.dateHeureCommentaire = dateHeureCommentaire;
 	}
 	
-	public String getCommentaire() {
-		return commentaire;
+	public String getContenu() {
+		return contenu;
 	}
 	
-	public void setCommentaire(String commentaire) {
-		this.commentaire = commentaire;
+	public void setContenu(String contenu) {
+		this.contenu = contenu;
 	}
 	
 	public Long getIdCommentaire() {
