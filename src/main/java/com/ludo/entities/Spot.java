@@ -51,7 +51,7 @@ public class Spot implements Serializable{
 	/*
 	 * Relation avec la table Topo
 	 */
-	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Topo> topo ;
 	
 	/*

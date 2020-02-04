@@ -42,12 +42,18 @@ public class SpotController {
 	@Autowired
 	private CommentaireRepository commentaireRepository ;
 	
+	@GetMapping("/")
+	public String index() {
+		return "redirect:/listeSpot";
+		}
+	
+	
 	/////////////////////////DISPLAY SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
 	/*
 	 * Controller qui renvoie la liste des spots
 	 */
-	@GetMapping("/index")
+	@GetMapping("/listeSpot")
 	public String listeSpot(
 			Model model, 
 			@RequestParam(name="page", defaultValue = "0")int p, 
@@ -128,7 +134,7 @@ public class SpotController {
 		
 		spotService.saveSpot(spotForm);
 		
-		return "redirect:/listeSpot" ;
+		return "redirect:/index" ;
 	}
 	
 	/////////////////////////EDITION SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
