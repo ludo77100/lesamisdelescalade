@@ -18,6 +18,9 @@ public class Longueur implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_longueur")
 	private Long idLongueur ;
+	@Column(name = "nom_longueur", nullable = false, unique = false)
+	@Size(min = 4, max = 20)
+	private String nomLongueur;
 	@Column(name = "cotation", nullable = false, unique = false)
 	@Size(min = 2, max = 2)
 	private String cotation ;
@@ -35,10 +38,11 @@ public class Longueur implements Serializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Longueur(Long idLongueur, @Size(min = 2, max = 2) String cotation, Long longueurLong, int nombrePoints,
-			Voie voie) {
+	public Longueur(Long idLongueur, @Size(min = 4, max = 20) String nomLongueur,
+			@Size(min = 2, max = 2) String cotation, Long longueurLong, int nombrePoints, Voie voie) {
 		super();
 		this.idLongueur = idLongueur;
+		this.nomLongueur = nomLongueur;
 		this.cotation = cotation;
 		this.longueurLong = longueurLong;
 		this.nombrePoints = nombrePoints;
@@ -51,6 +55,14 @@ public class Longueur implements Serializable {
 
 	public void setIdLongueur(Long idLongueur) {
 		this.idLongueur = idLongueur;
+	}
+
+	public String getNomLongueur() {
+		return nomLongueur;
+	}
+
+	public void setNomLongueur(String nomLongueur) {
+		this.nomLongueur = nomLongueur;
 	}
 
 	public String getCotation() {
@@ -85,6 +97,5 @@ public class Longueur implements Serializable {
 		this.voie = voie;
 	}
 
-	
 	
 }

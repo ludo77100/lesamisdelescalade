@@ -26,6 +26,7 @@ public class LongueurService {
 		
 		Longueur newLongueur = new Longueur();
 	
+		newLongueur.setNomLongueur(longueurForms.getNomLongueur());
 		newLongueur.setCotation(longueurForms.getCotation());
 		newLongueur.setLongueurLong(longueurForms.getLongueurLong());
 		newLongueur.setNombrePoints(longueurForms.getNombrePoints());
@@ -44,6 +45,7 @@ public class LongueurService {
 		
 		Longueur longueurEdit = longueurRepository.findById(longueurId).get();
 		
+		longueurEdit.setNomLongueur(longueurForms.getNomLongueur());
 		longueurEdit.setCotation(longueurForms.getCotation());
 		longueurEdit.setLongueurLong(longueurForms.getLongueurLong());
 		longueurEdit.setNombrePoints(longueurForms.getNombrePoints());
