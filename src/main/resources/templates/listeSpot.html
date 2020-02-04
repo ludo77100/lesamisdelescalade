@@ -22,6 +22,7 @@
 			<form th:action="@{/listeSpot}" method="get">
 				<input type="search" name="mc" th:value="${mc}"></input>
 				<button class="btn btn-primary">Chercher</button>
+				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
 			</form>
 
 			<!-- Début du tableau de la liste des spots d'escalade, le retour de résultats de la rechereche s'affiche ici -->
