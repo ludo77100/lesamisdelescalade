@@ -23,12 +23,16 @@ public class Reservation implements Serializable{
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_reservation")
 	private Long idReservation ;
+	
 	@Column(name = "reservant", nullable = false, unique = false)
 	private String reservant ;
+	
 	@Column(name = "proprietaire", nullable = false, unique = false)
 	private String proprietaire ;
+	
 	@Column(name = "dateDemande", nullable = false, unique = false)
 	private Date dateDemande ;
+	
 	@Column(name = "etatDemande", nullable = false, unique = false)
 	private boolean etatDemande ;
 	

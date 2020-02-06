@@ -26,12 +26,15 @@ public class Secteur implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_secteur")
 	private Long idSecteur;
+	
 	@Column(name = "nom_secteur", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String nomSecteur;
+	
 	@Column(name = "type_roche", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String typeRoche;
+	
 	@Column(name = "localisation", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String localisation;

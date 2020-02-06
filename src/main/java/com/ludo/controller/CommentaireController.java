@@ -22,7 +22,11 @@ import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.forms.CommentaireForm;
 import com.ludo.metier.CommentaireService;
-
+/**
+ * Controller pour la partie commentaire de l'application
+ * @author A87671
+ *
+ */
 @Controller
 public class CommentaireController {
 	
@@ -42,7 +46,13 @@ public class CommentaireController {
 	
 	/////////////////////////AJOUT COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	
+	/**
+	 * Controller pour accéder au formulaire d'ajout de commentaire
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot auquel va être lié le commentaire 
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return le formulaire d'ajout de commentaire
+	 */
 	@GetMapping("/spot/{spotId}/ajoutCommentaire/")
 	public String ajoutCommentaire(Model model,
 			@PathVariable("spotId")Long spotId,
@@ -61,7 +71,15 @@ public class CommentaireController {
 		}
 	}
 	
-
+	/**
+	 * Controller pour sauvegarder les données d'un nouveau commentaire 
+	 * @param model instance du model en cours
+	 * @param commentaireForm 
+	 * @param spotId spotId id du spot auquel va être lié le commentaire
+	 * @param commentaire 
+	 * @param result resultat du binding pour gérer les erreurs
+	 * @return vers la vue de display du spot ou a été ajouté le commentaire
+	 */
 	@PostMapping("/spot/{spotId}/saveCommentaire/")
 	public String saveCommentaire(Model model, 
 			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
@@ -116,20 +134,14 @@ public class CommentaireController {
 		}
 	}
 	
-	/*
-	 * Controller pour l'action du bouton sauvegarder du formulaire d'édition d'un commentaire
-	 * Il renvoie sur le secteur du commentaire qui vient d'être édité
-	 */
-	
 	/**
-	 * 
+	 * controller pour accéder au formulaire d'édition d'un commentaire
 	 * @param model instance du model en cours
 	 * @param commentaireForm 
-	 * @param comId
-	 * @param spotId
-	 * @param commentaire
-	 * @param result
-	 * @return
+	 * @param comId id du commentaire qui doit être édité
+	 * @param spotId id du spot auquel appartient le commentaire
+	 * @param result resultat du binding pour gérer les erreurs de saisie
+	 * @return vers la vue de display du spot ou a été modifié le commentaire
 	 */
 	@PostMapping("/spot/{spotId}/saveEditCommentaire/{comId}")
 	public String saveEditCommentaire(
@@ -153,12 +165,13 @@ public class CommentaireController {
 		}
 	
 	/////////////////////////SUPPRESSION COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
-	/*
-	 * Cette méthode permet la suppression d'un commentaire. Elle execute une
-	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer un commentaire
-	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
-	 * contre un anonyme qui taperait le PATH à la main dans son navigateur
+		
+	/**
+	 * Controller pour la suppression d'un commentaire 
+	 * @param comId id du commentaire qui doit être supprimé
+	 * @param spotId id auquel le commentaire est lié
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return vers la vue de display du spot ou a été supprimé le commentaire
 	 */
 	@GetMapping("/spot/{spotId}/deleteCommentaire/{comId}")
 	public String deleteCommentaire(

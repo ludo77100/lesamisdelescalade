@@ -11,23 +11,35 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import org.hibernate.validator.constraints.Length;
+
 @Entity
 public class Topo implements Serializable {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_topo")
 	private Long idTopo;
+	
 	@Column(name = "nom", nullable = false, unique = false)
+	@Length(min = 2, max = 35)
 	private String nom ;
+	
 	@Column(name = "disponible", nullable = false, unique = false)
 	private boolean disponible ;
+	
 	@Column(name = "date_parution", nullable = false, unique = false)
 	private String dateParution ;
+	
 	@Column(name = "description", nullable = false, unique = false)
+	@Length(min = 2, max = 35)
 	private String description ;
+	
 	@Column(name = "spot_nom", nullable = false, unique = false)
+	@Length(min = 2, max = 255)
 	private String spotNom ;
+	
 	@Column(name = "lieu", nullable = false, unique = false)
+	@Length(min = 2, max = 35)
 	private String lieu ;
 
 

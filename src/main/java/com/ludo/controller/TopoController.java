@@ -2,17 +2,17 @@ package com.ludo.controller;
 
 import java.util.List;
 
-import javax.annotation.security.RolesAllowed;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -84,7 +84,7 @@ public class TopoController {
 		model.addAttribute("utilDet", utilDet);
 		
 		//Ajout de Topo
-		model.addAttribute("Topo", new Topo());
+		model.addAttribute("topo", new Topo());
 		
 		//liste des spot pour liste déroulante dans le formulaire de saisie de Topo
 		List <Spot> listeSpotForm = spotRepository.findAll();
@@ -110,7 +110,7 @@ public class TopoController {
 	}
 	
 	@PostMapping("/saveTopo")
-	public String saveTopo(Model model, @ModelAttribute("topoForm") TopoForm topoForm, final RedirectAttributes redirect) {
+	public String saveTopo(Model model, @ModelAttribute("topoForm") TopoForm topoForm,  BindingResult result) {
 		
 		topoService.saveTopo(topoForm);
 		

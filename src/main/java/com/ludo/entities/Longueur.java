@@ -18,14 +18,18 @@ public class Longueur implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_longueur")
 	private Long idLongueur ;
+	
 	@Column(name = "nom_longueur", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String nomLongueur;
+	
 	@Column(name = "cotation", nullable = false, unique = false)
 	@Size(min = 2, max = 2)
 	private String cotation ;
+	
 	@Column(name = "longueurLong", nullable = false, unique = false)
 	private Long longueurLong ;
+	
 	@Column(name = "nombre_points", nullable = false, unique = false)
 	private int nombrePoints ;
 	
