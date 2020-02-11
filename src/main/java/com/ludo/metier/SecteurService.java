@@ -1,5 +1,7 @@
 package com.ludo.metier;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -20,13 +22,13 @@ public class SecteurService {
 	/*
 	 * Méthode pour l'ajout d'un nouveau secteur
 	 */
-	public void saveSecteur(Long idSite, SecteurForm secteurForm, BindingResult result) {
+	public void saveSecteur(Long idSite, Secteur secteur) {
 		
 		Secteur newSecteur = new Secteur();
 		
-		newSecteur.setNomSecteur(secteurForm.getNomSecteur());
-		newSecteur.setLocalisation(secteurForm.getLocalisation());
-		newSecteur.setTypeRoche(secteurForm.getTypeRoche());
+		newSecteur.setNomSecteur(secteur.getNomSecteur());
+		newSecteur.setLocalisation(secteur.getLocalisation());
+		newSecteur.setTypeRoche(secteur.getTypeRoche());
 		
 		Spot siteSec = spotRepository.findById(idSite).get();
 		
@@ -38,13 +40,13 @@ public class SecteurService {
 	/*
 	 * Méthode pour l'édition d'un secteur
 	 */
-	public void saveEditSecteur(SecteurForm secteurForm, Long secteurId) {
+	public void saveEditSecteur(Secteur secteur, Long secteurId) {
 
 		Secteur secteurEdit = secteurRepository.findById(secteurId).get();
 		
-		secteurEdit.setNomSecteur(secteurForm.getNomSecteur());
-		secteurEdit.setLocalisation(secteurForm.getLocalisation());
-		secteurEdit.setTypeRoche(secteurForm.getTypeRoche());
+		secteurEdit.setNomSecteur(secteur.getNomSecteur());
+		secteurEdit.setLocalisation(secteur.getLocalisation());
+		secteurEdit.setTypeRoche(secteur.getTypeRoche());
 		
 		secteurRepository.save(secteurEdit);
 	}

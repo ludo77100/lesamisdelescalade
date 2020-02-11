@@ -93,7 +93,6 @@ public class SecteurController {
 	@PostMapping("/spot/{spotId}/ajouterSecteur/save")
 	public String saveSecteur(
 			Model model,
-			@ModelAttribute("secteurForm") SecteurForm secteurForm,
 			@PathVariable("spotId") Long spotId,
 			@Valid Secteur secteur,
 			BindingResult result
@@ -103,7 +102,7 @@ public class SecteurController {
 			return "formSecteur" ;			
 		}
 		
-		secteurService.saveSecteur(spotId, secteurForm, result);
+		secteurService.saveSecteur(spotId, secteur, result);
 		
 		return "redirect:/spot/" + spotId ;
 	}
@@ -141,8 +140,7 @@ public class SecteurController {
 	 */
 	@PostMapping("/spot/{spotId}/saveEditSecteur/{secteurId}")
 	public String saveEditSecteur(
-			Model model, 
-			@ModelAttribute("secteurForm") SecteurForm secteurForm, 
+			Model model,  
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("secteurId")Long secteurId,
 			@Valid Secteur secteur,
@@ -153,7 +151,7 @@ public class SecteurController {
 			return "editSecteur";			
 		} else {
 		
-		secteurService.saveEditSecteur(secteurForm, secteurId);
+		secteurService.saveEditSecteur(secteur, secteurId);
 		
 		return "redirect:/spot/"+ spotId +"/secteur/" +secteurId;
 	}
