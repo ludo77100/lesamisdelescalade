@@ -12,6 +12,11 @@ import com.ludo.entities.Reservation;
 import com.ludo.entities.Topo;
 import com.ludo.metier.ReservationService;
 
+/**
+ * Controller pour la partie réservation de topo
+ * @author A87671
+ *
+ */
 @Controller
 public class ReservationController {
 	
@@ -22,8 +27,13 @@ public class ReservationController {
 	@Autowired
 	ReservationService reservationService ;
 	
+	/**
+	 * Controller pour enregistrer une demande de réservation de topo
+	 * @param topoId id du topo qui est demandé pour la réservation
+	 * @return la liste des topos 
+	 */
 	@GetMapping("/listeTopo/reserverTopo/{topoId}")
-	public String demandeReservationTopo(@PathVariable("topoId")Long topoId, RedirectAttributes redirect) {
+	public String demandeReservationTopo(@PathVariable("topoId")Long topoId) {
 		
 		Topo topo = topoRepository.findById(topoId).get();
 		
@@ -37,6 +47,11 @@ public class ReservationController {
 		return "redirect:/listeTopo" ;
 	}
 	
+	/**
+	 * Permet d'accepter uen demande de réservation
+	 * @param reservationId id de la réservation
+	 * @return la vue topo
+	 */
 	@GetMapping("/topo/accepterReservation/{reservationId}")
 	public String accepterReservation(@PathVariable("reservationId")Long reservationId) {
 		
@@ -53,6 +68,11 @@ public class ReservationController {
 		
 	}
 
+	/**
+	 * Permet de terminer une réservation
+	 * @param reservationId id de la réservation
+	 * @return la vue topo
+	 */
 	@GetMapping("/topo/terminerReservation/{reservationId}")
 	public String terminerReservation(@PathVariable("reservationId")Long reservationId) {
 	

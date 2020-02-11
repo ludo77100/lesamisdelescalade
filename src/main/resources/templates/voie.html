@@ -84,8 +84,9 @@
 									<div class="card-header"><h3 th:text="${longueur.nomLongueur}"></h3></div>
 									<div class="card-body">
 										<ul class="list-group list-group-flush">
-											<li class="list-group-item"><label th:text="${longueur.cotation}"></label></li>
-											<li class="list-group-item"><label th:text="${longueur.longueurLong}"></label></li>
+											<li class="list-group-item">Cotation longueur: <label th:text="${longueur.cotation}"></label></li>
+											<li class="list-group-item">Longueur: <label th:text="${longueur.longueurLong}"></label></li>
+											<li class="list-group-item">Nombres de points: <label th:text="${longueur.nombrePoints}"></label></li>
 										</ul>
 										<div class="dropdown">
 											<button class="btn btn-primary dropdown-toggle mx-1 spacer" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>

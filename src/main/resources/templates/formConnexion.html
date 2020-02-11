@@ -22,7 +22,11 @@
 				<div class="card spacer">
 					<div class="card-header">Connexion</div>
 					<div class="card-body">
-						<form th:action="@{/login}" method="post">
+						<form th:action="@{/connexionUtilisateur}" method="post">
+
+							<div class = "red" th:unless="${#httpServletRequest.getParameter('error') == null}">
+								<p>Les informations de connexion sont érronées !</p>
+								</div>
 
 							<div class="form-group">
 								<label class="control-label">Pseudo :</label> <input

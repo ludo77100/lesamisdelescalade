@@ -29,7 +29,11 @@ import com.ludo.entities.Voie;
 import com.ludo.forms.LongueurForms;
 import com.ludo.metier.LongueurService;
 
-
+/**
+ * Controller pour la partie longueur de l'application
+ * @author A87671
+ *
+ */
 @Controller
 public class LongueurController {
 	@Autowired
@@ -44,9 +48,15 @@ public class LongueurController {
 	private LongueurService longueurService;
 	
 	/////////////////////////AJOUT LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
-	/*
+
+	/**
 	 * Controller pour accéder au formulaire d'ajout de longueur lié à une voie
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot auquel la longueur est liée
+	 * @param secteurId id du secteur auquel la longueur est lié
+	 * @param voieId id de la voie auquelle la longueur est lié
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return le formulaire d'ajout de nouvelle longueur
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur")
 	public String formLongueur(
@@ -69,9 +79,17 @@ public class LongueurController {
 		return "formLongueur";
 		}
 	}
-	
-	/*
+
+	/**
 	 * Controller pour l'action du bouton sauvegarder pour une nouvelle longueur
+	 * @param model instance du model en cours 
+	 * @param longueurForms 
+	 * @param spotId id du spot auquel la longueur est liée
+	 * @param secteurId id du secteur auquel la longueur est lié
+	 * @param voieId id de la voie auquelle la longueur est lié
+	 * @param longueur objet longueur pour la validation du formulaire 
+	 * @param result resultat du binding pour gérer les erreurs de saisie
+	 * @return vers la vue des longueurs
 	 */
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur/save")
 	public String saveLongueur(
@@ -81,8 +99,7 @@ public class LongueurController {
 			@PathVariable("secteurId") Long secteurId,
 			@PathVariable("voieId") Long voieId, 
 			@Valid Longueur longueur,
-			BindingResult result, 
-			RedirectAttributes redirectAttributes) {
+			BindingResult result) {
 
 		if (result.hasErrors()) {
 			return "formLongueur";			
@@ -95,9 +112,16 @@ public class LongueurController {
 	}
 	
 	/////////////////////////EDITION LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\	
-	
-	/*
+
+	/**
 	 * Controller pour accéder à l'edition d'une longueur
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot auquel la longueur est liée
+	 * @param secteurId id du secteur auquel la longueur est lié
+	 * @param voieId id de la voie auquelle la longueur est lié
+	 * @param longueurId id de la longueur qui doit être édité
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return le formulaire d'édition de la longueur
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/editLongueur/{longueurId}")
 	public String editLongueur(
@@ -123,10 +147,18 @@ public class LongueurController {
 		return "editlongueur" ;
 		}
 	}
-	
-	/*
-	 * Controller pour l'action du bouton sauvegarder dans le formulaire d'étion d'une longueur
-	 * Il renvoie vers la liste des longueurs
+		
+	/**
+	 *  Controller la sauvegarde d'étion d'une longueur
+	 * @param model instance du model en cours 
+	 * @param longueurForms
+	 * @param spotId id du spot auquel la longueur est liée
+	 * @param secteurId id du secteur auquel la longueur est lié
+	 * @param voieId id de la voie auquelle la longueur est lié
+	 * @param longueurId id de la longueur qui doit être édité
+	 * @param longueur objet longueur pour la validation du formulaire
+	 * @param result resultat du binding pour gérer les erreurs de saisie
+	 * @return la vue des longueurs
 	 */
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/saveEditLongueur/{longueurId}")
 	public String saveEditLongueur(
@@ -152,11 +184,14 @@ public class LongueurController {
 	
 	/////////////////////////SUPPRESSION LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/*
-	 * Cette méthode permet la suppression d'une longueur. Elle execute une
-	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
-	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
-	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
+	/**
+	 * Controller pour la suppression d'une longueur
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @param spotId id du spot auquel la longueur est liée
+	 * @param secteurId id du secteur auquel la longueur est lié
+	 * @param voieId id de la voie auquelle la longueur est lié
+	 * @param longueurId id de la longueur qui doit être édité
+	 * @return la vue des longueurs
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}")
 	public String deleteLongueur(
@@ -164,8 +199,7 @@ public class LongueurController {
 			@PathVariable("longueurId") long longueurId,
 			@PathVariable("voieId") Long voieId,
 			@PathVariable("secteurId") Long secteurId,
-			@PathVariable("spotId") Long spotId, 
-			final RedirectAttributes redirect) {
+			@PathVariable("spotId") Long spotId) {
 
 		if (request.getRemoteUser() == null) {
 			return "formConnexion";

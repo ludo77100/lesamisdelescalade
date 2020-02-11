@@ -124,7 +124,6 @@ public class SpotController {
 	@PostMapping("/save")
 	public String saveSpot(
 			Model model,
-			@ModelAttribute("spotForm") SpotForm spotForm, 
 			@Valid Spot spot,
 			BindingResult result) {
 		
@@ -132,7 +131,7 @@ public class SpotController {
 			return "formSpot" ;			
 		}
 		
-		spotService.saveSpot(spotForm);
+		spotService.saveSpot(spot);
 		
 		return "redirect:/" ;
 	}
@@ -169,7 +168,6 @@ public class SpotController {
 	 */
 	@PostMapping("/saveEditSpot/{spotId}")
 	public String saveEditSpot(Model model,
-			@ModelAttribute("spotForm") SpotForm spotForm, 
 			@PathVariable("spotId")Long spotId,
 			@Valid Spot spot, 
 			BindingResult result,
@@ -180,7 +178,7 @@ public class SpotController {
 			return "editSpot";			
 		} else {
 		
-		spotService.saveEditSpot(spotForm, spotId);
+		spotService.saveEditSpot(spot, spotId);
 		
 		return "redirect:/spot/"+ spotId ;
 		}
@@ -206,7 +204,7 @@ public class SpotController {
 
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-			Spot spot = spotRepository.findById(spotId).get(); //On récupère le spot en cours 
+			Spot spot = spotRepository.findById(spotId).get();
 
 			if (utilDet.getUsername().equals(spot.getUtilisateur().getUsername()) || utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
 				spotRepository.deleteById(spotId); //On supprime le spot 

@@ -1,5 +1,7 @@
 package com.ludo.metier;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -21,15 +23,15 @@ public class SpotService {
 	/*
 	 * Méthode pour l'ajout d'un nouveau spot
 	 */
-	public void saveSpot(SpotForm spotForm) {
+	public void saveSpot(Spot spot) {
 		
 		Spot newSpot = new Spot();
 		
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Utilisateur utilisateur = utilisateurRepository.findByPseudo(util.getUsername());
 		
-		newSpot.setNom(spotForm.getNom());
-		newSpot.setLocalite(spotForm.getLocalite());
+		newSpot.setNom(spot.getNom());
+		newSpot.setLocalite(spot.getLocalite());
 		newSpot.setUtilisateur(utilisateur);
 		newSpot.setOfficiel(false);
 
@@ -39,11 +41,11 @@ public class SpotService {
 	/*
 	 * Méthode pour l'édition d'un spot
 	 */
-	public void saveEditSpot(SpotForm spotForm, Long spotId) {
+	public void saveEditSpot(Spot spot, Long spotId) {
 		Spot spotEdit = spotRepository.findById(spotId).get();
 		
-		spotEdit.setNom(spotForm.getNom());
-		spotEdit.setLocalite(spotForm.getLocalite());
+		spotEdit.setNom(spot.getNom());
+		spotEdit.setLocalite(spot.getLocalite());
 				
 		spotRepository.save(spotEdit);
 	}
