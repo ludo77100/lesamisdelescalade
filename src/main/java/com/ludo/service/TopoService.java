@@ -1,6 +1,4 @@
-package com.ludo.metier;
-
-import javax.validation.Valid;
+package com.ludo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -13,7 +11,6 @@ import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Topo;
 import com.ludo.entities.Utilisateur;
-import com.ludo.forms.TopoForm;
 
 @Service
 public class TopoService {

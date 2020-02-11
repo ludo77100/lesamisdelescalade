@@ -15,32 +15,32 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ludo.dao.CommentaireRepository;
-import com.ludo.dao.SecteurRepository;
+
 import com.ludo.dao.SpotRepository;
 import com.ludo.entities.Commentaire;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
-import com.ludo.forms.SpotForm;
-import com.ludo.metier.SpotService;
+import com.ludo.service.CommentaireService;
+import com.ludo.service.SecteurService;
+import com.ludo.service.SpotService;
+
 
 @Controller
 public class SpotController {
 	@Autowired
-	private SpotRepository spotRepository;
+	private SpotRepository spotRepository; //besoin pour la recherche
 	@Autowired
-	private SecteurRepository secteurRepository ;
+	SpotService spotService ;
 	@Autowired
-	private SpotService spotService ;
+	CommentaireService commentaireService ;
 	@Autowired
-	private CommentaireRepository commentaireRepository ;
+	SecteurService secteurService ;
 	
 	@GetMapping("/")
 	public String index() {
@@ -62,7 +62,7 @@ public class SpotController {
 			HttpServletRequest request) {
 		
 		Page<Spot> pageListeSpot = 
-				spotRepository.chercher("%"+mc+"%", PageRequest.of(p, s));
+				spotRepository.chercher("%"+mc+"%", (PageRequest.of(p, s)));
 		model.addAttribute("listeSpot", pageListeSpot.getContent());
 		int[] pages = new int[pageListeSpot.getTotalPages()];
 		model.addAttribute("pages", pages);
@@ -88,13 +88,13 @@ public class SpotController {
 			Model model, 
 			@PathVariable("spotId") Long spotId) {
 		
-		Spot spot = spotRepository.findById(spotId).get();
+		Spot spot = spotService.findById(spotId).get();
 		model.addAttribute("spotInfo", spot);
 		
-		List <Secteur> listeSecteur = secteurRepository.findBySpot(spotId);
+		List <Secteur> listeSecteur = secteurService.findBySpot(spotId);
 		model.addAttribute("listeSecteur", listeSecteur);
 		
-		List<Commentaire> listeCommentaire = commentaireRepository.findCommentaireBySpot(spotId);
+		List<Commentaire> listeCommentaire = commentaireService.findCommentaireBySpot(spotId);
 		model.addAttribute("listeCommentaire", listeCommentaire);
 		
 		return "spot";
@@ -149,7 +149,7 @@ public class SpotController {
 			return "formConnexion";
 		} else {
 		
-		Optional<Spot> s = spotRepository.findById(spotId);
+		Optional<Spot> s = spotService.findById(spotId);
 		Spot spot = null ;
 		
 		if (s.isPresent()) {
@@ -204,10 +204,10 @@ public class SpotController {
 
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-			Spot spot = spotRepository.findById(spotId).get();
+			Spot spot = spotService.findById(spotId).get();
 
 			if (utilDet.getUsername().equals(spot.getUtilisateur().getUsername()) || utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				spotRepository.deleteById(spotId); //On supprime le spot 
+				spotService.deleteById(spotId); //On supprime le spot 
 				return "redirect:/listeSpot";
 			} else {
 				return "redirect:/listeSpot";

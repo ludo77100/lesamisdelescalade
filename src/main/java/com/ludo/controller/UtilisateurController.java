@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ludo.dao.UtilisateurRepository;
+import com.ludo.dto.UtilisateurDto;
 import com.ludo.entities.Utilisateur;
-import com.ludo.forms.UtilisateurForm;
-import com.ludo.metier.UtilisateurService;
+import com.ludo.service.UtilisateurService;
 
 @Controller
 public class UtilisateurController {
@@ -31,7 +31,8 @@ public class UtilisateurController {
 	@GetMapping("/inscriptionUtilisateur")
 	public String formUtilisateur(Model model) {
 		
-		model.addAttribute("utilisateur", new Utilisateur());
+		UtilisateurDto utilisateurDto = new UtilisateurDto();
+		model.addAttribute("utilisateur", utilisateurDto);
 		
 		return "formEnregistrementUtilisateur" ;
 	}
@@ -39,22 +40,22 @@ public class UtilisateurController {
 	@PostMapping("/confInscription")
 	public String saveUtilisateur(
 			Model model, 
-			@ModelAttribute("formEnregistrementUtilisateur")UtilisateurForm utilisateurForm, 
-			@Valid Utilisateur utilisateur, 
+			@ModelAttribute("utilisateur") @Valid UtilisateurDto utilisateurDto,
 			BindingResult result, 
 			RedirectAttributes redirectAttributes) {
 		
-		if (utilisateurRepository.findByPseudo(utilisateurForm.getPseudo()) == null && utilisateurRepository.findByEmail(utilisateurForm.getEmail()) == null) {
-			utilisateurService.saveUtilisateur(utilisateurForm, result);
+		if (utilisateurRepository.findByPseudo(utilisateurDto.getPseudo()) == null && utilisateurRepository.findByEmail(utilisateurDto.getEmail()) == null) {			
+			
+			utilisateurService.saveUtilisateur(utilisateurDto);
 			return "redirect:/";
 		} else {
-			if (utilisateurRepository.findByPseudo(utilisateurForm.getPseudo()) != null) {
+			if (utilisateurRepository.findByPseudo(utilisateurDto.getPseudo()) != null) {
 				result.rejectValue("pseudo", "utilisateur.pseudo", "Ce pseudo est déjà utilisé, merci d'en choisir un autre");
 			}
-			if (utilisateurRepository.findByEmail(utilisateurForm.getEmail()) != null) {
+			if (utilisateurRepository.findByEmail(utilisateurDto.getEmail()) != null) {
 				result.rejectValue("email", "utilisateur.email", "Un compte existe déjà avec cette adresse email");
 			}
-			model.addAttribute("utilisateur", utilisateur);
+			model.addAttribute("utilisateur", utilisateurDto);
 			return "formEnregistrementUtilisateur" ;
 		}
 	}

@@ -1,6 +1,4 @@
-package com.ludo.metier;
-
-import javax.validation.Valid;
+package com.ludo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,10 +8,9 @@ import com.ludo.dao.SecteurRepository;
 import com.ludo.dao.VoieRepository;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Voie;
-import com.ludo.forms.VoieForm;
 
 @Service
-public class VoieService {
+public class VoieServiceOld {
 
 	@Autowired
 	private SecteurRepository secteurRepository ;

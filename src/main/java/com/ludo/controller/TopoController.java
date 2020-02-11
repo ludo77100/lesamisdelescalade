@@ -14,7 +14,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -27,8 +27,7 @@ import com.ludo.entities.Reservation;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Topo;
 import com.ludo.entities.Utilisateur;
-import com.ludo.forms.TopoForm;
-import com.ludo.metier.TopoService;
+import com.ludo.service.TopoService;
 
 @Controller
 public class TopoController {

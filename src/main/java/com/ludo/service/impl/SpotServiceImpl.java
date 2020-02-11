@@ -1,5 +1,8 @@
-package com.ludo.metier;
+package com.ludo.service.impl;
 
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,20 +14,25 @@ import com.ludo.dao.SpotRepository;
 import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
-import com.ludo.forms.SpotForm;
+import com.ludo.service.SpotService;
 
 @Service
-public class SpotService {
-	@Autowired
-	private SpotRepository spotRepository;
-	@Autowired
-	private UtilisateurRepository utilisateurRepository ;
+@Transactional
+public class SpotServiceImpl implements SpotService{
 
-	/*
-	 * Méthode pour l'ajout d'un nouveau spot
-	 */
-	public void saveSpot(Spot spot) {
-		
+	@Autowired
+	SpotRepository spotRepository ;
+	@Autowired
+	UtilisateurRepository utilisateurRepository ;
+	
+	@Override
+	public Optional<Spot> findById(Long spotId) {
+		Optional<Spot> spot = spotRepository.findById(spotId) ;
+		return spot;
+	}
+
+	@Override
+	public void saveSpot(@Valid Spot spot) {
 		Spot newSpot = new Spot();
 		
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -38,21 +46,19 @@ public class SpotService {
 		spotRepository.save(newSpot);
 	}
 
-	/*
-	 * Méthode pour l'édition d'un spot
-	 */
-	public void saveEditSpot(Spot spot, Long spotId) {
+	@Override
+	public void saveEditSpot(@Valid Spot spot, Long spotId) {
+		
 		Spot spotEdit = spotRepository.findById(spotId).get();
 		
 		spotEdit.setNom(spot.getNom());
 		spotEdit.setLocalite(spot.getLocalite());
 				
 		spotRepository.save(spotEdit);
+		
 	}
-	
-	/*
-	 *Change le statut d'un spot officiel les amis de l'escalade 
-	 */
+
+	@Override
 	public void rendreOfficiel(Long spotId) {
 		Spot spotRendreOfficiel = spotRepository.findById(spotId).get();
 
@@ -62,6 +68,12 @@ public class SpotService {
 			spotRendreOfficiel.setOfficiel(false);
 		}
 		spotRepository.save(spotRendreOfficiel);
+	}
+
+	@Override
+	public void deleteById(Long spotId) {
+		spotRepository.deleteById(spotId);
+		
 	}
 
 }

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -20,8 +19,9 @@ import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Commentaire;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
-import com.ludo.forms.CommentaireForm;
-import com.ludo.metier.CommentaireService;
+import com.ludo.service.CommentaireService;
+import com.ludo.service.CommentaireServiceOld;
+import com.ludo.service.SpotService;
 /**
  * Controller pour la partie commentaire de l'application
  * @author A87671
@@ -31,13 +31,9 @@ import com.ludo.metier.CommentaireService;
 public class CommentaireController {
 	
 	@Autowired
-	SpotRepository spotRepository ;
-	@Autowired
-	CommentaireRepository commentaireRepository ;
+	SpotService spotService ;
 	@Autowired
 	CommentaireService commentaireService ;
-	@Autowired
-	UtilisateurRepository utilisateurRepository ;
 	
 	/////////////////////////DISPLAY COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
@@ -62,7 +58,7 @@ public class CommentaireController {
 			return "formConnexion";
 		} else {
 		
-			Spot spot = spotRepository.findById(spotId).get();
+			Spot spot = spotService.findById(spotId).get();
 
 			model.addAttribute("spotId", spot.getIdSiteEscalade());
 			model.addAttribute("commentaire", new Commentaire());
@@ -89,6 +85,7 @@ public class CommentaireController {
 			model.addAttribute("spotId", spotId);
 			return "formCommentaire" ;
 		} else {
+			
 			commentaireService.saveCommentaire(commentaire, spotId);
 		}
 		
@@ -121,7 +118,7 @@ public class CommentaireController {
 
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
 
-				Commentaire commentaire = commentaireRepository.findById(comId).get();
+				Commentaire commentaire = commentaireService.findById(comId).get();
 
 				model.addAttribute("commentaire", commentaire);
 				model.addAttribute("spotId", spotId);
@@ -143,7 +140,6 @@ public class CommentaireController {
 	@PostMapping("/spot/{spotId}/saveEditCommentaire/{comId}")
 	public String saveEditCommentaire(
 			Model model,
-			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("comId")Long comId,
 			@Valid Commentaire commentaire,
@@ -183,7 +179,7 @@ public class CommentaireController {
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
 			
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				commentaireRepository.deleteById(comId);
+				commentaireService.deleteById(comId);
 				return "redirect:/spot/" +spotId ;
 			}
 			return "redirect:/spot/" +spotId ;

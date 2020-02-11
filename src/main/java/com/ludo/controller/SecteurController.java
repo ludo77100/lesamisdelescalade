@@ -13,7 +13,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -25,21 +24,20 @@ import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
-import com.ludo.forms.SecteurForm;
-import com.ludo.forms.SpotForm;
-import com.ludo.metier.SecteurService;
+import com.ludo.service.SecteurService;
+import com.ludo.service.SecteurServiceOld;
+import com.ludo.service.SpotService;
+import com.ludo.service.VoieService;
 
 @Controller
 public class SecteurController {
 	
 	@Autowired
-	private SpotRepository spotRepository ;
-	@Autowired
-	private SecteurRepository secteurRepository ;
-	@Autowired
-	private VoieRepository voieRepository ;
-	@Autowired
 	private SecteurService secteurService ;
+	@Autowired
+	private SpotService spotService ;
+	@Autowired
+	private VoieService voieService ;
 	
 	/////////////////////////DISPLAY SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
@@ -53,13 +51,13 @@ public class SecteurController {
 			@PathVariable("spotId")Long spotId, 
 			@PathVariable("secteurId")Long secteurId) {
 		
-		Spot spot = spotRepository.findById(spotId).get();
-		Secteur secteur = secteurRepository.findById(secteurId).get();
+		Spot spot = spotService.findById(spotId).get();
+		Secteur secteur = secteurService.findById(secteurId).get();
 		
 		model.addAttribute("spotInfo", spot);
 		model.addAttribute("secteurInfo", secteur);
 		
-		List <Voie> listeVoie = voieRepository.findBySecteur(secteurId);
+		List <Voie> listeVoie = voieService.findBySecteur(secteurId);
 		model.addAttribute("listeVoie", listeVoie);
 		
 		
@@ -80,7 +78,7 @@ public class SecteurController {
 			return "formConnexion";
 		} else {
 		
-		Spot spot = spotRepository.findById(spotId).get();
+		Spot spot = spotService.findById(spotId).get();
 		
 		model.addAttribute("secteur", new Secteur());
 		
@@ -123,7 +121,7 @@ public class SecteurController {
 			return "formConnexion";
 		} else {
 		
-		Optional<Secteur> s = secteurRepository.findById(secteurId);
+		Optional<Secteur> s = secteurService.findById(secteurId);
 		Secteur secteur = null ;
 		
 		if(s.isPresent()) {
@@ -177,7 +175,7 @@ public class SecteurController {
 		} else {
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				secteurRepository.deleteById(secteurId);
+				secteurService.deleteById(secteurId);
 				return "redirect:/spot/" + spotId;
 			} else {
 				return "redirect:/spot/" + spotId;

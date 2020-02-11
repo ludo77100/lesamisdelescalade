@@ -1,46 +1,57 @@
-package com.ludo.metier;
+package com.ludo.service.impl;
 
+import java.util.List;
+import java.util.Optional;
+
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import com.ludo.dao.SecteurRepository;
 import com.ludo.dao.SpotRepository;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
-import com.ludo.forms.SecteurForm;
+import com.ludo.service.SecteurService;
 
 @Service
-public class SecteurService {
+@Transactional
+public class SecteurServiceImpl implements SecteurService {
+
 	@Autowired
 	private SpotRepository spotRepository ;
 	@Autowired
 	private SecteurRepository secteurRepository ;
 	
-	/*
-	 * Méthode pour l'ajout d'un nouveau secteur
-	 */
-	public void saveSecteur(Long idSite, Secteur secteur) {
-		
+	@Override
+	public List<Secteur> findBySpot(Long spotId) {
+		List<Secteur> secteurs = secteurRepository.findBySpot(spotId);
+		return secteurs ;
+	}
+
+	@Override
+	public Optional<Secteur> findById(Long secteurId) {
+		Optional<Secteur> secteur = secteurRepository.findById(secteurId);
+		return secteur;
+	}
+
+	@Override
+	public void saveSecteur(Long spotId, @Valid Secteur secteur) {
 		Secteur newSecteur = new Secteur();
 		
 		newSecteur.setNomSecteur(secteur.getNomSecteur());
 		newSecteur.setLocalisation(secteur.getLocalisation());
 		newSecteur.setTypeRoche(secteur.getTypeRoche());
 		
-		Spot siteSec = spotRepository.findById(idSite).get();
+		Spot siteSec = spotRepository.findById(spotId).get();
 		
 		newSecteur.setSpot(siteSec);
 		secteurRepository.save(newSecteur);
-	
 	}
 
-	/*
-	 * Méthode pour l'édition d'un secteur
-	 */
-	public void saveEditSecteur(Secteur secteur, Long secteurId) {
+	@Override
+	public void saveEditSecteur(@Valid Secteur secteur, Long secteurId) {
 
 		Secteur secteurEdit = secteurRepository.findById(secteurId).get();
 		
@@ -51,4 +62,11 @@ public class SecteurService {
 		secteurRepository.save(secteurEdit);
 	}
 
+	@Override
+	public void deleteById(Long secteurId) {
+		secteurRepository.deleteById(secteurId);		
+	}
+
+	
+	
 }

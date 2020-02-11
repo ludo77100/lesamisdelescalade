@@ -1,16 +1,12 @@
-package com.ludo.metier;
-
-import javax.validation.Valid;
+package com.ludo.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.validation.BindingResult;
 
 import com.ludo.dao.LongueurRepository;
 import com.ludo.dao.VoieRepository;
 import com.ludo.entities.Longueur;
 import com.ludo.entities.Voie;
-import com.ludo.forms.LongueurForms;
 
 @Service
 public class LongueurService {

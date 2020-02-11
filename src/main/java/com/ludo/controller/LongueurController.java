@@ -12,10 +12,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
 
 import com.ludo.dao.LongueurRepository;
 import com.ludo.dao.SecteurRepository;
@@ -26,8 +25,7 @@ import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
-import com.ludo.forms.LongueurForms;
-import com.ludo.metier.LongueurService;
+import com.ludo.service.LongueurService;
 
 /**
  * Controller pour la partie longueur de l'application

@@ -1,4 +1,4 @@
-package com.ludo.metier;
+package com.ludo.service;
 
 import java.util.Date;
 

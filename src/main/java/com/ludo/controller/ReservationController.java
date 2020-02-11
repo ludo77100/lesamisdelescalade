@@ -10,7 +10,7 @@ import com.ludo.dao.ReservationRepository;
 import com.ludo.dao.TopoRepository;
 import com.ludo.entities.Reservation;
 import com.ludo.entities.Topo;
-import com.ludo.metier.ReservationService;
+import com.ludo.service.ReservationService;
 
 /**
  * Controller pour la partie réservation de topo

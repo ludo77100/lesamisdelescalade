@@ -105,14 +105,6 @@ public class Utilisateur implements Serializable, UserDetails {
 		this.email = email;
 		this.roles = roles;
 	}
-	
-	/*
-	 * public Utilisateur(Long idUtilisateur, String pseudo, String motDePass,
-	 * String email, Collection<RoleEnum> roles) { super(); this.idUtilisateur =
-	 * idUtilisateur; this.pseudo = pseudo; this.motDePass =
-	 * BCryptManagerUtil.passwordencoder().encode(motDePass); this.email = email;
-	 * this.roles = roles; }
-	 */
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities(){

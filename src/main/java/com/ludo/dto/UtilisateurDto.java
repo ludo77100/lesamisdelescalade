@@ -1,21 +1,20 @@
-package com.ludo.forms;
+package com.ludo.dto;
 
-public class UtilisateurForm {
+public class UtilisateurDto {
 	private String Pseudo ;
 	private String motDePass ;
 	private String email ;
-	private String roles ;
+	
 
-	public UtilisateurForm() {
+	public UtilisateurDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UtilisateurForm(String pseudo, String motDePass, String email, String roles) {
+	public UtilisateurDto(String pseudo, String motDePass, String email) {
 		super();
 		Pseudo = pseudo;
 		this.motDePass = motDePass;
 		this.email = email;
-		this.setRoles(roles) ;
 	}
 	public String getPseudo() {
 		return Pseudo;
@@ -35,11 +34,6 @@ public class UtilisateurForm {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	public String getRoles() {
-		return roles;
-	}
-	public void setRoles(String roles) {
-		this.roles = roles;
-	}
+	
 
 }

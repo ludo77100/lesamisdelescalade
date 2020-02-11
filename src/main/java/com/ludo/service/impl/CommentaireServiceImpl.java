@@ -1,7 +1,10 @@
-package com.ludo.metier;
+package com.ludo.service.impl;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +18,21 @@ import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Commentaire;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
-import com.ludo.forms.CommentaireForm;
+import com.ludo.service.CommentaireService;
 
 @Service
-public class CommentaireService {
-	
+@Transactional
+public class CommentaireServiceImpl implements CommentaireService{
+
 	@Autowired
 	UtilisateurRepository utilisateurRepository ;
 	@Autowired
 	CommentaireRepository commentaireRepository ;
 	@Autowired
 	SpotRepository spotRepository ;
-	
-	public void saveCommentaire(Commentaire commentaire, Long spotId) {
+
+	@Override
+	public void saveCommentaire(@Valid Commentaire commentaire, Long spotId) {
 		
 		Commentaire newCommentaire = new Commentaire() ;
 		Spot spotActuel = spotRepository.findById(spotId).get();
@@ -41,17 +46,33 @@ public class CommentaireService {
 		newCommentaire.setUtilisateur(utilisateur);
 		newCommentaire.setSpot(spotActuel);
 		
-		commentaireRepository.save(newCommentaire);
+		commentaireRepository.save(newCommentaire); 
 	}
-	
-	public void saveEditCommentaire(Commentaire commentaire, Long comId) {
+
+	@Override
+	public void saveEditCommentaire(@Valid Commentaire commentaire, Long comId) {
 		
 		Commentaire comEdit = commentaireRepository.findById(comId).get();
-		
-		comEdit.setContenu(commentaire.getContenu());
-		
+		comEdit.setContenu(commentaire.getContenu());		
 		commentaireRepository.save(comEdit);
+	}
+
+	@Override
+	public void deleteById(Long comId) {
+		commentaireRepository.deleteById(comId);
 		
+	}
+
+	@Override
+	public Optional<Commentaire> findById(Long comId) {
+		Optional<Commentaire> commentaire = commentaireRepository.findById(comId);
+		return commentaire;
+	}
+
+	@Override
+	public List<Commentaire> findCommentaireBySpot(Long spotId) {
+		List<Commentaire> commentaires = commentaireRepository.findCommentaireBySpot(spotId);
+		return commentaires ;
 	}
 
 }
