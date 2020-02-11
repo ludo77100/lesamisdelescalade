@@ -74,7 +74,6 @@ public class CommentaireController {
 	/**
 	 * Controller pour sauvegarder les données d'un nouveau commentaire 
 	 * @param model instance du model en cours
-	 * @param commentaireForm 
 	 * @param spotId spotId id du spot auquel va être lié le commentaire
 	 * @param commentaire 
 	 * @param result resultat du binding pour gérer les erreurs
@@ -82,7 +81,6 @@ public class CommentaireController {
 	 */
 	@PostMapping("/spot/{spotId}/saveCommentaire/")
 	public String saveCommentaire(Model model, 
-			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
 			@PathVariable("spotId") Long spotId,
 			@Valid Commentaire commentaire,
 			BindingResult result) {
@@ -91,7 +89,7 @@ public class CommentaireController {
 			model.addAttribute("spotId", spotId);
 			return "formCommentaire" ;
 		} else {
-			commentaireService.saveCommentaire(commentaireForm, spotId);
+			commentaireService.saveCommentaire(commentaire, spotId);
 		}
 		
 		return "redirect:/spot/" +spotId ;
@@ -136,8 +134,7 @@ public class CommentaireController {
 	
 	/**
 	 * controller pour accéder au formulaire d'édition d'un commentaire
-	 * @param model instance du model en cours
-	 * @param commentaireForm 
+	 * @param model instance du model en cours 
 	 * @param comId id du commentaire qui doit être édité
 	 * @param spotId id du spot auquel appartient le commentaire
 	 * @param result resultat du binding pour gérer les erreurs de saisie
@@ -158,7 +155,7 @@ public class CommentaireController {
 			return "editCommentaire" ;
 		} else {
 		
-		commentaireService.saveEditCommentaire(commentaireForm, comId);
+		commentaireService.saveEditCommentaire(commentaire, comId);
 		
 		return "redirect:/spot/" +spotId ;
 			}

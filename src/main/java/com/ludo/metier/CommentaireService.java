@@ -1,5 +1,7 @@
 package com.ludo.metier;
 
+import java.util.Date;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,27 +27,28 @@ public class CommentaireService {
 	@Autowired
 	SpotRepository spotRepository ;
 	
-	public void saveCommentaire(CommentaireForm commentaireForm, Long spotId) {
+	public void saveCommentaire(Commentaire commentaire, Long spotId) {
 		
 		Commentaire newCommentaire = new Commentaire() ;
 		Spot spotActuel = spotRepository.findById(spotId).get();
+		Date date = new Date();
 
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Utilisateur utilisateur = utilisateurRepository.findByPseudo(util.getUsername());
 		
-		newCommentaire.setContenu(commentaireForm.getContenu());
-		newCommentaire.setDateHeureCommentaire(commentaireForm.getDateHeureCommentaire());
+		newCommentaire.setContenu(commentaire.getContenu());
+		newCommentaire.setDateHeureCommentaire(date);
 		newCommentaire.setUtilisateur(utilisateur);
 		newCommentaire.setSpot(spotActuel);
 		
 		commentaireRepository.save(newCommentaire);
 	}
 	
-	public void saveEditCommentaire(CommentaireForm commentaireForm, Long comId) {
+	public void saveEditCommentaire(Commentaire commentaire, Long comId) {
 		
 		Commentaire comEdit = commentaireRepository.findById(comId).get();
 		
-		comEdit.setContenu(commentaireForm.getContenu());
+		comEdit.setContenu(commentaire.getContenu());
 		
 		commentaireRepository.save(comEdit);
 		
