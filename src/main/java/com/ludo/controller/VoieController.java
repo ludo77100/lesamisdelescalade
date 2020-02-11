@@ -100,7 +100,6 @@ public class VoieController {
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/ajouterVoie/save")
 	public String saveVoie(
 			Model model, 
-			@ModelAttribute("voieForm") VoieForm voieForm,
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId") Long secteurId,
 			@Valid Voie voie,
@@ -111,7 +110,7 @@ public class VoieController {
 			return "formVoie";
 		}
 		
-		voieService.saveVoie(secteurId, voieForm, result);
+		voieService.saveVoie(secteurId, voie, result);
 		
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
 	}
@@ -152,7 +151,6 @@ public class VoieController {
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/saveEditVoie/{voieId}")
 	public String saveEditVoie(
 			Model model, 
-			@ModelAttribute("voieForm")VoieForm voieForm,
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId,
@@ -167,7 +165,7 @@ public class VoieController {
 			
 		} else {
 		
-		voieService.saveEditVoie(voieForm, voieId);
+		voieService.saveEditVoie(voie, voieId);
 		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId;
 		}

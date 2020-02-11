@@ -1,5 +1,7 @@
 package com.ludo.metier;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -22,14 +24,14 @@ public class LongueurService {
 	/*
 	 * Méthode pour l'ajout d'une nouvelle longueur
 	 */
-	public void saveLongueur(Long voieId, LongueurForms longueurForms, BindingResult result) {
+	public void saveLongueur(Long voieId, Longueur longueur) {
 		
 		Longueur newLongueur = new Longueur();
 	
-		newLongueur.setNomLongueur(longueurForms.getNomLongueur());
-		newLongueur.setCotation(longueurForms.getCotation());
-		newLongueur.setLongueurLong(longueurForms.getLongueurLong());
-		newLongueur.setNombrePoints(longueurForms.getNombrePoints());
+		newLongueur.setNomLongueur(longueur.getNomLongueur());
+		newLongueur.setCotation(longueur.getCotation());
+		newLongueur.setLongueurLong(longueur.getLongueurLong());
+		newLongueur.setNombrePoints(longueur.getNombrePoints());
 		
 		Voie voie = voieRepository.findById(voieId).get();
 		
@@ -41,14 +43,14 @@ public class LongueurService {
 	/*
 	 * Méthode pour l'édition d'une longueur
 	 */
-	public void saveEditLongueur(LongueurForms longueurForms, Long longueurId) {
+	public void saveEditLongueur(Longueur longueur, Long longueurId) {
 		
 		Longueur longueurEdit = longueurRepository.findById(longueurId).get();
 		
-		longueurEdit.setNomLongueur(longueurForms.getNomLongueur());
-		longueurEdit.setCotation(longueurForms.getCotation());
-		longueurEdit.setLongueurLong(longueurForms.getLongueurLong());
-		longueurEdit.setNombrePoints(longueurForms.getNombrePoints());
+		longueurEdit.setNomLongueur(longueur.getNomLongueur());
+		longueurEdit.setCotation(longueur.getCotation());
+		longueurEdit.setLongueurLong(longueur.getLongueurLong());
+		longueurEdit.setNombrePoints(longueur.getNombrePoints());
 		
 		longueurRepository.save(longueurEdit);
 	}

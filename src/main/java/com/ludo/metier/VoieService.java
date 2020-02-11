@@ -1,5 +1,7 @@
 package com.ludo.metier;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.BindingResult;
@@ -21,14 +23,14 @@ public class VoieService {
 	/*
 	 * Méthode pour l'ajout d'une nouvelle voie
 	 */
-	public void saveVoie(Long secteurId, VoieForm voieForm, BindingResult result) {
+	public void saveVoie(Long secteurId, Voie voie, BindingResult result) {
 		
 		Voie newVoie = new Voie();
 		
-		newVoie.setNomVoie(voieForm.getNomVoie());
-		newVoie.setCotation(voieForm.getCotation());
-		newVoie.setLongueurVoie(voieForm.getLongueurVoie());
-		newVoie.setEquipee(voieForm.getEquipee());
+		newVoie.setNomVoie(voie.getNomVoie());
+		newVoie.setCotation(voie.getCotation());
+		newVoie.setLongueurVoie(voie.getLongueurVoie());
+		newVoie.setEquipee(voie.getEquipee());
 		
 		Secteur secteurVoie = secteurRepository.findById(secteurId).get();
 		newVoie.setSecteur(secteurVoie);
@@ -39,14 +41,14 @@ public class VoieService {
 	/*
 	 * Méthode pour l'édition d'une voie
 	 */
-	public void saveEditVoie(VoieForm voieForm, Long voieId) {
+	public void saveEditVoie(Voie voie, Long voieId) {
 		
 		Voie voieEdit = voieRepository.findById(voieId).get();
 		
-		voieEdit.setNomVoie(voieForm.getNomVoie());
-		voieEdit.setCotation(voieForm.getCotation());
-		voieEdit.setLongueurVoie(voieForm.getLongueurVoie());
-		voieEdit.setEquipee(voieForm.getEquipee());
+		voieEdit.setNomVoie(voie.getNomVoie());
+		voieEdit.setCotation(voie.getCotation());
+		voieEdit.setLongueurVoie(voie.getLongueurVoie());
+		voieEdit.setEquipee(voie.getEquipee());
 		
 		voieRepository.save(voieEdit);
 	}

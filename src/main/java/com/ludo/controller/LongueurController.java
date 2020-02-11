@@ -83,7 +83,6 @@ public class LongueurController {
 	/**
 	 * Controller pour l'action du bouton sauvegarder pour une nouvelle longueur
 	 * @param model instance du model en cours 
-	 * @param longueurForms 
 	 * @param spotId id du spot auquel la longueur est liée
 	 * @param secteurId id du secteur auquel la longueur est lié
 	 * @param voieId id de la voie auquelle la longueur est lié
@@ -94,7 +93,6 @@ public class LongueurController {
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur/save")
 	public String saveLongueur(
 			Model model, 
-			@ModelAttribute("longueurForms") LongueurForms longueurForms,
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId") Long secteurId,
 			@PathVariable("voieId") Long voieId, 
@@ -105,7 +103,7 @@ public class LongueurController {
 			return "formLongueur";			
 		} else {
 		
-		longueurService.saveLongueur(voieId, longueurForms, result);
+		longueurService.saveLongueur(voieId, longueur);
 
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
 		}
@@ -151,7 +149,6 @@ public class LongueurController {
 	/**
 	 *  Controller la sauvegarde d'étion d'une longueur
 	 * @param model instance du model en cours 
-	 * @param longueurForms
 	 * @param spotId id du spot auquel la longueur est liée
 	 * @param secteurId id du secteur auquel la longueur est lié
 	 * @param voieId id de la voie auquelle la longueur est lié
@@ -163,7 +160,6 @@ public class LongueurController {
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/saveEditLongueur/{longueurId}")
 	public String saveEditLongueur(
 			Model model, 
-			@ModelAttribute("longueurForms")LongueurForms longueurForms,
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId,
@@ -177,7 +173,7 @@ public class LongueurController {
 			return "editLongueur" ;
 		}
 		
-		longueurService.saveEditLongueur(longueurForms, longueurId);
+		longueurService.saveEditLongueur(longueur, longueurId);
 		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId ;
 	}
