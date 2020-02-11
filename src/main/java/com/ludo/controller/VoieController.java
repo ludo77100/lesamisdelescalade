@@ -17,30 +17,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ludo.dao.LongueurRepository;
-import com.ludo.dao.SecteurRepository;
-import com.ludo.dao.SpotRepository;
-import com.ludo.dao.VoieRepository;
+
 import com.ludo.entities.Longueur;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
-import com.ludo.service.VoieServiceOld;
+import com.ludo.service.LongueurService;
+import com.ludo.service.SecteurService;
+import com.ludo.service.SpotService;
+import com.ludo.service.VoieService;
 
 @Controller
 public class VoieController {
-
+	
 	@Autowired
-	private SpotRepository spotRepository;
+	private VoieService voieService;
 	@Autowired
-	private SecteurRepository secteurRepository;
+	private SpotService spotService ;
 	@Autowired
-	private VoieRepository voieRepository;
+	private SecteurService secteurService;
 	@Autowired
-	private VoieServiceOld voieService;
-	@Autowired
-	private LongueurRepository longueurRepository;
+	private LongueurService longueurService;
 	
 	/////////////////////////DISPLAY VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
@@ -54,15 +52,15 @@ public class VoieController {
 			@PathVariable("secteurId") Long secteurId, 
 			@PathVariable("voieId") Long voieId) {
 
-		Spot spot = spotRepository.findById(spotId).get();
-		Secteur secteur = secteurRepository.findById(secteurId).get();
-		Voie voie = voieRepository.findById(voieId).get();
+		Spot spot = spotService.findById(spotId).get();
+		Secteur secteur = secteurService.findById(secteurId).get();
+		Voie voie = voieService.findById(voieId).get();
 
 		model.addAttribute("spotInfo", spot);
 		model.addAttribute("secteurInfo", secteur);
 		model.addAttribute("voieInfo", voie);
 
-		List<Longueur> listeLongueur = longueurRepository.findByVoie(voieId);
+		List<Longueur> listeLongueur = longueurService.findByVoie(voieId);
 		model.addAttribute("listeLongueur", listeLongueur);
 		return "voie";
 	}
@@ -83,8 +81,8 @@ public class VoieController {
 			return "formConnexion";
 		} else {
 		
-		Spot spot = spotRepository.findById(spotId).get();
-		Secteur secteur = secteurRepository.findById(secteurId).get();
+		Spot spot = spotService.findById(spotId).get();
+		Secteur secteur = secteurService.findById(secteurId).get();
 		
 		model.addAttribute("voie", new Voie());
 		
@@ -130,7 +128,7 @@ public class VoieController {
 			return "formConnexion";
 		} else {
 		
-		Optional<Voie> v = voieRepository.findById(voieId);
+		Optional<Voie> v = voieService.findById(voieId);
 		Voie voie = null ;
 		
 		if(v.isPresent()) {
@@ -190,7 +188,7 @@ public class VoieController {
 		} else {
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				voieRepository.deleteById(voieId);
+				voieService.deleteById(voieId);
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
 			} else
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;

@@ -25,7 +25,7 @@ import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
-import com.ludo.service.LongueurService;
+import com.ludo.service.LongueurServiceOld;
 
 /**
  * Controller pour la partie longueur de l'application
@@ -43,7 +43,7 @@ public class LongueurController {
 	@Autowired
 	private LongueurRepository longueurRepository;
 	@Autowired
-	private LongueurService longueurService;
+	private LongueurServiceOld longueurService;
 	
 	/////////////////////////AJOUT LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
