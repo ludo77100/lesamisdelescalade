@@ -110,9 +110,13 @@ public class TopoController {
 	}
 	
 	@PostMapping("/saveTopo")
-	public String saveTopo(Model model, @ModelAttribute("topoForm") TopoForm topoForm,  BindingResult result) {
+	public String saveTopo(Model model, @Valid Topo topo, BindingResult result) {
 		
-		topoService.saveTopo(topoForm);
+		if (result.hasErrors()) {
+			return "redirect:/topo";
+		}
+		
+		topoService.saveTopo(topo);
 		
 		return "redirect:/topo";
 		

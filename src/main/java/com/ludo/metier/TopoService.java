@@ -1,5 +1,7 @@
 package com.ludo.metier;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -23,23 +25,23 @@ public class TopoService {
 	@Autowired
 	private SpotRepository spotRepository ;
 	
-	public void saveTopo(TopoForm topoForm) {
+	public void saveTopo(Topo topo) {
 
 		Topo newTopo = new Topo();
 		
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Utilisateur utilisateur = utilisateurRepository.findByPseudo(util.getUsername());
 		
-		Spot spotx = spotRepository.findSpotByName(topoForm.getSpotNom());
+		Spot spotx = spotRepository.findSpotByName(topo.getSpotNom());
 		
-		newTopo.setNom(topoForm.getNom());
+		newTopo.setNom(topo.getNom());
 		newTopo.setDisponible(false);
-		newTopo.setDateParution(topoForm.getDateParution());
-		newTopo.setDescription(topoForm.getDescription());
-		newTopo.setLieu(topoForm.getLieu());
+		newTopo.setDateParution(topo.getDateParution());
+		newTopo.setDescription(topo.getDescription());
+		newTopo.setLieu(topo.getLieu());
 		newTopo.setUtilisateur(utilisateur);
 		newTopo.setSpot(spotx);
-		newTopo.setSpotNom(topoForm.getSpotNom());
+		newTopo.setSpotNom(topo.getSpotNom());
 		
 		topoRepository.save(newTopo);
 		
