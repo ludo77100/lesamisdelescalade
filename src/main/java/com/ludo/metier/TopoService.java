@@ -32,7 +32,7 @@ public class TopoService {
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 		Utilisateur utilisateur = utilisateurRepository.findByPseudo(util.getUsername());
 		
-		Spot spotx = spotRepository.findSpotByName(topo.getSpotNom());
+		Spot spot = spotRepository.findSpotByName(topo.getSpotNom());
 		
 		newTopo.setNom(topo.getNom());
 		newTopo.setDisponible(false);
@@ -40,7 +40,7 @@ public class TopoService {
 		newTopo.setDescription(topo.getDescription());
 		newTopo.setLieu(topo.getLieu());
 		newTopo.setUtilisateur(utilisateur);
-		newTopo.setSpot(spotx);
+		newTopo.setSpot(spot);
 		newTopo.setSpotNom(topo.getSpotNom());
 		
 		topoRepository.save(newTopo);
