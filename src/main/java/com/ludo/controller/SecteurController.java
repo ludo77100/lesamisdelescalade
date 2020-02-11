@@ -102,7 +102,7 @@ public class SecteurController {
 			return "formSecteur" ;			
 		}
 		
-		secteurService.saveSecteur(spotId, secteur, result);
+		secteurService.saveSecteur(spotId, secteur);
 		
 		return "redirect:/spot/" + spotId ;
 	}
