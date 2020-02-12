@@ -13,11 +13,12 @@ import com.ludo.entities.Secteur;
 
 @Repository
 public interface SecteurRepository extends JpaRepository<Secteur, Long>{
-	
-	/* 
-	 * Retourne la liste des secteurs lié à un spot d'escalade par le biais de l'id du spot d'escalade 
+
+	/**
+	 * Pour lister les secteur lié à un spot
+	 * @param spotId id du spot pour leqeul on veut trouver les secteur
+	 * @return une liste de secteur
 	 */
 	@Query("select s from Secteur s where s.spot.idSiteEscalade like :x")
 	public List<Secteur> findBySpot(@Param("x")Long spotId);
-	
 }

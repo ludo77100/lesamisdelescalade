@@ -12,7 +12,11 @@ import com.ludo.entities.Longueur;
 @Repository
 public interface LongueurRepository extends JpaRepository<Longueur, Long>{
 
+	/**
+	 * Pour obtenir une liste de longueur
+	 * @param voieId id de la voie
+	 * @return une liste de longueur lié à une voie
+	 */
 	@Query("select l from Longueur l where l.voie.idVoie like :x")
 	public List<Longueur> findByVoie(@Param("x")Long voieId);
-
 }
