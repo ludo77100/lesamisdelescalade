@@ -1,5 +1,6 @@
 package com.ludo.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -74,6 +75,12 @@ public class SpotServiceImpl implements SpotService{
 	public void deleteById(Long spotId) {
 		spotRepository.deleteById(spotId);
 		
+	}
+
+	@Override
+	public List<Spot> findAll() {
+		List<Spot> spots = spotRepository.findAll();
+		return spots ;
 	}
 
 }

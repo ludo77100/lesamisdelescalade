@@ -13,14 +13,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-import com.ludo.dao.CommentaireRepository;
-import com.ludo.dao.SpotRepository;
-import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Commentaire;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.service.CommentaireService;
-import com.ludo.service.CommentaireServiceOld;
 import com.ludo.service.SpotService;
 /**
  * Controller pour la partie commentaire de l'application

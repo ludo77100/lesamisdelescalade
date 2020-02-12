@@ -20,26 +20,29 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ludo.dao.ReservationRepository;
-import com.ludo.dao.SpotRepository;
 import com.ludo.dao.TopoRepository;
 import com.ludo.entities.Reservation;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Topo;
 import com.ludo.entities.Utilisateur;
+import com.ludo.service.ReservationService;
+import com.ludo.service.SpotService;
 import com.ludo.service.TopoService;
 
 @Controller
 public class TopoController {
 
 	@Autowired
-	TopoService topoService ;
+	private TopoRepository topoRepository ; // Pour la recherche
+	
 	@Autowired
-	SpotRepository spotRepository ;
+	private TopoService topoService ;
+	
 	@Autowired
-	TopoRepository topoRepository ;
+	private SpotService spotService ;
+	
 	@Autowired
-	ReservationRepository reservationRepository ;
+	private ReservationService reservationService ;
 	/*
 	 * Controller qui renvoie la liste des topos
 	 */
@@ -86,23 +89,23 @@ public class TopoController {
 		model.addAttribute("topo", new Topo());
 		
 		//liste des spot pour liste déroulante dans le formulaire de saisie de Topo
-		List <Spot> listeSpotForm = spotRepository.findAll();
+		List <Spot> listeSpotForm = spotService.findAll();
 		model.addAttribute("listeSpotForm", listeSpotForm);
 		
 		//Liste des topos qui appartiennent à l'utilisateur
-		List <Topo> listeTopo = topoRepository.findAllByUser(utilDet) ;
+		List <Topo> listeTopo = topoService.findAllByUser(utilDet) ;
 		model.addAttribute("listeTopo", listeTopo);
 		
 		//Liste des demandes de réservations en attente
-		List <Reservation> listeDemandeReservation = reservationRepository.findByProprietaireAttente(utilDet.getUsername());
+		List <Reservation> listeDemandeReservation = reservationService.findByProprietaireAttente(utilDet.getUsername());
 		model.addAttribute("listeDemandeReservation", listeDemandeReservation);
 		
 		//Liste des topo réservés
-		List <Reservation> listeTopoReserve = reservationRepository.findByProprietaireReserve(utilDet.getUsername());
+		List <Reservation> listeTopoReserve = reservationService.findByProprietaireReserve(utilDet.getUsername());
 		model.addAttribute("listeTopoReserve", listeTopoReserve);
 		
 		//Liste des topo que l'utilisateur en cours à reserve pour son compte
-		List<Reservation> listeTopoPrete = reservationRepository.findByPrete(utilDet.getUsername());
+		List<Reservation> listeTopoPrete = reservationService.findByPrete(utilDet.getUsername());
 		model.addAttribute("listeTopoPrete", listeTopoPrete);
 		return "/topo" ;
 		}
@@ -133,11 +136,11 @@ public class TopoController {
 
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-			Topo topo = topoRepository.findById(topoId).get(); // On récupère le topo en cours
+			Topo topo = topoService.findById(topoId).get(); // On récupère le topo en cours
 
 			if (utilDet.getUsername().equals(topo.getUtilisateur().getUsername())
 					|| utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				topoRepository.deleteById(topoId); // On supprime le topo
+				topoService.deleteById(topoId); // On supprime le topo
 				return "redirect:/topo";
 			} else {
 				return "redirect:/topo";
@@ -162,7 +165,7 @@ public class TopoController {
 
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
-			Topo topo = topoRepository.findById(topoId).get(); // On récupère le topo en cours
+			Topo topo = topoService.findById(topoId).get(); // On récupère le topo en cours
 			
 			if (utilDet.getUsername().equals(topo.getUtilisateur().getUsername())
 					|| utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {

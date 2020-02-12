@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ludo.dao.UtilisateurRepository;
 import com.ludo.dto.UtilisateurDto;
 import com.ludo.entities.Utilisateur;
 import com.ludo.service.UtilisateurService;
@@ -22,8 +21,7 @@ import com.ludo.service.UtilisateurService;
 @Controller
 public class UtilisateurController {
 
-	@Autowired
-	private UtilisateurRepository utilisateurRepository ;
+	
 	@Autowired
 	private UtilisateurService utilisateurService ;
 	
@@ -44,15 +42,15 @@ public class UtilisateurController {
 			BindingResult result, 
 			RedirectAttributes redirectAttributes) {
 		
-		if (utilisateurRepository.findByPseudo(utilisateurDto.getPseudo()) == null && utilisateurRepository.findByEmail(utilisateurDto.getEmail()) == null) {			
+		if (utilisateurService.findByPseudo(utilisateurDto.getPseudo()) == null && utilisateurService.findByEmail(utilisateurDto.getEmail()) == null) {			
 			
 			utilisateurService.saveUtilisateur(utilisateurDto);
 			return "redirect:/";
 		} else {
-			if (utilisateurRepository.findByPseudo(utilisateurDto.getPseudo()) != null) {
+			if (utilisateurService.findByPseudo(utilisateurDto.getPseudo()) != null) {
 				result.rejectValue("pseudo", "utilisateur.pseudo", "Ce pseudo est déjà utilisé, merci d'en choisir un autre");
 			}
-			if (utilisateurRepository.findByEmail(utilisateurDto.getEmail()) != null) {
+			if (utilisateurService.findByEmail(utilisateurDto.getEmail()) != null) {
 				result.rejectValue("email", "utilisateur.email", "Un compte existe déjà avec cette adresse email");
 			}
 			model.addAttribute("utilisateur", utilisateurDto);

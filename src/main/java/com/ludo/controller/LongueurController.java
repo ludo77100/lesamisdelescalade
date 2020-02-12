@@ -15,17 +15,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-import com.ludo.dao.LongueurRepository;
-import com.ludo.dao.SecteurRepository;
-import com.ludo.dao.SpotRepository;
-import com.ludo.dao.VoieRepository;
 import com.ludo.entities.Longueur;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
-import com.ludo.service.LongueurServiceOld;
+import com.ludo.service.LongueurService;
+import com.ludo.service.SecteurService;
+import com.ludo.service.SpotService;
+import com.ludo.service.VoieService;
 
 /**
  * Controller pour la partie longueur de l'application
@@ -35,15 +33,13 @@ import com.ludo.service.LongueurServiceOld;
 @Controller
 public class LongueurController {
 	@Autowired
-	private SpotRepository spotRepository;
+	private SpotService spotService;
 	@Autowired
-	private SecteurRepository secteurRepository;
+	private SecteurService secteurService;
 	@Autowired
-	private VoieRepository voieRepository;
+	private VoieService voieService;
 	@Autowired
-	private LongueurRepository longueurRepository;
-	@Autowired
-	private LongueurServiceOld longueurService;
+	private LongueurService longueurService;
 	
 	/////////////////////////AJOUT LONGUEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
@@ -68,9 +64,9 @@ public class LongueurController {
 			return "formConnexion";
 		} else {
 		
-		Spot spot = spotRepository.findById(spotId).get();
-		Secteur secteur = secteurRepository.findById(secteurId).get();
-		Voie voie = voieRepository.findById(voieId).get();
+		Spot spot = spotService.findById(spotId).get();
+		Secteur secteur = secteurService.findById(secteurId).get();
+		Voie voie = voieService.findById(voieId).get();
 		
 		model.addAttribute("longueur", new Longueur());
 		
@@ -132,7 +128,7 @@ public class LongueurController {
 			return "formConnexion";
 		} else {
 		
-		Optional<Longueur> l = longueurRepository.findById(longueurId);
+		Optional<Longueur> l = longueurService.findById(longueurId);
 		Longueur longueur = null ;
 		
 		if(l.isPresent()) {
@@ -202,7 +198,7 @@ public class LongueurController {
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				longueurRepository.deleteById(longueurId);
+				longueurService.deleteById(longueurId);
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;
 			} else {
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId + "/voie/" + voieId;

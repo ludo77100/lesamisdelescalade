@@ -1,27 +1,16 @@
 package com.ludo.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import javax.validation.Valid;
 
-import com.ludo.dao.UtilisateurRepository;
 import com.ludo.dto.UtilisateurDto;
 import com.ludo.entities.Utilisateur;
 
-@Service
-public class UtilisateurService {
+public interface UtilisateurService {
 
-	@Autowired
-	private UtilisateurRepository utilisateurRepository ;
+	Utilisateur findByPseudo(String pseudo);
 
+	Utilisateur findByEmail(String email);
 
-	public void saveUtilisateur(UtilisateurDto utilisateurDto) {
-		Utilisateur newUtilisateur = new Utilisateur();
-		
-		newUtilisateur.setPseudo(utilisateurDto.getPseudo());
-		newUtilisateur.setMotDePass(utilisateurDto.getMotDePass());
-		newUtilisateur.setEmail(utilisateurDto.getEmail());
-		
-		utilisateurRepository.save(newUtilisateur);
-	}
-	
+	void saveUtilisateur(@Valid UtilisateurDto utilisateurDto);
+
 }

@@ -1,44 +1,25 @@
 package com.ludo.service;
 
-import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.stereotype.Service;
-
-import com.ludo.dao.ReservationRepository;
-import com.ludo.dao.TopoRepository;
-import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Reservation;
 import com.ludo.entities.Topo;
-import com.ludo.entities.Utilisateur;
 
-@Service
-public class ReservationService {
-	
-	@Autowired
-	UtilisateurRepository utilisateurRepository ;
-	@Autowired
-	TopoRepository topoRepository ;
-	@Autowired
-	ReservationRepository reservationRepository ;
+public interface ReservationService {
 
-	public void enregistrerDemandeReservation(Long topoId, Topo topo) {
-		
-		Date date = new Date() ; 
-		Reservation reservationTopo = new Reservation();
-		UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-		Utilisateur utilisateur = utilisateurRepository.findByPseudo(utilDet.getUsername());
-		
-		reservationTopo.setUtilisateur(utilisateur);
-		reservationTopo.setReservant(utilisateur.getUsername());
-		reservationTopo.setEtatDemande(false);
-		reservationTopo.setProprietaire(topoRepository.findById(topoId).get().getUtilisateur().getUsername());
-		reservationTopo.setDateDemande(date);
-		reservationTopo.setTopo(topoRepository.findById(topoId).get());
-		
-		reservationRepository.save(reservationTopo);
-	}
+	void enregistrerDemandeReservation(Long topoId, Topo topo);
+
+	Optional<Reservation> findById(Long reservationId);
+
+	void save(Reservation reservation);
+
+	void delete(Reservation reservation);
+
+	List<Reservation> findByProprietaireAttente(String username);
+
+	List<Reservation> findByProprietaireReserve(String username);
+
+	List<Reservation> findByPrete(String username);
 
 }
