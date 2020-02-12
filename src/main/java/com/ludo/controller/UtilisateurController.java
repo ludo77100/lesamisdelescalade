@@ -18,14 +18,22 @@ import com.ludo.dto.UtilisateurDto;
 import com.ludo.entities.Utilisateur;
 import com.ludo.service.UtilisateurService;
 
+/**
+ * Controller pour la partie utilisateur de l'application
+ * @author A87671
+ *
+ */
 @Controller
 public class UtilisateurController {
 
-	
 	@Autowired
 	private UtilisateurService utilisateurService ;
 	
-
+	/**
+	 * Controller pour accéder au formulaire d'inscription
+	 * @param model instance du model en cours
+	 * @return le formulaire d'inscription
+	 */
 	@GetMapping("/inscriptionUtilisateur")
 	public String formUtilisateur(Model model) {
 		
@@ -35,12 +43,18 @@ public class UtilisateurController {
 		return "formEnregistrementUtilisateur" ;
 	}
 	
+	/**
+	 * Controller pour sauvegarder l'utilisateur
+	 * @param model instance du model en cours
+	 * @param utilisateurDto instance de l'utilisateur en cours d'inscription
+	 * @param result resultat du binding pour gérer les erreurs de saisies
+	 * @return vers la liste des spots
+	 */
 	@PostMapping("/confInscription")
 	public String saveUtilisateur(
 			Model model, 
 			@ModelAttribute("utilisateur") @Valid UtilisateurDto utilisateurDto,
-			BindingResult result, 
-			RedirectAttributes redirectAttributes) {
+			BindingResult result) {
 		
 		if (utilisateurService.findByPseudo(utilisateurDto.getPseudo()) == null && utilisateurService.findByEmail(utilisateurDto.getEmail()) == null) {			
 			
@@ -58,14 +72,19 @@ public class UtilisateurController {
 		}
 	}
 	
+	/**
+	 * Controller pour accéder aux informations personnelles de l'utilisateur
+	 * @param model instance du model en cours 
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return la vue des information personnelles de l'utilisateur connecté
+	 */
 	@GetMapping("/infosPersonnelles")
 	public String infoPersoUtil(Model model, HttpServletRequest request) {
 
 		if (request.getRemoteUser() == null) {
-			return "formConnexion";
+			return "formConnexion";			
 		} else {
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-			
 			model.addAttribute("infosUtilisateur", utilDet);
 			return "/infosPerso";
 		}
