@@ -5,9 +5,6 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
-import org.springframework.validation.BindingResult;
-
-import com.ludo.entities.Spot;
 import com.ludo.entities.Voie;
 
 public interface VoieService {

@@ -9,11 +9,20 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Couche entities longueur pour l'application
+ * @author A87671
+ *
+ */
 @Entity
 public class Longueur implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_longueur")
@@ -99,7 +108,5 @@ public class Longueur implements Serializable {
 
 	public void setVoie(Voie voie) {
 		this.voie = voie;
-	}
-
-	
+	}	
 }

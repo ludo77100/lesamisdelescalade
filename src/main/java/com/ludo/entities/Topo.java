@@ -1,7 +1,6 @@
 package com.ludo.entities;
 
 import java.io.Serializable;
-import java.util.Date;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,8 +12,18 @@ import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Length;
 
+/**
+ * Couche entities topo pour l'application
+ * @author A87671
+ *
+ */
 @Entity
 public class Topo implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_topo")
@@ -147,7 +156,4 @@ public class Topo implements Serializable {
 	public void setSpot(Spot spot) {
 		this.spot = spot;
 	}
-
-	
-	
 }

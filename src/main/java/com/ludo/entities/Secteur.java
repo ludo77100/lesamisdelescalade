@@ -13,15 +13,20 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import org.hibernate.validator.constraints.Range;
-
-import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
-
+/**
+ * Couche entities secteur pour l'application
+ * @author A87671
+ *
+ */
 @Entity
 public class Secteur implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_secteur")

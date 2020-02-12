@@ -13,11 +13,18 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-import lombok.Data;
-
+/**
+ * Couche entities reservation pour l'application
+ * @author A87671
+ *
+ */
 @Entity
-@Data
 public class Reservation implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)

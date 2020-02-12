@@ -16,13 +16,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 import org.hibernate.validator.constraints.Length;
+
 /**
- * 
+ * Couche entities voie pour l'application
  * @author A87671
  *
  */
 @Entity
 public class Voie implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_voie")

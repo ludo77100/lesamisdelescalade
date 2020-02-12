@@ -22,7 +22,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
-import org.springframework.boot.context.properties.bind.DefaultValue;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -30,12 +30,20 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.ludo.enums.RoleEnum;
 import com.ludo.security.BCryptManagerUtil;
 
-import lombok.Data;
 
+/**
+ * Couche entities utilisateur pour l'application
+ * @author A87671
+ *
+ */
 @Entity
-@Data
 public class Utilisateur implements Serializable, UserDetails {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_utilisateur")
@@ -85,9 +93,13 @@ public class Utilisateur implements Serializable, UserDetails {
 	@Enumerated(EnumType.STRING)
 	private Collection<RoleEnum> roles;
 
+	@SuppressWarnings("unused")
 	private boolean credentialsNonExpired;
+	@SuppressWarnings("unused")
 	private boolean enabled;
+	@SuppressWarnings("unused")
 	private boolean accountNonLocked;
+	@SuppressWarnings("unused")
 	private boolean accountNonExpired;
 
 	public Utilisateur() {
