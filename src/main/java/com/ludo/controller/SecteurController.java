@@ -25,6 +25,12 @@ import com.ludo.service.SecteurService;
 import com.ludo.service.SpotService;
 import com.ludo.service.VoieService;
 
+/**
+ * Controller pour la partie secteur de l'application
+ * @author A87671
+ *
+ */
+
 @Controller
 public class SecteurController {
 	
@@ -37,9 +43,13 @@ public class SecteurController {
 	
 	/////////////////////////DISPLAY SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/*
+	/**
 	 * Controller qui permet d'afficher les détails du spot et du secteur
 	 * Affiche une liste de voie liés au secteur choisi
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot à afficher
+	 * @param secteurId id du secteur à afficher
+	 * @return une vue des détails du spot et secteur choisi, une liste de voies
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}")
 	public String afficherSecteur(
@@ -55,15 +65,18 @@ public class SecteurController {
 		
 		List <Voie> listeVoie = voieService.findBySecteur(secteurId);
 		model.addAttribute("listeVoie", listeVoie);
-		
-		
+
 		return "secteur";
 	}
 	
 	/////////////////////////AJOUT SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
-	/*
+
+	/**
 	 * Controller pour accéder au formulaire d'ajout de secteur lié à un spot 
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot auquel le secteur est lié
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return le formulaire d'ajout d'un nouveau spot
 	 */
 	@GetMapping("/spot/{spotId}/ajouterSecteur")
 	public String formSecteur(
@@ -73,16 +86,20 @@ public class SecteurController {
 		if (request.getRemoteUser() == null) {
 			return "formConnexion";
 		} else {
-		
-		Spot spot = spotService.findById(spotId).get();
-		
+			
 		model.addAttribute("secteur", new Secteur());
 		
 		return "formSecteur";
 		}
 	}
-	/*
+
+	/**
 	 * Controller pour l'action du bouton sauvegarder pour un nouveau secteur
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot auquel le secteur est lié 
+	 * @param secteur instance du secteur à ajouter
+	 * @param result resultat du binding pour gérer les erreurs de saisies
+	 * @return la vue des détails du spot en cours et la liste des secteur liés
 	 */
 	@PostMapping("/spot/{spotId}/ajouterSecteur/save")
 	public String saveSecteur(
@@ -102,9 +119,14 @@ public class SecteurController {
 	}
 	
 	/////////////////////////EDITION SECTEUR\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
-	/*
+
+	/**
 	 * Controller pour accéder à l'edition d'un secteur
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot auquel le secteur est lié
+	 * @param secteurId id du secteur qui va être édité
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return le formulaire d'édition du secteur
 	 */
 	@GetMapping("/spot/{spotId}/editSecteur/{secteurId}")
 	public String editSecteur(
@@ -128,9 +150,15 @@ public class SecteurController {
 		return "editSecteur" ;
 		}
 	}
-	/*
+
+	/**
 	 * Controller pour l'action du bouton sauvegarder dans le formulaire d'étion d'un secteur
-	 * Il renvoie vers le secteur qui vient d'être édité
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot auquel le secteur est lié
+	 * @param secteurId id du secteur qui est édité
+	 * @param secteur instance du secteur en cours d'édition
+	 * @param result resultat du binding pour gérer les erreurs de saisies
+	 * @return une vue des détails spot et secteurs et liste de voie associes au secteur
 	 */
 	@PostMapping("/spot/{spotId}/saveEditSecteur/{secteurId}")
 	public String saveEditSecteur(

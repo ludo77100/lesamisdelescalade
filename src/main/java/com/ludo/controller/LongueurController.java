@@ -16,14 +16,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.ludo.entities.Longueur;
-import com.ludo.entities.Secteur;
-import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
-import com.ludo.entities.Voie;
 import com.ludo.service.LongueurService;
-import com.ludo.service.SecteurService;
-import com.ludo.service.SpotService;
-import com.ludo.service.VoieService;
+
 
 /**
  * Controller pour la partie longueur de l'application
@@ -32,12 +27,7 @@ import com.ludo.service.VoieService;
  */
 @Controller
 public class LongueurController {
-	@Autowired
-	private SpotService spotService;
-	@Autowired
-	private SecteurService secteurService;
-	@Autowired
-	private VoieService voieService;
+
 	@Autowired
 	private LongueurService longueurService;
 	
@@ -64,10 +54,6 @@ public class LongueurController {
 			return "formConnexion";
 		} else {
 		
-		Spot spot = spotService.findById(spotId).get();
-		Secteur secteur = secteurService.findById(secteurId).get();
-		Voie voie = voieService.findById(voieId).get();
-		
 		model.addAttribute("longueur", new Longueur());
 		
 		return "formLongueur";
@@ -80,8 +66,8 @@ public class LongueurController {
 	 * @param spotId id du spot auquel la longueur est liée
 	 * @param secteurId id du secteur auquel la longueur est lié
 	 * @param voieId id de la voie auquelle la longueur est lié
-	 * @param longueur objet longueur pour la validation du formulaire 
-	 * @param result resultat du binding pour gérer les erreurs de saisie
+	 * @param longueur instance de la longueurs à ajouter
+	 * @param result resultat du binding pour gérer les erreurs de saisies
 	 * @return vers la vue des longueurs
 	 */
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur/save")
@@ -147,7 +133,7 @@ public class LongueurController {
 	 * @param secteurId id du secteur auquel la longueur est lié
 	 * @param voieId id de la voie auquelle la longueur est lié
 	 * @param longueurId id de la longueur qui doit être édité
-	 * @param longueur objet longueur pour la validation du formulaire
+	 * @param longueur instance de la longueurs à modifier
 	 * @param result resultat du binding pour gérer les erreurs de saisie
 	 * @return la vue des longueurs
 	 */

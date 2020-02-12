@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.ludo.dao.TopoRepository;
 import com.ludo.entities.Reservation;
@@ -29,22 +28,32 @@ import com.ludo.service.ReservationService;
 import com.ludo.service.SpotService;
 import com.ludo.service.TopoService;
 
+/**
+ * Controlleur pour la partie topo de l'application
+ * @author A87671
+ *
+ */
+
 @Controller
 public class TopoController {
 
 	@Autowired
 	private TopoRepository topoRepository ; // Pour la recherche
-	
 	@Autowired
 	private TopoService topoService ;
-	
 	@Autowired
 	private SpotService spotService ;
-	
 	@Autowired
 	private ReservationService reservationService ;
-	/*
-	 * Controller qui renvoie la liste des topos
+	
+	/**
+	 * Controller qui renvoie la liste des topo et permet d'effectuer une recherche de topo
+	 * @param model instance du model en cours
+	 * @param p page en cours
+	 * @param s le nombre de résultat par page
+	 * @param mc mot clé pour la recherche
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return une vue de la liste des spots
 	 */
 	@GetMapping("/listeTopo")
 	public String listeTopo(
@@ -69,13 +78,20 @@ public class TopoController {
 		model.addAttribute("pages", pages);
 		model.addAttribute("pageCourante", p);
 
-	
 		return "listeTopo";
 		}
 	}
 	
+	/**
+	 * Controller qui permet d'afficher la vue topo
+	 * @param model instance du model en cours
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return la vue topo
+	 */
 	@GetMapping("/topo")
-	public String topo(Model model, HttpServletRequest request) {
+	public String topo(
+			Model model, 
+			HttpServletRequest request) {
 		
 		if (request.getRemoteUser() == null) {
 			return "formConnexion";
@@ -111,8 +127,18 @@ public class TopoController {
 		}
 	}
 	
+	/**
+	 * Controller pour l'action du bouton sauvegarder d'un nouveau topo
+	 * @param model instance du model en cour
+	 * @param topo instance du topo à ajouter
+	 * @param result resultat du binding pour gérer les erreurs de saisies
+	 * @return la vue topo
+	 */
 	@PostMapping("/saveTopo")
-	public String saveTopo(Model model, @Valid Topo topo, BindingResult result) {
+	public String saveTopo(
+			Model model, 
+			@Valid Topo topo, 
+			BindingResult result) {
 		
 		if (result.hasErrors()) {
 			return "redirect:/topo";
@@ -120,14 +146,20 @@ public class TopoController {
 		
 		topoService.saveTopo(topo);
 		
-		return "redirect:/topo";
-		
+		return "redirect:/topo";	
 	}
 	
-/////////////////////////SUPPRESSION TOPO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
+	/////////////////////////SUPPRESSION TOPO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 
+	/**
+	 * Controller pour la suppression d'un topo
+	 * @param topoId id du topo à supprimé
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return le vue topo
+	 */
 	@GetMapping("/deleteTopo/{topoId}")
-	public String deleteTopo(@PathVariable("topoId") Long topoId, final RedirectAttributes redirect,
+	public String deleteTopo(
+			@PathVariable("topoId") Long topoId,
 			HttpServletRequest request) {
 
 		if (request.getRemoteUser() == null) {
@@ -149,14 +181,16 @@ public class TopoController {
 	}
 	
 	/////////////////////////DISPONIBILITE DU TOPO\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
-	/*
-	 * Cette méthode permet de changer la disponibilité d'un topo
+
+	/**
+	 * Controller pour changer la disponibilité d'un topo
+	 * @param topoId id du topo
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return la vue topo
 	 */
 	@GetMapping("/topo/changerDispoTopo/{topoId}")
 	public String changerDispoTopo(
 			@PathVariable("topoId")Long topoId,
-			final RedirectAttributes redirect,
 			HttpServletRequest request) {
 		
 		if (request.getRemoteUser() == null) {

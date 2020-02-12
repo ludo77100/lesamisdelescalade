@@ -18,8 +18,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import com.ludo.dao.SpotRepository;
 import com.ludo.entities.Commentaire;
@@ -30,6 +28,11 @@ import com.ludo.service.CommentaireService;
 import com.ludo.service.SecteurService;
 import com.ludo.service.SpotService;
 
+/**
+ * Controller pour la partie spot de l'application
+ * @author A87671
+ *
+ */
 
 @Controller
 public class SpotController {
@@ -50,8 +53,14 @@ public class SpotController {
 	
 	/////////////////////////DISPLAY SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/*
-	 * Controller qui renvoie la liste des spots
+	/**
+	 * Controller qui renvoie la liste des spots une recherche de spot
+	 * @param model instance du model en cours
+	 * @param p page en cours
+	 * @param s le nombre de résultat par page
+	 * @param mc mot clé pour la recherche
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return une vue de la liste des spots
 	 */
 	@GetMapping("/listeSpot")
 	public String listeSpot(
@@ -78,10 +87,11 @@ public class SpotController {
 		}
 	}
 	
-	/*
-	 * Controller qui permet d'afficher les détails d'un spot
-	 * affiche une liste des secteurs lié au spot choisi
-	 * Les commentaire lié au spot sont chargé dans ce controller
+	/**
+	 * Controller pour accéder aux détails d'un spot
+	 * @param model instance du model en cours 
+	 * @param spotId id du secteur dont on veut les détails 
+	 * @return une vue des détails d'un spot et affiche une liste des secteurs lié au spot
 	 */
 	@GetMapping("/spot/{spotId}")
 	public String afficherSpot(
@@ -102,8 +112,11 @@ public class SpotController {
 	
 	/////////////////////////AJOUT SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/*
+	/**
 	 * Controller qui renvoie vers le formulaire d'ajout de spot
+	 * @param model instance du model en cours
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return le formulaire d'ajout de spot
 	 */
 	@GetMapping("/ajouter")
 	public String formSpot(Model model, HttpServletRequest request) {
@@ -118,8 +131,12 @@ public class SpotController {
 		}
 	}
 	
-	/*
-	 * Controller pour l'action du bouton sauvegarder dans formulaire d'ajout de spot.
+	/**
+	 * Controller pour l'action du bouton sauvegarder dans formulaire d'ajout de spot
+	 * @param model instance du model en cours 
+	 * @param spot instance du spot à ajouter
+	 * @param result resultat du binding pour gérer les erreurs de saisies
+	 * @return une vue de la liste du spot 
 	 */
 	@PostMapping("/save")
 	public String saveSpot(
@@ -137,10 +154,13 @@ public class SpotController {
 	}
 	
 	/////////////////////////EDITION SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
-	
-	/*
+
+	/**
 	 * Controller pour accéder à l'édition d'un spot
+	 * @param model instance du model en cours 
+	 * @param spotId id du spot à édité
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return le formulaire d'édition du spot
 	 */
 	@GetMapping("/editSpot/{spotId}")
 	public String editSpot(Model model, @PathVariable("spotId") Long spotId, HttpServletRequest request){
@@ -161,17 +181,20 @@ public class SpotController {
 		return "editSpot" ;
 		}
 	}
-	
-	/*
+
+	/**
 	 * Controller pour l'action du bouton sauvegarder du formulaire d'édition d'un spot
-	 * Il renvoie sur le spot qui vient d'être édité
+	 * @param model instance du model en cours 
+	 * @param spotId id du spote à édité
+	 * @param spot intance du spot à édité
+	 * @param result resultat du binding pour gérer les erreurs de saisies
+	 * @return une vue des détails du spot qui vient d'être édité
 	 */
 	@PostMapping("/saveEditSpot/{spotId}")
 	public String saveEditSpot(Model model,
 			@PathVariable("spotId")Long spotId,
 			@Valid Spot spot, 
-			BindingResult result,
-			RedirectAttributes redirectAttributes) {
+			BindingResult result) {
 		
 		if (result.hasErrors()) {
 			model.addAttribute("spotId", spotId);
@@ -185,17 +208,16 @@ public class SpotController {
 	}
 	
 	/////////////////////////SUPPRESSION SPOT\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
-	/*
-	 * Cette méthode permet la suppression d'une longueur. Elle execute une
-	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une longueur
-	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
-	 * contre un anonyme qui taperait le PATH à la main dans son navigateur
+
+	/**
+	 * Controller pour la suppression d'un spot
+	 * @param spotId id du spot à supprimé
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return une vue de la liste des spots
 	 */
 	@GetMapping("/deleteSpot/{spotId}")
 	public String deleteSpot(
 			@PathVariable("spotId") Long spotId, 
-			final RedirectAttributes redirect,
 			HttpServletRequest request) {
 		
 		if (request.getRemoteUser() == null) {
@@ -220,10 +242,16 @@ public class SpotController {
 	/*
 	 * Cette méthode permet de passer un spot en officiel les amis de l'escalade
 	 */
+	
+	/**
+	 * Controller permet de passer un spot en officiel les amis de l'escalade
+	 * @param spotId id du spot
+	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
+	 * @return la vue de la liste des spots
+	 */
 	@GetMapping("/listeSpot/rendreOfficiel/{spotId}")
 	public String rendreOfficiel(
 			@PathVariable("spotId")Long spotId,
-			final RedirectAttributes redirect,
 			HttpServletRequest request) {
 		
 		if (request.getRemoteUser() == null) {

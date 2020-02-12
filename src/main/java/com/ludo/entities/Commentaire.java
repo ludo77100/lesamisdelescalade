@@ -12,9 +12,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.Range;
-
-import lombok.Data;
 
 @Entity
 public class Commentaire implements Serializable {
@@ -98,7 +95,4 @@ public class Commentaire implements Serializable {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-
-	
-	
 }

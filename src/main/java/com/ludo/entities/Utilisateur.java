@@ -136,7 +136,8 @@ public class Utilisateur implements Serializable, UserDetails {
 	public void setMotDePass(String motDePass) {
 		if (!motDePass.isEmpty()) {
             this.motDePass = BCryptManagerUtil.passwordencoder().encode(motDePass);
-	}}
+		}
+	}
 
 	public String getEmail() {
 		return email;

@@ -67,8 +67,8 @@ public class CommentaireController {
 	 * Controller pour sauvegarder les données d'un nouveau commentaire 
 	 * @param model instance du model en cours
 	 * @param spotId spotId id du spot auquel va être lié le commentaire
-	 * @param commentaire 
-	 * @param result resultat du binding pour gérer les erreurs
+	 * @param commentaire instance du commentaire à ajouter
+	 * @param result resultat du binding pour gérer les erreurs de saisies
 	 * @return vers la vue de display du spot ou a été ajouté le commentaire
 	 */
 	@PostMapping("/spot/{spotId}/saveCommentaire/")
@@ -125,12 +125,14 @@ public class CommentaireController {
 		}
 	}
 	
+
 	/**
 	 * controller pour accéder au formulaire d'édition d'un commentaire
-	 * @param model instance du model en cours 
-	 * @param comId id du commentaire qui doit être édité
+	 * @param model instance du model en cours
 	 * @param spotId id du spot auquel appartient le commentaire
-	 * @param result resultat du binding pour gérer les erreurs de saisie
+	 * @param comId comId id du commentaire qui doit être édité
+	 * @param commentaire instance du commentaire à modifier
+	 * @param result resultat du binding pour gérer les erreurs de saisies
 	 * @return vers la vue de display du spot ou a été modifié le commentaire
 	 */
 	@PostMapping("/spot/{spotId}/saveEditCommentaire/{comId}")
