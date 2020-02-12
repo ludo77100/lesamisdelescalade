@@ -24,42 +24,76 @@ import org.hibernate.validator.constraints.Length;
  */
 @Entity
 public class Voie implements Serializable {
+	
 	/**
-	 * 
+	 * Constant serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * id de la voie
+	 */
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_voie")
 	private Long idVoie ;
 	
+	/**
+	 * nom de la voie
+	 */
 	@Column(name = "nom_voie", nullable = false, unique = false)
 	@Length(min = 4, max = 35)
 	private String nomVoie ;
 	
+	/**
+	 * cotation de la voie
+	 */
 	@Column(name = "cotation", nullable = false, unique = false)
 	@Length(min = 2, max = 2)
 	private String cotation ;
 	
+	/**
+	 * longueur de la voie
+	 */
 	@Column(name = "longueurVoie", nullable = false, unique = false)
 	private Double longueurVoie ;
 	
+	/**
+	 * si voie equipée ou non
+	 */
 	@Column(name = "equipee", nullable = false, unique = false)
 	private String equipee ;
 	
+	/**
+	 * Relation avec la table secteur
+	 */
 	@ManyToOne
 	@JoinColumn(name = "VOIE_SECT")
 	private Secteur secteur ;
 	
+	/**
+	 * Relation avec la table longueur
+	 */
 	@OneToMany(mappedBy = "voie", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Longueur> longueur;
 	
+	/**
+	 * instanciation de voie
+	 */
 	public Voie() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	
+	/**
+	 * instanciation de voie
+	 * @param idVoie id de la voie
+	 * @param nomVoie nom de la voie
+	 * @param cotation cotation de la voie
+	 * @param longueurVoie longueur de la voie 
+	 * @param equipee si voie equipée ou non
+	 * @param secteur secteur de la voie
+	 * @param longueur longueurs de la voie
+	 */
 	public Voie(Long idVoie, @Length(min = 4, max = 35) String nomVoie, @Length(min = 2, max = 2) String cotation,
 			Double longueurVoie, String equipee, Secteur secteur, Collection<Longueur> longueur) {
 		super();

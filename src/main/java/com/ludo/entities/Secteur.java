@@ -22,46 +22,70 @@ import javax.validation.constraints.Size;
  */
 @Entity
 public class Secteur implements Serializable {
+	
 	/**
-	 * 
+	 *  Constant serialVersionUID
 	 */
 	private static final long serialVersionUID = 1L;
 
+	/**
+	 * id du secteur
+	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_secteur")
 	private Long idSecteur;
 	
+	/**
+	 * nom du secteur
+	 */
 	@Column(name = "nom_secteur", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String nomSecteur;
 	
+	/**
+	 * type de roche du secteur
+	 */
 	@Column(name = "type_roche", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String typeRoche;
 	
+	/**
+	 * localisation du secteur
+	 */
 	@Column(name = "localisation", nullable = false, unique = false)
 	@Size(min = 4, max = 20)
 	private String localisation;
 	
-	/*
+	/**
 	 * Relation avec la table Spot
 	 */
 	@ManyToOne
 	@JoinColumn(name = "SPOTID")
 	private Spot spot; 
 	
-	/*
+	/**
 	 * Relation ave la table Voie
 	 */
 	@OneToMany(mappedBy = "secteur", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Voie> voie;
 
+	/**
+	 * instaciation de secteur
+	 */
 	public Secteur() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * instanciation de secteur
+	 * @param idSecteur id du secteur
+	 * @param nomSecteur nom du secteur
+	 * @param typeRoche type de roche du secteur
+	 * @param localisation localisation du secteur
+	 * @param spot spot du secteur 
+	 * @param voie voies du secteur
+	 */
 	public Secteur(Long idSecteur, String nomSecteur, String typeRoche, String localisation,
 			 Spot spot, Collection<Voie> voie) {
 		super();
@@ -121,6 +145,4 @@ public class Secteur implements Serializable {
 	public void setVoie(Collection<Voie> voie) {
 		this.voie = voie;
 	}
-
-
 }

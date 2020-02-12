@@ -80,7 +80,7 @@ public class Reservation implements Serializable{
 	}
 
 	/**
-	 *  instanciation de reservation
+	 * instanciation de reservation
 	 * @param idReservation id de la réservation
 	 * @param reservant demander de la réservation
 	 * @param proprietaire receveur de la réservation 
