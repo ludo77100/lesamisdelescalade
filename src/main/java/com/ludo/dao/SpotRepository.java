@@ -10,6 +10,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Spot;
 
+/**
+ * Couche DAO spot pour l'application
+ * @author A87671
+ *
+ */
 @Repository
 public interface SpotRepository extends JpaRepository<Spot, Long>{
 

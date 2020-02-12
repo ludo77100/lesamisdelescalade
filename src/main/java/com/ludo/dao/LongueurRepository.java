@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Longueur;
 
+/**
+ * Couche DAO longueur pour l'application
+ * @author A87671
+ *
+ */
 @Repository
 public interface LongueurRepository extends JpaRepository<Longueur, Long>{
 

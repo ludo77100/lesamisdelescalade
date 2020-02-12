@@ -9,14 +9,38 @@ import com.ludo.entities.Longueur;
 
 public interface LongueurService {
 
+	/**
+	 * Pour lister les longueurs lié à une voie
+	 * @param voieId id de la voie
+	 * @return liste de longueur
+	 */
 	List<Longueur> findByVoie(Long voieId);
 
+	/**
+	 * Pour sauvegarder une nouvelle longueur
+	 * @param voieId id de la voie à laquelle la longueur est lié
+	 * @param longueur instance de la longueur à sauvegarder
+	 */
 	void saveLongueur(Long voieId, @Valid Longueur longueur);
 
+	/**
+	 * Pour sauvegarder une longueur édité
+	 * @param longueur instance de la longueur à sauvegarder
+	 * @param longueurId id de la longueur édité à sauvegarder
+	 */
+	void saveEditLongueur(@Valid Longueur longueur, Long longueurId);
+	
+	/**
+	 * Pour trouver une longueur par son id
+	 * @param longueurId id de la longueur
+	 * @return une longueur
+	 */
 	Optional<Longueur> findById(Long longueurId);
 
-	void saveEditLongueur(@Valid Longueur longueur, Long longueurId);
-
+	/**
+	 * Pour supprimer une longueur par son id 
+	 * @param longueurId id de la longueur
+	 */
 	void deleteById(long longueurId);
 
 }

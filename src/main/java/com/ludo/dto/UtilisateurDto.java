@@ -1,11 +1,15 @@
 package com.ludo.dto;
 
+/**
+ * Couche DTO utilisateur pour l'application
+ * @author A87671
+ *
+ */
 public class UtilisateurDto {
 	private String Pseudo ;
 	private String motDePass ;
 	private String email ;
 	
-
 	public UtilisateurDto() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -34,6 +38,5 @@ public class UtilisateurDto {
 	public void setEmail(String email) {
 		this.email = email;
 	}
-	
 
 }

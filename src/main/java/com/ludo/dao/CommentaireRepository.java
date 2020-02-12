@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Commentaire;
 
+/**
+ * Couche DAO commentaire pour l'application
+ * @author A87671
+ *
+ */
 @Repository
 public interface CommentaireRepository extends JpaRepository<Commentaire, Long>{
 

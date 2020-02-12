@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Voie;
 
+/**
+ * Couche DAO voie pour l'application
+ * @author A87671
+ *
+ */
 @Repository
 public interface VoieRepository extends JpaRepository<Voie, Long> {
 

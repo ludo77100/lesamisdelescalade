@@ -121,7 +121,7 @@ public class VoieController {
 			return "formVoie";
 		}
 		
-		voieService.saveVoie(secteurId, voie, result);
+		voieService.saveVoie(secteurId, voie);
 		
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
 	}
@@ -195,14 +195,7 @@ public class VoieController {
 	}
 
 	/////////////////////////SUPPRESSION VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
-	
-	/*
-	 * Cette méthode permet la suppression d'une voie. Elle execute une
-	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une voie
-	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
-	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
-	 */
-	
+
 	/**
 	 * Controller pour la suppression d'une voie
 	 * @param voieId id de la voie à supprimer 

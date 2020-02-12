@@ -40,7 +40,7 @@ public class VoieServiceImpl implements VoieService {
 	}
 
 	@Override
-	public void saveVoie(Long secteurId, @Valid Voie voie, BindingResult result) {
+	public void saveVoie(Long secteurId, @Valid Voie voie) {
 	Voie newVoie = new Voie();
 		
 		newVoie.setNomVoie(voie.getNomVoie());

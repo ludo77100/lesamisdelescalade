@@ -9,6 +9,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Reservation;
 
+/**
+ * Couche DAO reservation pour l'application
+ * @author A87671
+ *
+ */
 @Repository
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 

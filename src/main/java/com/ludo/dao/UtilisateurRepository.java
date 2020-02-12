@@ -5,6 +5,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Utilisateur;
 
+/**
+ * Couche DAO utilisateur pour l'application
+ * @author A87671
+ *
+ */
 @Repository
 public interface UtilisateurRepository extends JpaRepository<Utilisateur, Long>{
 	

@@ -37,7 +37,7 @@ public class ReservationController {
 			return "listeTopo" ;
 		} else {
 
-			reservationService.enregistrerDemandeReservation(topoId, topo);
+			reservationService.enregistrerDemandeReservation(topoId);
 			
 		}
 		return "redirect:/listeTopo" ;

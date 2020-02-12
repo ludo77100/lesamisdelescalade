@@ -13,6 +13,11 @@ import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Topo;
 
+/**
+ * Couche DAO topo pour l'application
+ * @author A87671
+ *
+ */
 @Repository
 public interface TopoRepository extends JpaRepository<Topo, Long> {
 
