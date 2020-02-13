@@ -4,67 +4,79 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.ludo.dao.ReservationRepository;
-import com.ludo.dao.TopoRepository;
 import com.ludo.entities.Reservation;
 import com.ludo.entities.Topo;
-import com.ludo.metier.ReservationService;
+import com.ludo.service.ReservationService;
+import com.ludo.service.TopoService;
 
+/**
+ * Controller pour la partie réservation de topo
+ * @author A87671
+ *
+ */
 @Controller
 public class ReservationController {
 	
 	@Autowired
-	TopoRepository topoRepository ;
-	@Autowired
-	ReservationRepository reservationRepository ;
-	@Autowired
 	ReservationService reservationService ;
+	@Autowired
+	private TopoService topoService ;
 	
+	/**
+	 * Controller pour enregistrer une demande de réservation de topo
+	 * @param topoId id du topo qui est demandé pour la réservation
+	 * @return la liste des topos 
+	 */
 	@GetMapping("/listeTopo/reserverTopo/{topoId}")
-	public String demandeReservationTopo(@PathVariable("topoId")Long topoId, RedirectAttributes redirect) {
+	public String demandeReservationTopo(@PathVariable("topoId")Long topoId) {
 		
-		Topo topo = topoRepository.findById(topoId).get();
+		Topo topo = topoService.findById(topoId).get();
 		
 		if (!topo.isDisponible()) {
 			return "listeTopo" ;
 		} else {
 
-			reservationService.enregistrerDemandeReservation(topoId, topo);
+			reservationService.enregistrerDemandeReservation(topoId);
 			
 		}
 		return "redirect:/listeTopo" ;
 	}
 	
+	/**
+	 * Permet d'accepter uen demande de réservation
+	 * @param reservationId id de la réservation
+	 * @return la vue topo
+	 */
 	@GetMapping("/topo/accepterReservation/{reservationId}")
 	public String accepterReservation(@PathVariable("reservationId")Long reservationId) {
 		
-		Reservation reservation = reservationRepository.findById(reservationId).get();
-		Topo topo = topoRepository.findById(reservation.getTopo().getIdTopo()).get();
+		Reservation reservation = reservationService.findById(reservationId).get();
+		Topo topo = topoService.findById(reservation.getTopo().getIdTopo()).get();
 		
 		reservation.setEtatDemande(true);
-		reservationRepository.save(reservation);
+		reservationService.save(reservation);
 		
-		topo.setDisponible(false);
-		topoRepository.save(topo);
+		topoService.changerDispoTopo(topo.getIdTopo());
 				
 		return "redirect:/topo" ;
 		
 	}
 
+	/**
+	 * Permet de terminer une réservation
+	 * @param reservationId id de la réservation
+	 * @return la vue topo
+	 */
 	@GetMapping("/topo/terminerReservation/{reservationId}")
 	public String terminerReservation(@PathVariable("reservationId")Long reservationId) {
 	
-		Reservation reservation = reservationRepository.findById(reservationId).get();
-		Topo topo = topoRepository.findById(reservation.getTopo().getIdTopo()).get();
+		Reservation reservation = reservationService.findById(reservationId).get();
+		Topo topo = topoService.findById(reservation.getTopo().getIdTopo()).get();
 		
-		reservationRepository.delete(reservation);
+		reservationService.delete(reservation);
 		
-		if (!topo.isDisponible()){
-			topo.setDisponible(true);
-			topoRepository.save(topo);
-		}
+		topoService.changerDispoTopo(topo.getIdTopo());
 
 	return "redirect:/topo" ;
 	}

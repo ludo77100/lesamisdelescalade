@@ -13,59 +13,88 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 
 @Entity
 public class Spot implements Serializable{
 	
+	/**
+	 * Constant serialVersionUID
+	 */
+	private static final long serialVersionUID = 1L;
+
+	/**
+	 * id du spot
+	 */
 	@Id 
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_site_escalade")
 	private Long idSiteEscalade ;
 	
+	/**
+	 * nom du spot
+	 */
 	@Column(name = "nom", nullable = false, unique = false)
 	@Length(min = 2, max = 35)
 	private String nom ;
 	
+	/**
+	 * localité du spot
+	 */
 	@Column(name = "localite", nullable = false, unique = false)
 	@Length(min = 2, max = 255)
 	private String localite ;
 	
+	/**
+	 * tag officiel du spot
+	 */
 	@Column(name = "officiel", nullable = false, unique = false)
 	private boolean officiel ;
 	
-	/*
+	/**
 	 * Relation avec la table Secteur
 	 */
 	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Secteur> secteur ;
 	
-	/*
+	/**
 	 * Relation avec la table commentaire
 	 */
 	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Commentaire> commentaire;
 	
-	/*
+	/**
 	 * Relation avec la table Topo
 	 */
 	@OneToMany(mappedBy = "spot", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
 	private Collection<Topo> topo ;
 	
-	/*
+	/**
 	 * Relation avec la table Utilisateur
 	 */
 	@ManyToOne
 	@JoinColumn(name = "UTILISATEURID")
 	private Utilisateur utilisateur ;
 
+	/**
+	 * instanciation de spot
+	 */
 	public Spot() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
+	/**
+	 * instanciation de spot
+	 * @param idSiteEscalade id du spot
+	 * @param nom nom du spot
+	 * @param localite localité du spot
+	 * @param officiel tag officiel du spot
+	 * @param secteur secteurs du spot 
+	 * @param commentaire commentaires du spot
+	 * @param topo topos du spot
+	 * @param utilisateur utilisateur du spot
+	 */
 	public Spot(Long idSiteEscalade, String nom, String localite, boolean officiel,
 			Collection<Secteur> secteur, Collection<Commentaire> commentaire, Collection<Topo> topo,
 			Utilisateur utilisateur) {
@@ -144,6 +173,4 @@ public class Spot implements Serializable{
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
-
-
 }
