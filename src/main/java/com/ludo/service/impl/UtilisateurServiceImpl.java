@@ -61,4 +61,10 @@ public class UtilisateurServiceImpl implements UtilisateurService {
 		utilisateurRepository.save(newUtilisateur);		
 	}
 
+	@Override
+	public void save(Utilisateur user) {
+		utilisateurRepository.save(user);
+		
+	}
+
 }

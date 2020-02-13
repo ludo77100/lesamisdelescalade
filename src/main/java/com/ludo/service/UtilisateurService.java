@@ -32,4 +32,6 @@ public interface UtilisateurService {
 	 */
 	void saveUtilisateur(@Valid UtilisateurDto utilisateurDto);
 
+	void save(Utilisateur user);
+
 }
