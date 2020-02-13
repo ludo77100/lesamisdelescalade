@@ -9,19 +9,10 @@ import org.springframework.stereotype.Repository;
 
 import com.ludo.entities.Voie;
 
-/**
- * Couche DAO voie pour l'application
- * @author A87671
- *
- */
 @Repository
 public interface VoieRepository extends JpaRepository<Voie, Long> {
 
-	/**
-	 * Pour lister les voies liées à un secteur
-	 * @param secteurId id du secteur pour le lequel on veut trouver les voies
-	 * @return une liste de voies
-	 */
 	@Query("select v from Voie v where v.secteur.idSecteur like :x")
 	public List<Voie> findBySecteur(@Param("x")Long secteurId);
+
 }
