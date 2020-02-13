@@ -3,10 +3,13 @@ package com.ludo.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import com.ludo.entities.Spot;
 
+/**
+ * Couche Service spot pour l'application
+ * @author A87671
+ *
+ */
 public interface SpotService {
 
 	/**
@@ -20,14 +23,14 @@ public interface SpotService {
 	 * Pour sauvegarder un nouveau spot
 	 * @param spot instance du spot à sauvegarder
 	 */
-	void saveSpot(@Valid Spot spot);
+	void saveSpot(Spot spot);
 
 	/**
 	 * Pour sauvegarder un spot édité
 	 * @param spot instance du spot édité à sauvergarder
 	 * @param spotId id du spot à édité
 	 */
-	void saveEditSpot(@Valid Spot spot, Long spotId);
+	void saveEditSpot(Spot spot, Long spotId);
 
 	/**
 	 * Pour rendre un spot officiel, et pour le repasser en non officiel

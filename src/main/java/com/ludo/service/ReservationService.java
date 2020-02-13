@@ -5,6 +5,11 @@ import java.util.Optional;
 
 import com.ludo.entities.Reservation;
 
+/**
+ * Couche Service reservation pour l'application
+ * @author A87671
+ *
+ */
 public interface ReservationService {
 
 	/**
@@ -52,5 +57,4 @@ public interface ReservationService {
 	 * @return liste de topos prete à un utilisateur
 	 */
 	List<Reservation> findByPrete(String username);
-
 }

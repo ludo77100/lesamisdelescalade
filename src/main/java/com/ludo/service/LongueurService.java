@@ -3,10 +3,13 @@ package com.ludo.service;
 import java.util.List;
 import java.util.Optional;
 
-import javax.validation.Valid;
-
 import com.ludo.entities.Longueur;
 
+/**
+ * Couche Service longueur pour l'application
+ * @author A87671
+ *
+ */
 public interface LongueurService {
 
 	/**
@@ -21,14 +24,14 @@ public interface LongueurService {
 	 * @param voieId id de la voie à laquelle la longueur est lié
 	 * @param longueur instance de la longueur à sauvegarder
 	 */
-	void saveLongueur(Long voieId, @Valid Longueur longueur);
+	void saveLongueur(Long voieId, Longueur longueur);
 
 	/**
 	 * Pour sauvegarder une longueur édité
 	 * @param longueur instance de la longueur à sauvegarder
 	 * @param longueurId id de la longueur édité à sauvegarder
 	 */
-	void saveEditLongueur(@Valid Longueur longueur, Long longueurId);
+	void saveEditLongueur(Longueur longueur, Long longueurId);
 	
 	/**
 	 * Pour trouver une longueur par son id

@@ -105,10 +105,4 @@ public class TopoServiceImpl implements TopoService{
 		}
 		topoRepository.save(topoDispo);
 	}
-<<<<<<< HEAD
-	
-	
-	
-=======
->>>>>>> 4d6b7eced910c28c7a8a95c7a1a15f658b7432f2
 }
