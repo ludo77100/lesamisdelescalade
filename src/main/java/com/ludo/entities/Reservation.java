@@ -13,52 +13,26 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 
-/**
- * Couche entities reservation pour l'application
- * @author A87671
- *
- */
+import lombok.Data;
+
 @Entity
+@Data
 public class Reservation implements Serializable{
 
-	/**
-	 * Constant serialVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 * id de la réservation
-	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "id_reservation")
 	private Long idReservation ;
-	
-	/**
-	 * reservant de la réservation
-	 */
 	@Column(name = "reservant", nullable = false, unique = false)
 	private String reservant ;
-	
-	/**
-	 * propriétaire à qui la reservation est demandé
-	 */
 	@Column(name = "proprietaire", nullable = false, unique = false)
 	private String proprietaire ;
-	
-	/**
-	 * date de la demande de réservatioon
-	 */
 	@Column(name = "dateDemande", nullable = false, unique = false)
 	private Date dateDemande ;
-	
-	/**
-	 * état de la damande
-	 */
 	@Column(name = "etatDemande", nullable = false, unique = false)
 	private boolean etatDemande ;
 	
-	/**
+	/*
 	 * Relation avec la table Utilisateur
 	 */
 	@ManyToOne
@@ -66,29 +40,19 @@ public class Reservation implements Serializable{
 	private Utilisateur utilisateur ;
 
 	
-	/**
+	/*
 	 * Relation avec la table Topo
 	 */
 	@OneToOne(cascade = CascadeType.DETACH)
 	private Topo topo ;
 
-	/**
-	 * instanciation de reservation
-	 */
+
 	public Reservation() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * instanciation de reservation
-	 * @param idReservation id de la réservation
-	 * @param reservant demander de la réservation
-	 * @param proprietaire receveur de la réservation 
-	 * @param dateDemande date de la demande de réservation
-	 * @param etatDemande état de la demande de réservation
-	 * @param utilisateur utilisateur qui fait la demande
-	 * @param topo topo pour lequel la demande de réservation est fait
-	 */
+
 	public Reservation(Long idReservation, String reservant, String proprietaire, Date dateDemande, boolean etatDemande,
 			Utilisateur utilisateur, Topo topo) {
 		super();
@@ -100,6 +64,7 @@ public class Reservation implements Serializable{
 		this.utilisateur = utilisateur;
 		this.topo = topo;
 	}
+
 
 	public Long getIdReservation() {
 		return idReservation;
@@ -169,4 +134,5 @@ public class Reservation implements Serializable{
 	public void setTopo(Topo topo) {
 		this.topo = topo;
 	}
+	
 }

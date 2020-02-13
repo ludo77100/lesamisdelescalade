@@ -13,45 +13,42 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.ludo.dao.LongueurRepository;
+import com.ludo.dao.SecteurRepository;
+import com.ludo.dao.SpotRepository;
+import com.ludo.dao.VoieRepository;
 import com.ludo.entities.Longueur;
 import com.ludo.entities.Secteur;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.entities.Voie;
-import com.ludo.service.LongueurService;
-import com.ludo.service.SecteurService;
-import com.ludo.service.SpotService;
-import com.ludo.service.VoieService;
+import com.ludo.forms.VoieForm;
+import com.ludo.metier.VoieService;
 
-/**
- * Controller pour la partie voie de l'application
- * @author A87671
- *
- */
 @Controller
 public class VoieController {
-	
+
+	@Autowired
+	private SpotRepository spotRepository;
+	@Autowired
+	private SecteurRepository secteurRepository;
+	@Autowired
+	private VoieRepository voieRepository;
 	@Autowired
 	private VoieService voieService;
 	@Autowired
-	private SpotService spotService ;
-	@Autowired
-	private SecteurService secteurService;
-	@Autowired
-	private LongueurService longueurService;
+	private LongueurRepository longueurRepository;
 	
 	/////////////////////////DISPLAY VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-	/**
-	 * Controller pour afficher les information détaillées du spot, secteur et de la voie et la liste de longueur associé à la voie
-	 * @param model instance du model en cours
-	 * @param spotId id du spot 
-	 * @param secteurId id du secteur
-	 * @param voieId id de la voie
-	 * @return une vue détaillé du spot, secteur et voie et liste de longueurs
+	
+	/*
+	 * Controller pour afficher les information détaillées de la voie slectioné sur la vue précédente
+	 * Affiche également la liste des longueurs associés à cette voie
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/voie/{voieId}")
 	public String afficherVoie(Model model, 
@@ -59,29 +56,23 @@ public class VoieController {
 			@PathVariable("secteurId") Long secteurId, 
 			@PathVariable("voieId") Long voieId) {
 
-		Spot spot = spotService.findById(spotId).get();
-		Secteur secteur = secteurService.findById(secteurId).get();
-		Voie voie = voieService.findById(voieId).get();
+		Spot spot = spotRepository.findById(spotId).get();
+		Secteur secteur = secteurRepository.findById(secteurId).get();
+		Voie voie = voieRepository.findById(voieId).get();
 
 		model.addAttribute("spotInfo", spot);
 		model.addAttribute("secteurInfo", secteur);
 		model.addAttribute("voieInfo", voie);
 
-		List<Longueur> listeLongueur = longueurService.findByVoie(voieId);
+		List<Longueur> listeLongueur = longueurRepository.findByVoie(voieId);
 		model.addAttribute("listeLongueur", listeLongueur);
-		
 		return "voie";
 	}
 
 	/////////////////////////AJOUT VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/**
+	/*
 	 * Controller pour accéder au formulaire d'ajout de voie lié à un secteur
-	 * @param model instance du model en cours
-	 * @param spotId id du spot en cours
-	 * @param secteurId id du secteur en cours auquel la voie va être ajoutée
-	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
-	 * @return le formulaire d'ajout d'une voie
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/ajouterVoie")
 	public String formVoie(
@@ -93,49 +84,42 @@ public class VoieController {
 		if (request.getRemoteUser() == null) {
 			return "formConnexion";
 		} else {
-
+		
+		Spot spot = spotRepository.findById(spotId).get();
+		Secteur secteur = secteurRepository.findById(secteurId).get();
+		
 		model.addAttribute("voie", new Voie());
 		
 		return "formVoie";
 		}
 	}
-
-	/**
+		
+	/*
 	 * Controller pour l'action du bouton sauvegarder pour un nouveau secteur
-	 * @param model instance du model en cours 
-	 * @param spotId id du spot
-	 * @param secteurId id du secteur en cours auquel la voie va être ajoutée
-	 * @param voie instance de la voie en cours d'ajout
-	 * @param result resultat du binding pour gérer les erreurs de saisies
-	 * @return la vue de détails spot, secteur et liste de voies
 	 */
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/ajouterVoie/save")
 	public String saveVoie(
 			Model model, 
+			@ModelAttribute("voieForm") VoieForm voieForm,
 			@PathVariable("spotId") Long spotId, 
 			@PathVariable("secteurId") Long secteurId,
 			@Valid Voie voie,
-			BindingResult result) {
+			BindingResult result,
+			RedirectAttributes redirectAttributes) {
 
 		if (result.hasErrors()) {
 			return "formVoie";
 		}
 		
-		voieService.saveVoie(secteurId, voie);
+		voieService.saveVoie(secteurId, voieForm, result);
 		
 		return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
 	}
 	
 	/////////////////////////EDITION VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-	/**
+	
+	/*
 	 * Controller pour accéder à l'edition d'une voie
-	 * @param model instance du model en cours 
-	 * @param spotId id du spote
-	 * @param secteurId id du secteur
-	 * @param voieId id de la voie qui doit être éditée
-	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
-	 * @return le formulaire d'édition de la voie
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/editVoie/{voieId}")
 	public String editVoie(
@@ -149,7 +133,7 @@ public class VoieController {
 			return "formConnexion";
 		} else {
 		
-		Optional<Voie> v = voieService.findById(voieId);
+		Optional<Voie> v = voieRepository.findById(voieId);
 		Voie voie = null ;
 		
 		if(v.isPresent()) {
@@ -160,20 +144,15 @@ public class VoieController {
 		return "editVoie" ;
 		}
 	}
-
-	/**
+	
+	/*
 	 * Controller pour l'action du bouton sauvegarder dans le formulaire d'étion d'une voie
-	 * @param model instance du model en cours 
-	 * @param spotId id du spot
-	 * @param secteurId id du secteur
-	 * @param voieId id de la voie en cours d'édition
-	 * @param voie instance de la voie en cours d'édition
-	 * @param result resultat du binding pour gérer les erreurs de saisies
-	 * @return la vue de détails spot, secteur et voie
+	 * Il renvoie vers la voie qui vient d'être édité
 	 */
 	@PostMapping("/spot/{spotId}/secteur/{secteurId}/saveEditVoie/{voieId}")
 	public String saveEditVoie(
 			Model model, 
+			@ModelAttribute("voieForm")VoieForm voieForm,
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("secteurId")Long secteurId,
 			@PathVariable("voieId")Long voieId,
@@ -188,27 +167,26 @@ public class VoieController {
 			
 		} else {
 		
-		voieService.saveEditVoie(voie, voieId);
+		voieService.saveEditVoie(voieForm, voieId);
 		
 		return "redirect:/spot/"+ spotId + "/secteur/" +secteurId+ "/voie/" + voieId;
 		}
 	}
 
 	/////////////////////////SUPPRESSION VOIE\\\\\\\\\\\\\\\\\\\\\\\\\\\
-
-	/**
-	 * Controller pour la suppression d'une voie
-	 * @param voieId id de la voie à supprimer 
-	 * @param secteurId id du secteur
-	 * @param spotId id du spot
-	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
-	 * @return la vue de détails spot, secteur et liste de voies
+	
+	/*
+	 * Cette méthode permet la suppression d'une voie. Elle execute une
+	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer une voie
+	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
+	 * contre un anonyme qui taperait le PATH à la main dans son naviguateur
 	 */
 	@GetMapping("/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}")
 	public String deleteVoie(
 			@PathVariable("voieId") Long voieId, 
 			@PathVariable("secteurId") Long secteurId,
 			@PathVariable("spotId") Long spotId, 
+			final RedirectAttributes redirect,
 			HttpServletRequest request) {
 		
 		if (request.getRemoteUser() == null) {
@@ -216,11 +194,10 @@ public class VoieController {
 		} else {
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				voieService.deleteById(voieId);
+				voieRepository.deleteById(voieId);
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
-			} else {
+			} else
 				return "redirect:/spot/" + spotId + "/secteur/" + secteurId;
-			}
 		}
 	}
 }
