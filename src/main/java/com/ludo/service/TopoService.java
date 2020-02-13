@@ -7,11 +7,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ludo.entities.Topo;
 
-/**
- * Couche Service topo pour l'application
- * @author A87671
- *
- */
 public interface TopoService {
 
 	/**

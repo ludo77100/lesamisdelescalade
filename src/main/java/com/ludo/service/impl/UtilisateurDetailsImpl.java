@@ -9,11 +9,6 @@ import org.springframework.stereotype.Service;
 import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Utilisateur;
 
-/**
- * Implémentation userdetails pour l'application
- * @author A87671
- *
- */
 @Service
 public class UtilisateurDetailsImpl implements UserDetailsService {
 	

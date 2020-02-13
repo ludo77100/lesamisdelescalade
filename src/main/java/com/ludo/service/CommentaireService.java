@@ -3,13 +3,10 @@ package com.ludo.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.ludo.entities.Commentaire;
 
-/**
- * Couche Service commentaire pour l'application
- * @author A87671
- *
- */
 public interface CommentaireService {
 
 	/**
@@ -17,14 +14,14 @@ public interface CommentaireService {
 	 * @param commentaire commentaire à sauvegarder
 	 * @param spotId id du spot auquel est lié le commentaire
 	 */
-	public void saveCommentaire(Commentaire commentaire, Long spotId);
+	public void saveCommentaire(@Valid Commentaire commentaire, Long spotId);
 
 	/**
 	 * Pour sauvegarder un commentaire édité
 	 * @param commentaire commentaire à sauvegarder
 	 * @param comId id du commentaire édité
 	 */
-	public void saveEditCommentaire(Commentaire commentaire, Long comId);
+	public void saveEditCommentaire(@Valid Commentaire commentaire, Long comId);
 
 	/**
 	 * Pour supprimer un commentaire par son id 

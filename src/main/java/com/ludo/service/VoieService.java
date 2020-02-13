@@ -7,11 +7,6 @@ import javax.validation.Valid;
 
 import com.ludo.entities.Voie;
 
-/**
- * Couche Service voie pour l'application
- * @author A87671
- *
- */
 public interface VoieService {
 
 	/**

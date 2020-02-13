@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -16,11 +17,6 @@ import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
 import com.ludo.service.SpotService;
 
-/**
- * Implémentation Service spot pour l'application
- * @author A87671
- *
- */
 @Service
 @Transactional
 public class SpotServiceImpl implements SpotService{
@@ -30,23 +26,14 @@ public class SpotServiceImpl implements SpotService{
 	@Autowired
 	UtilisateurRepository utilisateurRepository ;
 	
-	/**
-	 * Pour trouver un spot en fonction de son id
-	 * @param spotId id du spot 
-	 * @return un spot
-	 */
 	@Override
 	public Optional<Spot> findById(Long spotId) {
 		Optional<Spot> spot = spotRepository.findById(spotId) ;
 		return spot;
 	}
 
-	/**
-	 * Pour sauvegarder un nouveau spot
-	 * @param spot instance du spot à sauvegarder
-	 */
 	@Override
-	public void saveSpot(Spot spot) {
+	public void saveSpot(@Valid Spot spot) {
 		Spot newSpot = new Spot();
 		
 		UserDetails util = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -60,13 +47,8 @@ public class SpotServiceImpl implements SpotService{
 		spotRepository.save(newSpot);
 	}
 
-	/**
-	 * Pour sauvegarder un spot édité
-	 * @param spot instance du spot édité à sauvergarder
-	 * @param spotId id du spot à édité
-	 */
 	@Override
-	public void saveEditSpot(Spot spot, Long spotId) {
+	public void saveEditSpot(@Valid Spot spot, Long spotId) {
 		
 		Spot spotEdit = spotRepository.findById(spotId).get();
 		
@@ -77,10 +59,6 @@ public class SpotServiceImpl implements SpotService{
 		
 	}
 
-	/**
-	 * Pour rendre un spot officiel, et pour le repasser en non officiel
-	 * @param spotId id du spot 
-	 */
 	@Override
 	public void rendreOfficiel(Long spotId) {
 		Spot spotRendreOfficiel = spotRepository.findById(spotId).get();
@@ -93,20 +71,12 @@ public class SpotServiceImpl implements SpotService{
 		spotRepository.save(spotRendreOfficiel);
 	}
 
-	/**
-	 * Pour supprimer une spot par son id
-	 * @param spotId id du spot à supprimer
-	 */
 	@Override
 	public void deleteById(Long spotId) {
 		spotRepository.deleteById(spotId);
 		
 	}
 
-	/**
-	 * Pour lister tous les spots 
-	 * @return la liste des spots
-	 */
 	@Override
 	public List<Spot> findAll() {
 		List<Spot> spots = spotRepository.findAll();

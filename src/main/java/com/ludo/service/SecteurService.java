@@ -3,13 +3,10 @@ package com.ludo.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import com.ludo.entities.Secteur;
 
-/**
- * Couche Service secteur pour l'application
- * @author A87671
- *
- */
 public interface SecteurService {
 
 	/**
@@ -31,14 +28,14 @@ public interface SecteurService {
 	 * @param spotId id du spot auquel le secteur est lié
 	 * @param secteur instance du secteur à sauvegarder
 	 */
-	void saveSecteur(Long spotId, Secteur secteur);
+	void saveSecteur(Long spotId, @Valid Secteur secteur);
 
 	/**
 	 * Pour saugegarder un secteur édité
 	 * @param secteur instance du secteur édité
 	 * @param secteurId id du secteur à édité
 	 */
-	void saveEditSecteur(Secteur secteur, Long secteurId);
+	void saveEditSecteur(@Valid Secteur secteur, Long secteurId);
 
 	/**
 	 * Pour supprimer un secteur 

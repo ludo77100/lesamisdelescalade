@@ -5,11 +5,6 @@ import javax.validation.Valid;
 import com.ludo.dto.UtilisateurDto;
 import com.ludo.entities.Utilisateur;
 
-/**
- * Couche Service utilisateur pour l'application
- * @author A87671
- *
- */
 public interface UtilisateurService {
 
 	/**
