@@ -1,16 +1,16 @@
-package com.ludo.forms;
+package com.ludo.dto;
 
-public class UtilisateurForm {
+public class UtilisateurDto {
 	private String Pseudo ;
 	private String motDePass ;
 	private String email ;
 	private String roles ;
 
-	public UtilisateurForm() {
+	public UtilisateurDto() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public UtilisateurForm(String pseudo, String motDePass, String email, String roles) {
+	public UtilisateurDto(String pseudo, String motDePass, String email, String roles) {
 		super();
 		Pseudo = pseudo;
 		this.motDePass = motDePass;
