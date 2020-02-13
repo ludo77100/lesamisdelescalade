@@ -10,26 +10,30 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ludo.dao.CommentaireRepository;
+import com.ludo.dao.SpotRepository;
+import com.ludo.dao.UtilisateurRepository;
 import com.ludo.entities.Commentaire;
 import com.ludo.entities.Spot;
 import com.ludo.entities.Utilisateur;
-import com.ludo.service.CommentaireService;
-import com.ludo.service.SpotService;
-/**
- * Controller pour la partie commentaire de l'application
- * @author A87671
- *
- */
+import com.ludo.forms.CommentaireForm;
+import com.ludo.metier.CommentaireService;
+
 @Controller
 public class CommentaireController {
 	
 	@Autowired
-	SpotService spotService ;
+	SpotRepository spotRepository ;
+	@Autowired
+	CommentaireRepository commentaireRepository ;
 	@Autowired
 	CommentaireService commentaireService ;
+	@Autowired
+	UtilisateurRepository utilisateurRepository ;
 	
 	/////////////////////////DISPLAY COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
@@ -38,13 +42,7 @@ public class CommentaireController {
 	
 	/////////////////////////AJOUT COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
 	
-	/**
-	 * Controller pour accéder au formulaire d'ajout de commentaire
-	 * @param model instance du model en cours 
-	 * @param spotId id du spot auquel va être lié le commentaire 
-	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
-	 * @return le formulaire d'ajout de commentaire
-	 */
+	
 	@GetMapping("/spot/{spotId}/ajoutCommentaire/")
 	public String ajoutCommentaire(Model model,
 			@PathVariable("spotId")Long spotId,
@@ -54,7 +52,7 @@ public class CommentaireController {
 			return "formConnexion";
 		} else {
 		
-			Spot spot = spotService.findById(spotId).get();
+			Spot spot = spotRepository.findById(spotId).get();
 
 			model.addAttribute("spotId", spot.getIdSiteEscalade());
 			model.addAttribute("commentaire", new Commentaire());
@@ -63,16 +61,10 @@ public class CommentaireController {
 		}
 	}
 	
-	/**
-	 * Controller pour sauvegarder les données d'un nouveau commentaire 
-	 * @param model instance du model en cours
-	 * @param spotId spotId id du spot auquel va être lié le commentaire
-	 * @param commentaire instance du commentaire à ajouter
-	 * @param result resultat du binding pour gérer les erreurs de saisies
-	 * @return vers la vue de display du spot ou a été ajouté le commentaire
-	 */
+
 	@PostMapping("/spot/{spotId}/saveCommentaire/")
 	public String saveCommentaire(Model model, 
+			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
 			@PathVariable("spotId") Long spotId,
 			@Valid Commentaire commentaire,
 			BindingResult result) {
@@ -81,8 +73,7 @@ public class CommentaireController {
 			model.addAttribute("spotId", spotId);
 			return "formCommentaire" ;
 		} else {
-			
-			commentaireService.saveCommentaire(commentaire, spotId);
+			commentaireService.saveCommentaire(commentaireForm, spotId);
 		}
 		
 		return "redirect:/spot/" +spotId ;
@@ -114,7 +105,7 @@ public class CommentaireController {
 
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
 
-				Commentaire commentaire = commentaireService.findById(comId).get();
+				Commentaire commentaire = commentaireRepository.findById(comId).get();
 
 				model.addAttribute("commentaire", commentaire);
 				model.addAttribute("spotId", spotId);
@@ -125,19 +116,25 @@ public class CommentaireController {
 		}
 	}
 	
-
+	/*
+	 * Controller pour l'action du bouton sauvegarder du formulaire d'édition d'un commentaire
+	 * Il renvoie sur le secteur du commentaire qui vient d'être édité
+	 */
+	
 	/**
-	 * controller pour accéder au formulaire d'édition d'un commentaire
+	 * 
 	 * @param model instance du model en cours
-	 * @param spotId id du spot auquel appartient le commentaire
-	 * @param comId comId id du commentaire qui doit être édité
-	 * @param commentaire instance du commentaire à modifier
-	 * @param result resultat du binding pour gérer les erreurs de saisies
-	 * @return vers la vue de display du spot ou a été modifié le commentaire
+	 * @param commentaireForm 
+	 * @param comId
+	 * @param spotId
+	 * @param commentaire
+	 * @param result
+	 * @return
 	 */
 	@PostMapping("/spot/{spotId}/saveEditCommentaire/{comId}")
 	public String saveEditCommentaire(
 			Model model,
+			@ModelAttribute("commentaireForm")CommentaireForm commentaireForm,
 			@PathVariable("spotId")Long spotId,
 			@PathVariable("comId")Long comId,
 			@Valid Commentaire commentaire,
@@ -149,20 +146,19 @@ public class CommentaireController {
 			return "editCommentaire" ;
 		} else {
 		
-		commentaireService.saveEditCommentaire(commentaire, comId);
+		commentaireService.saveEditCommentaire(commentaireForm, comId);
 		
 		return "redirect:/spot/" +spotId ;
 			}
 		}
 	
 	/////////////////////////SUPPRESSION COMMENTAIRE\\\\\\\\\\\\\\\\\\\\\\\\\\\\\
-		
-	/**
-	 * Controller pour la suppression d'un commentaire 
-	 * @param comId id du commentaire qui doit être supprimé
-	 * @param spotId id auquel le commentaire est lié
-	 * @param request HttpServletRequest, ici pour vérifier qu'un utilisateur est connecté
-	 * @return vers la vue de display du spot ou a été supprimé le commentaire
+	
+	/*
+	 * Cette méthode permet la suppression d'un commentaire. Elle execute une
+	 * vérification de rôle. Seul le rôle ADMINISTRATOR peut supprimer un commentaire
+	 * Le lien ne s'affiche que pour les ADMIN côté front, mais permet de protéger
+	 * contre un anonyme qui taperait le PATH à la main dans son navigateur
 	 */
 	@GetMapping("/spot/{spotId}/deleteCommentaire/{comId}")
 	public String deleteCommentaire(
@@ -177,7 +173,7 @@ public class CommentaireController {
 			UserDetails utilDet = (Utilisateur) SecurityContextHolder.getContext().getAuthentication().getPrincipal();			
 			
 			if (utilDet.getAuthorities().toString().contains("ADMINISTRATOR")) {
-				commentaireService.deleteById(comId);
+				commentaireRepository.deleteById(comId);
 				return "redirect:/spot/" +spotId ;
 			}
 			return "redirect:/spot/" +spotId ;

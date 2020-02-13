@@ -12,69 +12,43 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
-/**
- * Couche entities commentaire pour l'application
- * @author A87671
- *
- */
+import lombok.Data;
+
 @Entity
 public class Commentaire implements Serializable {
-	/**
-	 * Constant serialVersionUID
-	 */
-	private static final long serialVersionUID = 1L;
-
-	/**
-	 *id du secteur
-	 */
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name ="id_commentaire")
 	private Long idCommentaire ;
 	
-	/*
-	 * date et heure du commentaire
-	 */
 	@Column(name = "date_heure_commentaire", nullable = false, unique = false)
 	private Date dateHeureCommentaire ; 
 	
-	/**
-	 * contenu du commentaire
-	 */
 	@Column(name = "contenu", nullable = false, unique = false)
 	@Length(min = 2, max = 255)
 	private String contenu ;
 	
-	/**
+	/*
 	 * Relation avec la table Spot
 	 */
 	@ManyToOne
 	@JoinColumn(name = "SPOTID")
 	private Spot spot ;
 	
-	/**
+	/*
 	 * Relation avec la table Utilisateur
 	 */
 	@ManyToOne
 	@JoinColumn(name = "UTILISATEURID")
 	private Utilisateur utilisateur ;
 
-	/**
-	 * instanciation du secteur
-	 */
 	public Commentaire() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
-	/**
-	 * instaciation du secteur
-	 * @param idCommentaire id du commentaire
-	 * @param dateHeureCommentaire date et heure du commentaire 
-	 * @param contenu contenu du commentaire 
-	 * @param spot spot auquel est lié le commentaire
-	 * @param utilisateur utilisateur qui a posté le commentaire
-	 */
 	public Commentaire(Long idCommentaire, Date dateHeureCommentaire, @Length(min = 2, max = 255) String contenu,
 			Spot spot, Utilisateur utilisateur) {
 		super();
@@ -124,4 +98,7 @@ public class Commentaire implements Serializable {
 	public void setUtilisateur(Utilisateur utilisateur) {
 		this.utilisateur = utilisateur;
 	}
+
+	
+	
 }
