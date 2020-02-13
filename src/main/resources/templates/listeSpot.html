@@ -1,4 +1,5 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 	layout:decorate="~{layout}">
@@ -12,55 +13,69 @@
 </head>
 <body>
 
-	<!-- Cette page permet d'afficher la liste des spots, c'est également ici que l'ont peut faire une recherche et que sont affichés les résultats d'une recherche -->
-
 	<div layout:fragment="content">
 		<div class="container-fluid">
-
-			<!-- Barre de recherche de spot, recherche dans le nom du spot -->
 
 			<form th:action="@{/listeSpot}" method="get">
 				<input type="search" name="mc" th:value="${mc}"></input>
 				<button class="btn btn-primary">Chercher</button>
-				<input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+				<input type="hidden" name="${_csrf.parameterName}"
+					value="${_csrf.token}" />
 			</form>
 
-			<!-- Début du tableau de la liste des spots d'escalade, le retour de résultats de la rechereche s'affiche ici -->
-
-			
-			
-
-			<div class = "col-lg-12 row">
-			<div class = "col-lg-4" th:each="s:${listeSpot}">
-			<div class = "card border-info spacer">
-			<div class = "card-header" ><h3><a th:text="${s.nom}"
-								th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a><span class = "float-right btn btn-success" th:if="${s.officiel == TRUE}">Officiel</span> <span class = "float-right btn btn-secondary" th:unless="${s.officiel == TRUE}">Non Officiel</span></h3></div>
-			<div class = "card-body text-info">
-				<ul class="list-group list-group-flush">
-					<li class="list-group-item"><label th:text="${s.localite}"></label></li>
-				</ul>
-				<div class="dropdown">
-								<button class="btn btn-primary dropdown-toggle mx-1 spacer" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
-									<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.pseudo == pseudoUtilCo)}" class="nav-item"><a class="nav-link" th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Edition</a></li>
-										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.pseudo == pseudoUtilCo)}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
-											th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}">Suppression</a></li>
-										<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" onclick="return confirm('Merci de confirmer cette action')" th:href="@{/listeSpot/rendreOfficiel/{spotId}(spotId=${s.idSiteEscalade})}">Rendre/Enlever officiel</a></li>
-									</ul>
+			<div class="col-lg-12 row">
+				<div class="col-lg-4" th:each="s:${listeSpot}">
+					<div class="card border-info spacer">
+						<div class="card-header">
+							<h3>
+								<a th:text="${s.nom}"
+									th:href="@{spot/{spotId}(spotId=${s.idSiteEscalade})}"></a><span
+									class="float-right btn btn-success"
+									th:if="${s.officiel == TRUE}">Officiel</span> <span
+									class="float-right btn btn-secondary"
+									th:unless="${s.officiel == TRUE}">Non Officiel</span>
+							</h3>
+						</div>
+						<div class="card-body text-info">
+							<ul class="list-group list-group-flush">
+								<li class="list-group-item"><label th:text="${s.localite}"></label></li>
+							</ul>
+							<div class="dropdown">
+								<button class="btn btn-primary dropdown-toggle mx-1 spacer"
+									type="button" id="dropdownMenu1" data-toggle="dropdown"
+									aria-haspopup="true" aria-expanded="true">
+									Actions<span class="caret"></span>
+								</button>
+								<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
+									<li
+										th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.pseudo == pseudoUtilCo)}"
+										class="nav-item"><a class="nav-link"
+										th:href="@{/editSpot/{spotId}(spotId=${s.idSiteEscalade})}">Edition</a></li>
+									<li
+										th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')')) OR (s.utilisateur.pseudo == pseudoUtilCo)}"
+										class="nav-item"><a class="nav-link"
+										onclick="return confirm('Etes vous sur ? Cela va effacer les secteur, voies et longueurs associés à ce spot')"
+										th:href="@{/deleteSpot/{spotId}(spotId=${s.idSiteEscalade})}">Suppression</a></li>
+									<li
+										th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+										class="nav-item"><a class="nav-link"
+										onclick="return confirm('Merci de confirmer cette action')"
+										th:href="@{/listeSpot/rendreOfficiel/{spotId}(spotId=${s.idSiteEscalade})}">Rendre/Enlever
+											officiel</a></li>
+								</ul>
 							</div>
+						</div>
+					</div>
+				</div>
 			</div>
-			</div></div></div>						
-			
 
-											
-							<!--  On affiche un message si la liste est vide -->
-							<p class="text-center red" th:if="${listeSpot.empty}">Il n'y rien à afficher !</p>
-				
+			<p class="text-center red" th:if="${listeSpot.empty}">Il n'y rien
+				à afficher !</p>
 
-			
+
+
 		</div>
 
-		<!-- Fin du tableau de la liste de spot, début de la barre de pagination -->
 
 		<div class="navbar navbar-expand-lg navbar-light bg-light spacer">
 			<ul class="navbar-nav">
@@ -72,7 +87,7 @@
 			</ul>
 		</div>
 	</div>
-		<!-- Fin de la barre de pagination -->
+
 
 
 </body>

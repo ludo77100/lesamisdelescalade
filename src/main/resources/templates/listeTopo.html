@@ -1,7 +1,8 @@
- <!DOCTYPE html>
+
+<!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org"
 	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{layout}">	
+	layout:decorate="~{layout}">
 <head>
 <meta charset="UTF-8" />
 <title>Liste des topos</title>
@@ -12,19 +13,13 @@
 </head>
 <body>
 
-	<!-- Cette page permet d'afficher la liste des spots, c'est également ici que l'ont peut faire une recherche et que sont affichés les résultats d'une recherche -->
-
 	<div layout:fragment="content">
 		<div class="container-fluid">
-
-			<!-- <!-- Barre de recherche de spot, recherche dans le nom du spot -->
 
 			<form th:action="@{/listeTopo}" method="get">
 				<input type="search" name="mc" th:value="${mc}"></input>
 				<button class="btn btn-primary">Chercher</button>
 			</form>
-
-			<!-- Début du tableau de la liste des spots d'escalade, le retour de résultats de la rechereche s'affiche ici -->
 
 			<div class="col-lg-12 spacer">
 				<table class="table table-striped">
@@ -36,7 +31,7 @@
 							<th>Description</th>
 							<th>Lieu</th>
 							<th>Propriétaire</th>
-							<th sec:authorize="isAuthenticated()" >Réservation</th>				
+							<th sec:authorize="isAuthenticated()">Réservation</th>
 
 						</tr>
 					</thead>
@@ -45,21 +40,19 @@
 							<td th:text="${t.spotNom}"></td>
 							<td th:text="${t.nom}"></td>
 							<td th:text="${t.dateParution}"></td>
-							<td th:text="${t.description}"></td>				
+							<td th:text="${t.description}"></td>
 							<td th:text="${t.lieu}"></td>
 							<td th:text="${t.utilisateur.pseudo}"></td>
-							<td><a sec:authorize="isAuthenticated()" th:href="@{/listeTopo/reserverTopo/{topoId}(topoId=${t.idTopo})}">Réserver</a></td>
+							<td><a sec:authorize="isAuthenticated()"
+								th:href="@{/listeTopo/reserverTopo/{topoId}(topoId=${t.idTopo})}">Réserver</a></td>
 						</tr>
 					</tbody>
 				</table>
-														
-							<!-- On affiche un message si la liste est vide -->
-							<p class="text-center red" th:if="${listeTopo.empty}">Il n'y rien à afficher !</p>
-											
+				<p class="text-center red" th:if="${listeTopo.empty}">Il n'y
+					rien à afficher !</p>
+
 			</div>
 		</div>
-
-		<!-- Fin du tableau de la liste de spot, début de la barre de pagination -->
 
 		<div class="navbar navbar-expand-lg navbar-light bg-light">
 			<ul class="navbar-nav">
@@ -70,10 +63,9 @@
 					th:text="${status.index + 1}"></a></li>
 			</ul>
 		</div>
-	
-		</div>
 
-		<!-- Fin de la barre de pagination -->
+	</div>
+
 
 
 </body>

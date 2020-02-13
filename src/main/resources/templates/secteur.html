@@ -15,11 +15,11 @@
 		<div class="container-fluid">
 			<div class="row">
 
-				<!-- Carte pour le display des informations générales sur le spot -->
-
 				<div class="col-lg-6">
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Informations générale sur le Spot</h3></div>
+						<div class="card-header">
+							<h3 class="card-title">Informations générale sur le Spot</h3>
+						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><label>Nom:</label><label
@@ -30,13 +30,15 @@
 						</div>
 					</div>
 
-					<!-- Carte pour le display des informations sur le secteur sélectionné -->
-
 					<div class="card spacer">
 						<div class="card-header">
-							<h3 class="card-title">Informations Secteurs <a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
-								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
-								un Secteur</a></h3></div>
+							<h3 class="card-title">
+								Informations Secteurs <a sec:authorize="isAuthenticated()"
+									class="btn btn-primary float-right"
+									th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
+									un Secteur</a>
+							</h3>
+						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><label>Nom du secteur:</label><label
@@ -52,41 +54,60 @@
 				</div>
 
 				<div class="col-lg-6">
-
-					<!-- Tableau pour le display de la liste des voies lié au secteur et spot en cours -->
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Liste des voies<a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
-								th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
-								une voie</a></h3></div>
+						<div class="card-header">
+							<h3 class="card-title">
+								Liste des voies<a sec:authorize="isAuthenticated()"
+									class="btn btn-primary float-right"
+									th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
+									une voie</a>
+							</h3>
+						</div>
 						<div class="card-body">
-						
-						<div class = "col-lg-12 row">
-							<div class = "col-lg-6" th:each="voie:${listeVoie}">
-								<div class="card spacer">
-									<div class="card-header"><h3><a th:text="${voie.nomVoie}" th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}"></a></h3></div>
-									<div class="card-body">
-										<ul class="list-group list-group-flush">
-											<li class="list-group-item"><label th:text="${voie.cotation}"></label></li>
-											<li class="list-group-item"><label th:text="${voie.longueurVoie}"></label></li>
-											<li class="list-group-item"><label th:text="${voie.equipee}"></label></li>
-										</ul>
-										<div class="dropdown">
-											<button class="btn btn-primary dropdown-toggle mx-1 spacer" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
+
+							<div class="col-lg-12 row">
+								<div class="col-lg-6" th:each="voie:${listeVoie}">
+									<div class="card spacer">
+										<div class="card-header">
+											<h3>
+												<a th:text="${voie.nomVoie}"
+													th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}"></a>
+											</h3>
+										</div>
+										<div class="card-body">
+											<ul class="list-group list-group-flush">
+												<li class="list-group-item"><label
+													th:text="${voie.cotation}"></label></li>
+												<li class="list-group-item"><label
+													th:text="${voie.longueurVoie}"></label></li>
+												<li class="list-group-item"><label
+													th:text="${voie.equipee}"></label></li>
+											</ul>
+											<div class="dropdown">
+												<button class="btn btn-primary dropdown-toggle mx-1 spacer"
+													type="button" id="dropdownMenu1" data-toggle="dropdown"
+													aria-haspopup="true" aria-expanded="true">
+													Actions<span class="caret"></span>
+												</button>
 												<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-													<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" 
+													<li
+														th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+														class="nav-item"><a class="nav-link"
 														th:href="@{/spot/{spotId}/secteur/{secteurId}/editVoie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}">Edition</a></li>
-													<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associés à ce spot')"
+													<li
+														th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+														class="nav-item"><a class="nav-link"
+														onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associés à ce spot')"
 														th:href="@{/spot/{spotId}/secteur/{secteurId}/deleteVoie/{voieId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voie.idVoie})}">Suppression</a></li>
 												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-														
-							<!-- On affiche un message si la liste est vide -->
-							<p class="text-center red" th:if="${listeVoie.empty}">Il n'y rien à afficher !</p>
-							
+							<p class="text-center red" th:if="${listeVoie.empty}">Il n'y
+								rien à afficher !</p>
+
 						</div>
 
 					</div>

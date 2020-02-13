@@ -13,105 +13,131 @@
 <body>
 	<div layout:fragment="content">
 
-		<!----------
-	Cette page permet d'afficher le premier niveau d'un descriptif de spot d'escalade, cad elle affiche les informations général du spot et une liste des secteurs liés à ce spot
-	------------>
-
 		<div class="container-fluid">
 			<div class="row">
 
-				<!-- Carte pour le display des informations générales sur le spot -->
-
 				<div class="col-lg-6">
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Informations générale sur le Spot</h3></div>
+						<div class="card-header">
+							<h3 class="card-title">Informations générale sur le Spot</h3>
+						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><label>Nom:</label><label
 									th:text="${spotInfo.nom}"></label></li>
 								<li class="list-group-item"><label>Localité: </label><label
 									th:text="${spotInfo.localite}"></label></li>
-								<!-- <li class="list-group-item"><a class="btn btn-primary" th:href="@{/listeTopo}">Accéder à la liste des Topo</a></li> -->
 							</ul>
 						</div>
 					</div>
 
-					<!-- Carte pour le display de la liste des secteurs lié au spot en cours -->
-
 					<div class="card spacer">
 						<div class="card-header">
-							<h3 class="card-title">Secteurs <a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
-								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
-								un Secteur</a></h3>
+							<h3 class="card-title">
+								Secteurs <a sec:authorize="isAuthenticated()"
+									class="btn btn-primary float-right"
+									th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
+									un Secteur</a>
+							</h3>
 						</div>
 						<div class="card-body">
-						
-						<div class = "col-lg-12 row">
-							<div class = "col-lg-6" th:each="secteur:${listeSecteur}">
-								<div class="card spacer">
-									<div class="card-header"><h3><a th:text="${secteur.nomSecteur}" th:href="@{/spot/{spotId}/secteur/{secteurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}"></a></h3></div>
-									<div class="card-body">
-										<ul class="list-group list-group-flush">
-											<li class="list-group-item"><label th:text="${secteur.typeRoche}"></label></li>
-											<li class="list-group-item"><label th:text="${secteur.localisation}"></label></li>
-										</ul>
-										<div class="dropdown">
-											<button class="btn btn-primary dropdown-toggle mx-1 spacer" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
+
+							<div class="col-lg-12 row">
+								<div class="col-lg-6" th:each="secteur:${listeSecteur}">
+									<div class="card spacer">
+										<div class="card-header">
+											<h3>
+												<a th:text="${secteur.nomSecteur}"
+													th:href="@{/spot/{spotId}/secteur/{secteurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}"></a>
+											</h3>
+										</div>
+										<div class="card-body">
+											<ul class="list-group list-group-flush">
+												<li class="list-group-item"><label
+													th:text="${secteur.typeRoche}"></label></li>
+												<li class="list-group-item"><label
+													th:text="${secteur.localisation}"></label></li>
+											</ul>
+											<div class="dropdown">
+												<button class="btn btn-primary dropdown-toggle mx-1 spacer"
+													type="button" id="dropdownMenu1" data-toggle="dropdown"
+													aria-haspopup="true" aria-expanded="true">
+													Actions<span class="caret"></span>
+												</button>
 												<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-													<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" 
+													<li
+														th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+														class="nav-item"><a class="nav-link"
 														th:href="@{/spot/{spotId}/editSecteur/{secteurId}/(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}">Edition</a></li>
-													<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les voies et longueurs associés à ce spot')"
+													<li
+														th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+														class="nav-item"><a class="nav-link"
+														onclick="return confirm('Etes vous sur ? Cela va effacer les voies et longueurs associés à ce spot')"
 														th:href="@{/spot/{spotId}/deleteSecteur/{secteurId}/(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteur.idSecteur})}">Suppression</a></li>
 												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-							
-							<!-- On affiche un message si la liste est vide -->
-							<p class="text-center red" th:if="${listeSecteur.empty}">Il n'y rien à afficher !</p>
-							
+
+							<p class="text-center red" th:if="${listeSecteur.empty}">Il
+								n'y rien à afficher !</p>
+
 						</div>
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
-		
-		<!-- Début des commentaires -->
-		
+
 		<div class="container-fluid spacer">
 			<div class="row">
-				
-				<div class="col-lg-2">
-				</div>
-				
+
+				<div class="col-lg-2"></div>
+
 				<div class="col-lg-8">
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Commentaires<a class="btn btn-primary float-right" sec:authorize="isAuthenticated()" th:href="@{/spot/{spotId}/ajoutCommentaire/(spotId=${spotInfo.idSiteEscalade})}">Ajouter un commentaire</a></h3></div>
-						
-																	
-							<!-- On affiche un message si la liste est vide -->
-							<p class="text-center red spacer" th:if="${listeCommentaire.empty}">Il n'y rien à afficher !</p>
-				
-						
+						<div class="card-header">
+							<h3 class="card-title">
+								Commentaires<a class="btn btn-primary float-right"
+									sec:authorize="isAuthenticated()"
+									th:href="@{/spot/{spotId}/ajoutCommentaire/(spotId=${spotInfo.idSiteEscalade})}">Ajouter
+									un commentaire</a>
+							</h3>
+						</div>
+
+						<p class="text-center red spacer"
+							th:if="${listeCommentaire.empty}">Il n'y rien à afficher !</p>
+
+
 						<div class="card-body">
 							<div class="spacer" th:each="commentaire:${listeCommentaire}">
 								<div class="card">
-									<div class="card-body"><p th:text="${commentaire.contenu}"></p></div> <!-- Contenu du commentaire  -->
-									<div class="card-footer">Le <span th:text="${#dates.format(commentaire.dateHeureCommentaire, 'dd/MM/yyyy HH:mm')}"></span> par <span th:text="${commentaire.utilisateur.username}"></span>
-										<a class="btn btn-primary float-right" th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" th:href="@{/spot/{spotId}/editCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Edition</a>
-										<a onclick="return confirm('Etes vous sur ?')" class="btn btn-primary float-right mx-1" th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" th:href="@{/spot/{spotId}/deleteCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Suppression</a></div>
+									<div class="card-body">
+										<p th:text="${commentaire.contenu}"></p>
+									</div>
+
+									<div class="card-footer">
+										Le <span
+											th:text="${#dates.format(commentaire.dateHeureCommentaire, 'dd/MM/yyyy HH:mm')}"></span>
+										par <span th:text="${commentaire.utilisateur.username}"></span>
+										<a class="btn btn-primary float-right"
+											th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+											th:href="@{/spot/{spotId}/editCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Edition</a>
+										<a onclick="return confirm('Etes vous sur ?')"
+											class="btn btn-primary float-right mx-1"
+											th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+											th:href="@{/spot/{spotId}/deleteCommentaire/{comId}(comId=${commentaire.idCommentaire}, spotId=${spotInfo.idSiteEscalade})}">Suppression</a>
+									</div>
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
-				
-				<div class="col-lg-2">
-				</div>
-				
+
+				<div class="col-lg-2"></div>
+
 			</div>
 		</div>
 	</div>

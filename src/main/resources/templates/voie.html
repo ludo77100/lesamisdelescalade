@@ -15,11 +15,11 @@
 		<div class="container-fluid">
 			<div class="row">
 
-				<!-- Carte pour le display des informations générales sur le spot -->
-
 				<div class="col-lg-6">
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Informations générale sur le Spot</h3></div>
+						<div class="card-header">
+							<h3 class="card-title">Informations générale sur le Spot</h3>
+						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><label>Nom:</label><label
@@ -30,12 +30,15 @@
 						</div>
 					</div>
 
-					<!-- Carte pour le display des informations sur le secteur sélectionné -->
-
 					<div class="card spacer">
-						<div class="card-header"><h3 class="card-title">Informations Secteurs <a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
-								th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
-								un Secteur</a></h3></div>
+						<div class="card-header">
+							<h3 class="card-title">
+								Informations Secteurs <a sec:authorize="isAuthenticated()"
+									class="btn btn-primary float-right"
+									th:href="@{/spot/{spotId}/ajouterSecteur(spotId=${spotInfo.idSiteEscalade})}">Ajouter
+									un Secteur</a>
+							</h3>
+						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><label>Nom du secteur:</label><label
@@ -53,61 +56,83 @@
 				<div class="col-lg-6">
 
 					<div class="card">
-						<div class="card-header"><h3 class="card-title">Information voie<a sec:authorize="isAuthenticated()" class="btn btn-primary float-right"
-								th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
-								une voie</a></h3></div>
+						<div class="card-header">
+							<h3 class="card-title">
+								Information voie<a sec:authorize="isAuthenticated()"
+									class="btn btn-primary float-right"
+									th:href="@{/spot/{spotId}/secteur/{secteurId}/ajouterVoie(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur})}">Ajouter
+									une voie</a>
+							</h3>
+						</div>
 						<div class="card-body">
 							<ul class="list-group list-group-flush">
 								<li class="list-group-item"><label>Nom de la voie:</label><label
 									th:text="${voieInfo.nomVoie}"></label></li>
 								<li class="list-group-item"><label>Cotation de la
 										voie: </label><label th:text="${voieInfo.cotation}"></label></li>
-								<li class="list-group-item"><label>Longueur:</label><label th:text="${voieInfo.longueurVoie}"></label></li>
+								<li class="list-group-item"><label>Longueur:</label><label
+									th:text="${voieInfo.longueurVoie}"></label></li>
 								<li class="list-group-item"><label>Equipée: </label><label
 									th:text="${voieInfo.equipee}"></label></li>
 							</ul>
 						</div>
 					</div>
-					
+
 					<div class="card spacer">
-						<div class="card-header"><h3 class ="card-title">Liste des longueurs
-						<a class="btn btn-primary float-right" sec:authorize="isAuthenticated()" 
-								th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie})}">Ajouter
-								une longueur</a>
-								</h3>
+						<div class="card-header">
+							<h3 class="card-title">
+								Liste des longueurs <a class="btn btn-primary float-right"
+									sec:authorize="isAuthenticated()"
+									th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/ajouterLongueur(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie})}">Ajouter
+									une longueur</a>
+							</h3>
 						</div>
 						<div class="card-body">
-						
-						<div class = "col-lg-12 row">
-							<div class = "col-lg-6" th:each="longueur:${listeLongueur}">
-								<div class="card spacer">
-									<div class="card-header"><h3 th:text="${longueur.nomLongueur}"></h3></div>
-									<div class="card-body">
-										<ul class="list-group list-group-flush">
-											<li class="list-group-item"><label th:text="${longueur.cotation}"></label></li>
-											<li class="list-group-item"><label th:text="${longueur.longueurLong}"></label></li>
-										</ul>
-										<div class="dropdown">
-											<button class="btn btn-primary dropdown-toggle mx-1 spacer" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Actions<span class="caret"></span></button>
+
+							<div class="col-lg-12 row">
+								<div class="col-lg-6" th:each="longueur:${listeLongueur}">
+									<div class="card spacer">
+										<div class="card-header">
+											<h3 th:text="${longueur.nomLongueur}"></h3>
+										</div>
+										<div class="card-body">
+											<ul class="list-group list-group-flush">
+												<li class="list-group-item"><label
+													th:text="${longueur.cotation}"></label></li>
+												<li class="list-group-item"><label
+													th:text="${longueur.longueurLong}"></label></li>
+											</ul>
+											<div class="dropdown">
+												<button class="btn btn-primary dropdown-toggle mx-1 spacer"
+													type="button" id="dropdownMenu1" data-toggle="dropdown"
+													aria-haspopup="true" aria-expanded="true">
+													Actions<span class="caret"></span>
+												</button>
 												<ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
-													<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" 
+													<li
+														th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+														class="nav-item"><a class="nav-link"
 														th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/editLongueur/{longueurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie}, longueurId=${longueur.idLongueur})}">Edition</a></li>
-													<li th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}" class="nav-item"><a class="nav-link" onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associés à ce spot')"
+													<li
+														th:if="${(#authorization.expression('hasAuthority(''ADMINISTRATOR'')'))}"
+														class="nav-item"><a class="nav-link"
+														onclick="return confirm('Etes vous sur ? Cela va effacer les longueurs associés à ce spot')"
 														th:href="@{/spot/{spotId}/secteur/{secteurId}/voie/{voieId}/deleteLongueur/{longueurId}(spotId=${spotInfo.idSiteEscalade}, secteurId=${secteurInfo.idSecteur}, voieId=${voieInfo.idVoie}, longueurId=${longueur.idLongueur})}">Suppression</a></li>
 												</ul>
+											</div>
 										</div>
 									</div>
 								</div>
 							</div>
-						</div>
-																			
-							<!-- On affiche un message si la liste est vide -->
-							<p class="text-center red" th:if="${listeLongueur.empty}">Il n'y rien à afficher !</p>
-							
+
+
+							<p class="text-center red" th:if="${listeLongueur.empty}">Il
+								n'y rien à afficher !</p>
+
 						</div>
 
 					</div>
-					
+
 				</div>
 			</div>
 		</div>
