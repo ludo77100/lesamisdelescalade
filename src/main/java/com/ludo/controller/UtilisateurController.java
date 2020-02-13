@@ -11,8 +11,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
+import com.ludo.dao.UtilisateurRepository;
 import com.ludo.dto.UtilisateurDto;
 import com.ludo.entities.Utilisateur;
 import com.ludo.service.UtilisateurService;
@@ -87,5 +89,15 @@ public class UtilisateurController {
 			model.addAttribute("infosUtilisateur", utilDet);
 			return "/infosPerso";
 		}
+	}
+	
+	@Autowired
+	UtilisateurRepository utilisateurRepository ;
+	
+	@GetMapping("supprimerUtilisateur/{userId}")
+	public String supprimerUtilisateur(@PathVariable("userId")Long userId) {
+		utilisateurRepository.deleteById(userId);
+		
+		return "redirect:/listeSpot" ;
 	}
 }
