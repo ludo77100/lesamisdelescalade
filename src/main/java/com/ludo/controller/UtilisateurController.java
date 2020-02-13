@@ -90,14 +90,4 @@ public class UtilisateurController {
 			return "/infosPerso";
 		}
 	}
-	
-	@Autowired
-	UtilisateurRepository utilisateurRepository ;
-	
-	@GetMapping("supprimerUtilisateur/{userId}")
-	public String supprimerUtilisateur(@PathVariable("userId")Long userId) {
-		utilisateurRepository.deleteById(userId);
-		
-		return "redirect:/listeSpot" ;
-	}
 }

@@ -17,24 +17,5 @@ import com.ludo.service.UtilisateurService;
 @Configuration
 public class WebMvcConfig extends WebMvcConfigurerAdapter{
 
-	@Autowired
-	UtilisateurService utilisateurService ;
-
-
-	@Autowired
-	public WebMvcConfig(UtilisateurService utilisateurService) {
-		//Ceci n'est pas à recopier en prod
-		if (utilisateurService.findByPseudo("admin") == null) {
-			List<RoleEnum> userRole = Collections.singletonList(RoleEnum.USER);
-			List<RoleEnum> adminRole = Arrays.asList(RoleEnum.USER, RoleEnum.ADMINISTRATOR);
-
-			Utilisateur user = new Utilisateur("user", "user", "User", userRole);
-			Utilisateur adminUser = new Utilisateur("admin", "admin", "Admin", adminRole);
-		
-			
-			utilisateurService.save(user);
-			utilisateurService.save(adminUser);
-		}
-	}
 }
 
