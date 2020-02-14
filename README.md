@@ -48,8 +48,8 @@ Grâce à l'id de l'utilisateur nouvellement créé, vous devez ajouter dans la 
 INSERT INTO `role`(`id_utilisateur`, `role`) VALUES ( id_util ,'ADMINISTRATOR')
 ```
 ## Construit avec:
-•Maven
-•SpringBoot
+* [Maven](https://maven.apache.org/)
+* [SpringBoot](https://spring.io/projects/spring-boot)
 
 ## Auteur
 Ludovic SOUPLET - Pour reconversion professionnelle via OpenclassRooms
