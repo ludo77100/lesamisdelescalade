@@ -1,15 +1,15 @@
-#Les Amis de l'Escalde
+# Les Amis de l'Escalde
 
 Cette application est un site communautaire autour de l'escalade. Elle a été réalisé dans le cadre d'un parcours de formation Java sur le site Openclassrooms pour reconversion professionnelle.
 
-##Pré-requis
+### Pré-requis
 
 Vous avez besoin d'installer:
 •JDK 13
 •BDD Mysql
 •Maven
 
-###Installation
+### Installation
 
 1- Initialiser la base de données avec comme nom : ladedb (port 3306 - sinon à modifier dans application.properties une fois le code cloné)
 2 - Cloner le projet depuis le repository
@@ -47,9 +47,9 @@ Grâce à l'id de l'utilisateur nouvellement créé, vous devez ajouter dans la 
 ```
 INSERT INTO `role`(`id_utilisateur`, `role`) VALUES ( id_util ,'ADMINISTRATOR')
 ```
-##Construit avec:
+## Construit avec:
 •Maven
 •SpringBoot
 
-##Auteur
+## Auteur
 Ludovic SOUPLET - Pour reconversion professionnelle via OpenclassRooms
