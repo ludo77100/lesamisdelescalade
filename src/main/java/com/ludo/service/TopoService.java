@@ -3,6 +3,8 @@ package com.ludo.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import com.ludo.entities.Topo;

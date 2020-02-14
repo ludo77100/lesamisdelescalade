@@ -40,7 +40,17 @@ public class ReservationController {
 			reservationService.enregistrerDemandeReservation(topoId);
 			
 		}
-		return "redirect:/listeTopo" ;
+		return "redirect:/confReservation" ;
+	}
+	
+	/**
+	 * Pour message de confirmation de demande de réservation
+	 * @return une vue de confirmation
+	 */
+	@GetMapping("/confReservation")
+	public String confEnregistrementReservation() {
+		
+		return "/confReservation" ;
 	}
 	
 	/**

@@ -38,6 +38,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
 	 * @param username pseudo de l'utilisateur (pour qui on veut lister les topo qui lui sont prêté)
 	 * @return liste de topos prete à un utilisateur
 	 */
-	@Query("select r from Reservation r where r.reservant like :x")
+	@Query("select r from Reservation r where r.reservant like :x and etatDemande = true")
 	List<Reservation> findByPrete(@Param("x")String username);
 }
